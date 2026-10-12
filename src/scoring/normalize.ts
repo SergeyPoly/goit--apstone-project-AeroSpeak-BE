@@ -258,9 +258,8 @@ export function normalize(text: string): string {
   s = s.replace(/\b([a-z]{1,2})-(?=[a-z]{3,4}\b)/g, '$1');
 
   // Keep a dot only between digits (decimal point), drop other punctuation.
-  s = s.replace(/(\d)\.(\d)/g, '$1\u0000$2');
-  s = s.replace(/[^a-z0-9\u0000\s]/g, ' ');
-  s = s.replace(/\u0000/g, '.');
+  s = s.replace(/[^a-z0-9.\s]/g, ' ');
+  s = s.replace(/(?<!\d)\.|\.(?!\d)/g, ' ');
 
   const tokens = s.split(/\s+/).filter(Boolean);
 

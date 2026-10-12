@@ -12,7 +12,10 @@ async function bootstrap() {
   const allowedOrigins = config.get('CORS_ORIGINS', { infer: true });
   const originRegex = config.get('CORS_ORIGIN_REGEX', { infer: true });
   app.enableCors({
-    origin: (origin, callback) => {
+    origin: (
+      origin: string | undefined,
+      callback: (error: Error | null, allow?: boolean) => void,
+    ) => {
       // Requests without Origin (curl, health checks) are allowed.
       if (!origin || allowedOrigins.includes(origin) || originRegex?.test(origin)) {
         callback(null, true);
