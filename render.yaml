@@ -1,0 +1,35 @@
+# Render Blueprint: infrastructure as code for the AeroSpeak backend.
+# https://render.com/docs/blueprint-spec
+#
+# The database is NOT created here: it lives on Neon (free plan does not expire).
+# Secrets marked `sync: false` are entered once in the Render dashboard.
+services:
+  - type: web
+    name: aerospeak-be
+    runtime: node
+    region: frankfurt
+    plan: free
+    branch: main
+    autoDeploy: true
+    # --include=dev: NODE_ENV=production would otherwise skip the Nest CLI needed to build.
+    buildCommand: npm ci --include=dev && npm run build
+    # Migrations run on start because pre-deploy commands are not available on the free plan.
+    startCommand: npx prisma migrate deploy && node dist/main
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_URL
+        sync: false
+      - key: DEEPGRAM_API_KEY
+        sync: false
+      - key: DEEPGRAM_MODEL
+        value: nova-3
+      - key: CORS_ORIGINS
+        sync: false
+      - key: CORS_ORIGIN_REGEX
+        sync: false

@@ -1,0 +1,72 @@
+{
+  "id": "basic-frequencies-and-qnh",
+  "title": "Frequencies and QNH",
+  "packId": "basic-phraseology",
+  "difficulty": "easy",
+  "estimatedDurationSec": 90,
+  "objective": "Practice reading back frequencies and QNH using ICAO number pronunciation.",
+  "briefing": [{ "label": "Callsign", "value": "SP-TFA" }],
+  "phraseologyNote": {
+    "id": "numbers-pronunciation",
+    "title": "Numbers on the radio",
+    "shortExplanation": "Say each digit separately and use 'decimal' in frequencies. 'Niner' is used for 9.",
+    "example": "One two one decimal niner",
+    "whyItMatters": "Digit-by-digit transmission prevents mistakes with similar-sounding numbers."
+  },
+  "steps": [
+    {
+      "id": "frequency-readback",
+      "type": "basic_drill",
+      "speaker": "atc",
+      "prompt": "ATC asks you to contact Ground. Read back the frequency with your callsign.",
+      "atcText": "SP-TFA, contact Ground on 121.900.",
+      "atcAudio": "/audio/atc/basic-frequencies-and-qnh/frequency-readback.mp3",
+      "expectedPilotResponse": "Contact Ground on 121.900, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "contact_ground",
+          "label": "Contact Ground",
+          "acceptedVariants": ["contact Ground"],
+          "weight": 25
+        },
+        {
+          "id": "frequency",
+          "label": "121.900",
+          "acceptedVariants": ["121.900"],
+          "weight": 50,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": ["SP-TFA", "Sierra Papa Tango Foxtrot Alpha"],
+          "weight": 25
+        }
+      ]
+    },
+    {
+      "id": "qnh-readback",
+      "type": "basic_drill",
+      "speaker": "atc",
+      "prompt": "Read back the QNH with your callsign.",
+      "atcText": "SP-TFA, QNH 1016.",
+      "atcAudio": "/audio/atc/basic-frequencies-and-qnh/qnh-readback.mp3",
+      "expectedPilotResponse": "QNH 1016, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "qnh",
+          "label": "QNH 1016",
+          "acceptedVariants": ["QNH 1016"],
+          "weight": 75,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": ["SP-TFA", "Sierra Papa Tango Foxtrot Alpha"],
+          "weight": 25
+        }
+      ]
+    }
+  ]
+}
