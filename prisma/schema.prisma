@@ -1,0 +1,64 @@
+// AeroSpeak database schema.
+// Scenarios are NOT stored here: they live as JSON files in /content and are
+// validated at startup. The database holds only user data: guests, users and attempts.
+// Pilot audio is never stored, only the transcript and the scoring result.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  // Neon pooled connection (app runtime)
+  url       = env("DATABASE_URL")
+  // Neon direct connection (migrations)
+  directUrl = env("DIRECT_URL")
+}
+
+model Guest {
+  id        String    @id @default(uuid()) @db.Uuid
+  createdAt DateTime  @default(now())
+  // Set when the guest signs up and their progress is moved to the account.
+  userId    String?   @db.Uuid
+  user      User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  attempts  Attempt[]
+
+  @@index([userId])
+}
+
+model User {
+  id           String    @id @default(uuid()) @db.Uuid
+  email        String    @unique
+  passwordHash String?
+  createdAt    DateTime  @default(now())
+  guests       Guest[]
+  attempts     Attempt[]
+}
+
+model Attempt {
+  id                String   @id @default(uuid()) @db.Uuid
+  createdAt         DateTime @default(now())
+
+  guestId           String?  @db.Uuid
+  guest             Guest?   @relation(fields: [guestId], references: [id], onDelete: Cascade)
+  userId            String?  @db.Uuid
+  user              User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  packId            String
+  scenarioId        String
+  stepId            String
+
+  transcript        String
+  sttConfidence     Float?
+  score             Int
+  displayScore      Int
+  success           Boolean
+  missedCritical    String[]
+  // Per-element results (status, similarity) as returned by the scoring engine.
+  elements          Json
+  processingMs      Int
+
+  @@index([guestId, createdAt])
+  @@index([userId, createdAt])
+  @@index([scenarioId])
+}
