@@ -3,6 +3,9 @@ import { z } from 'zod';
 /**
  * Environment variables, validated at startup.
  * The app refuses to start if a required variable is missing or malformed.
+ *
+ * Note: ConfigService.get() returns the raw process.env string for keys present
+ * there, so do not rely on zod transforms here; parse values where they are used.
  */
 export const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
@@ -15,19 +18,20 @@ export const envSchema = z.object({
   DEEPGRAM_API_KEY: z.string().min(1),
   DEEPGRAM_MODEL: z.string().default('nova-3'),
 
-  CORS_ORIGINS: z
-    .string()
-    .default('http://localhost:5173')
-    .transform((value) =>
-      value
-        .split(',')
-        .map((origin) => origin.trim())
-        .filter(Boolean),
-    ),
+  // Kept as raw strings on purpose: parsed by buildCorsOrigin() in config/cors.ts.
+  CORS_ORIGINS: z.string().default('http://localhost:5173'),
   CORS_ORIGIN_REGEX: z
     .string()
     .optional()
-    .transform((value) => (value ? new RegExp(value) : undefined)),
+    .refine((value) => {
+      if (!value?.trim()) return true;
+      try {
+        new RegExp(value);
+        return true;
+      } catch {
+        return false;
+      }
+    }, 'must be a valid regular expression'),
 });
 
 export type Env = z.infer<typeof envSchema>;

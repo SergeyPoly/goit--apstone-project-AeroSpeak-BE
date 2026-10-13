@@ -3,26 +3,18 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { buildCorsOrigin } from './config/cors';
 import type { Env } from './config/env';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get<ConfigService<Env, true>>(ConfigService);
 
-  const allowedOrigins = config.get('CORS_ORIGINS', { infer: true });
-  const originRegex = config.get('CORS_ORIGIN_REGEX', { infer: true });
   app.enableCors({
-    origin: (
-      origin: string | undefined,
-      callback: (error: Error | null, allow?: boolean) => void,
-    ) => {
-      // Requests without Origin (curl, health checks) are allowed.
-      if (!origin || allowedOrigins.includes(origin) || originRegex?.test(origin)) {
-        callback(null, true);
-      } else {
-        callback(null, false);
-      }
-    },
+    origin: buildCorsOrigin(
+      config.get('CORS_ORIGINS', { infer: true }),
+      config.get('CORS_ORIGIN_REGEX', { infer: true }),
+    ),
   });
 
   // OpenAPI: UI at /docs, JSON schema at /api-json (used by the frontend to generate types).
@@ -38,7 +30,7 @@ async function bootstrap() {
 
   app.enableShutdownHooks();
 
-  const port = config.get('PORT', { infer: true });
+  const port = Number(config.get('PORT', { infer: true }));
   await app.listen(port, '0.0.0.0');
   Logger.log(`AeroSpeak API listening on port ${port}`, 'Bootstrap');
 }
