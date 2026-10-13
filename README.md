@@ -11,21 +11,20 @@ API вебзастосунку AeroSpeak для тренування англо�
 
 ## Перший запуск
 
-1. Встановити залежності й зафіксувати lock-файл:
+1. Встановити залежності точно за `package-lock.json` (заодно згенерується Prisma Client):
 
    ```bash
-   npm install
-   git add package-lock.json && git commit -m "chore: add package-lock.json"
+   npm ci
    ```
 
 2. Скопіювати `.env.example` у `.env` і заповнити:
    - `DATABASE_URL` і `DIRECT_URL` — рядки підключення з Neon (pooled і direct);
    - `DEEPGRAM_API_KEY` — ключ із консолі Deepgram.
 
-3. Створити першу міграцію бази:
+3. Застосувати наявні міграції до своєї бази (якщо база вже актуальна, команда нічого не змінить):
 
    ```bash
-   npx prisma migrate dev --name init
+   npx prisma migrate deploy
    ```
 
 4. Запустити:
