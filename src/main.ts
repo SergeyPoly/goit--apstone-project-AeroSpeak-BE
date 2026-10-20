@@ -1,14 +1,20 @@
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import type { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { buildCorsOrigin } from './config/cors';
 import type { Env } from './config/env';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const config = app.get<ConfigService<Env, true>>(ConfigService);
+
+  // Behind Render's proxy every request comes from the proxy address, so without
+  // this all users would share one rate-limit counter. A hop count (not `true`)
+  // ignores client-supplied X-Forwarded-For entries, so limits cannot be bypassed.
+  app.set('trust proxy', Number(config.get('TRUST_PROXY_HOPS', { infer: true })));
 
   app.enableCors({
     origin: buildCorsOrigin(
