@@ -10,6 +10,9 @@ import { z } from 'zod';
 export const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.coerce.number().int().positive().default(3000),
+  // Proxies in front of the app (Render: 1). Express takes the client IP from
+  // X-Forwarded-For this many hops from the right; rate limits are keyed by it.
+  TRUST_PROXY_HOPS: z.coerce.number().int().min(0).default(1),
 
   DATABASE_URL: z.string().url(),
   // Used only by Prisma CLI (migrations); optional for the running app.

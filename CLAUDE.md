@@ -69,6 +69,9 @@ prisma/schema.prisma      Guest, User, Attempt
   `DIRECT_URL` = direct string (migrations). Neon also sleeps; `/health` wakes it.
 - Frontend: Vercel. Allow its domain in `CORS_ORIGINS`, previews via `CORS_ORIGIN_REGEX`.
 - Migrations run on start (`prisma migrate deploy`), as the free plan has no pre-deploy step.
+- Rate limits (`@nestjs/throttler`) are per client IP. Render's proxy sits in front of the
+  app, so `TRUST_PROXY_HOPS=1` makes Express read the client IP from `X-Forwarded-For`.
+  Never set `trust proxy` to `true`: clients could spoof the header and skip the limits.
 
 ## Commands
 
