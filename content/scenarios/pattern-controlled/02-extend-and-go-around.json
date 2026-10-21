@@ -1,0 +1,160 @@
+{
+  "id": "pattern-ctrl-extend-go-around",
+  "title": "Extend downwind and go-around",
+  "packId": "pattern-controlled",
+  "difficulty": "hard",
+  "estimatedDurationSec": 120,
+  "objective": "Follow Tower instructions that change your circuit: extend downwind, turn base, go around.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPO Poznań-Ławica"
+    },
+    {
+      "label": "Station",
+      "value": "Poznań Tower 119.980"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Runway",
+      "value": "28"
+    },
+    {
+      "label": "Intention",
+      "value": "Full stop"
+    }
+  ],
+  "steps": [
+    {
+      "id": "extend-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Tower needs more spacing. Read back.",
+      "visual": {
+        "kind": "pattern",
+        "side": "right",
+        "position": "downwind",
+        "runway": "28"
+      },
+      "atcText": "SP-TFA, extend downwind, I will call your base.",
+      "atcAudio": "/audio/atc/pattern-ctrl-extend-go-around/extend-readback.mp3",
+      "expectedPilotResponse": "Extending downwind, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "extend",
+          "label": "Extending downwind",
+          "acceptedVariants": [
+            "extending downwind",
+            "extend downwind"
+          ],
+          "weight": 70,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "extend",
+        "callsign"
+      ]
+    },
+    {
+      "id": "base-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Tower calls your base. Read back.",
+      "visual": {
+        "kind": "pattern",
+        "side": "right",
+        "position": "base",
+        "runway": "28"
+      },
+      "atcText": "SP-TFA, turn base now.",
+      "atcAudio": "/audio/atc/pattern-ctrl-extend-go-around/base-readback.mp3",
+      "expectedPilotResponse": "Turning base, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "base",
+          "label": "Turning base",
+          "acceptedVariants": [
+            "turning base",
+            "turn base"
+          ],
+          "weight": 70,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "base",
+        "callsign"
+      ]
+    },
+    {
+      "id": "go-around-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "On short final, Tower sends you around. Read back.",
+      "visual": {
+        "kind": "pattern",
+        "side": "right",
+        "position": "final",
+        "runway": "28"
+      },
+      "atcText": "SP-TFA, go around, I say again, go around, vehicle on the runway.",
+      "atcAudio": "/audio/atc/pattern-ctrl-extend-go-around/go-around-readback.mp3",
+      "expectedPilotResponse": "Going around, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "going_around",
+          "label": "Going around",
+          "acceptedVariants": [
+            "going around",
+            "go around",
+            "go-around"
+          ],
+          "weight": 70,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "going_around",
+        "callsign"
+      ]
+    }
+  ]
+}

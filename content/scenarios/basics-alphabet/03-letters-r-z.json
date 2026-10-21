@@ -1,0 +1,201 @@
+{
+  "id": "alphabet-letters-r-z",
+  "title": "Letters R–Z",
+  "packId": "basics-alphabet",
+  "difficulty": "easy",
+  "estimatedDurationSec": 135,
+  "objective": "Say the letters R–Z with the ICAO phonetic alphabet.",
+  "steps": [
+    {
+      "id": "letter-r",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "R"
+      },
+      "expectedPilotResponse": "Romeo.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Romeo",
+          "acceptedVariants": [
+            "Romeo"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-s",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "S"
+      },
+      "expectedPilotResponse": "Sierra.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Sierra",
+          "acceptedVariants": [
+            "Sierra"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-t",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "T"
+      },
+      "expectedPilotResponse": "Tango.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Tango",
+          "acceptedVariants": [
+            "Tango"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-u",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "U"
+      },
+      "expectedPilotResponse": "Uniform.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Uniform",
+          "acceptedVariants": [
+            "Uniform"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-v",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "V"
+      },
+      "expectedPilotResponse": "Victor.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Victor",
+          "acceptedVariants": [
+            "Victor"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-w",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "W"
+      },
+      "expectedPilotResponse": "Whiskey.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Whiskey",
+          "acceptedVariants": [
+            "Whiskey",
+            "Whisky"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-x",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "X"
+      },
+      "expectedPilotResponse": "X-ray.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "X-ray",
+          "acceptedVariants": [
+            "X-ray",
+            "Xray"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-y",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "Y"
+      },
+      "expectedPilotResponse": "Yankee.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Yankee",
+          "acceptedVariants": [
+            "Yankee"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-z",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "Z"
+      },
+      "expectedPilotResponse": "Zulu.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Zulu",
+          "acceptedVariants": [
+            "Zulu"
+          ],
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}

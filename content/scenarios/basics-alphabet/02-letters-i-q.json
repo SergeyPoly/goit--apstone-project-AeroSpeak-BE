@@ -1,0 +1,200 @@
+{
+  "id": "alphabet-letters-i-q",
+  "title": "Letters I–Q",
+  "packId": "basics-alphabet",
+  "difficulty": "easy",
+  "estimatedDurationSec": 135,
+  "objective": "Say the letters I–Q with the ICAO phonetic alphabet.",
+  "steps": [
+    {
+      "id": "letter-i",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "I"
+      },
+      "expectedPilotResponse": "India.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "India",
+          "acceptedVariants": [
+            "India"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-j",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "J"
+      },
+      "expectedPilotResponse": "Juliett.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Juliett",
+          "acceptedVariants": [
+            "Juliett",
+            "Juliet"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-k",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "K"
+      },
+      "expectedPilotResponse": "Kilo.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Kilo",
+          "acceptedVariants": [
+            "Kilo"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-l",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "L"
+      },
+      "expectedPilotResponse": "Lima.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Lima",
+          "acceptedVariants": [
+            "Lima"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-m",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "M"
+      },
+      "expectedPilotResponse": "Mike.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Mike",
+          "acceptedVariants": [
+            "Mike"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-n",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "N"
+      },
+      "expectedPilotResponse": "November.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "November",
+          "acceptedVariants": [
+            "November"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-o",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "O"
+      },
+      "expectedPilotResponse": "Oscar.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Oscar",
+          "acceptedVariants": [
+            "Oscar"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-p",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "P"
+      },
+      "expectedPilotResponse": "Papa.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Papa",
+          "acceptedVariants": [
+            "Papa"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-q",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "Q"
+      },
+      "expectedPilotResponse": "Quebec.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Quebec",
+          "acceptedVariants": [
+            "Quebec"
+          ],
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "id": "dep-unc-leaving-circuit",
+  "title": "Leaving the circuit",
+  "packId": "departure-uncontrolled",
+  "difficulty": "medium",
+  "estimatedDurationSec": 90,
+  "objective": "Report leaving the circuit and leaving the frequency.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPI Piła"
+    },
+    {
+      "label": "Station",
+      "value": "Piła Radio 122.405"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Runway",
+      "value": "21"
+    },
+    {
+      "label": "Intention",
+      "value": "VFR to Poznań"
+    }
+  ],
+  "steps": [
+    {
+      "id": "leaving-circuit",
+      "type": "self_announce",
+      "speaker": "pilot",
+      "prompt": "You are airborne and climbing to 2000 feet. Report leaving the circuit to the south towards Poznań.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, leaving the circuit to the south, climbing to 2000 feet.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Piła Radio",
+          "acceptedVariants": [
+            "Piła Radio",
+            "Pila Radio"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "leaving",
+          "label": "Leaving the circuit to the south",
+          "acceptedVariants": [
+            "leaving the circuit to the south",
+            "leaving the circuit south"
+          ],
+          "weight": 40
+        },
+        {
+          "id": "altitude",
+          "label": "Climbing to 2000 feet",
+          "acceptedVariants": [
+            "climbing to 2000 feet",
+            "climbing 2000 feet"
+          ],
+          "weight": 30,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "altitude"
+      ]
+    },
+    {
+      "id": "leaving-frequency",
+      "type": "self_announce",
+      "speaker": "pilot",
+      "prompt": "Tell Piła Radio you are leaving the frequency to contact Poznań Information.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, leaving your frequency, changing to Poznań Information.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Piła Radio",
+          "acceptedVariants": [
+            "Piła Radio",
+            "Pila Radio"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "leaving_frequency",
+          "label": "Leaving your frequency",
+          "acceptedVariants": [
+            "leaving your frequency",
+            "leaving frequency"
+          ],
+          "weight": 35
+        },
+        {
+          "id": "changing",
+          "label": "Changing to Poznań Information",
+          "acceptedVariants": [
+            "changing to Poznań Information",
+            "changing to Poznan Information"
+          ],
+          "weight": 35
+        }
+      ]
+    }
+  ]
+}

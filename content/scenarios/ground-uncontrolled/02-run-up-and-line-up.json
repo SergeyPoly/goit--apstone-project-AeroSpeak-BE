@@ -1,0 +1,139 @@
+{
+  "id": "ground-unc-run-up-line-up",
+  "title": "Run-up and line-up",
+  "packId": "ground-uncontrolled",
+  "difficulty": "easy",
+  "estimatedDurationSec": 90,
+  "objective": "Announce engine run-up at the holding point and lining up on the runway.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPI Piła"
+    },
+    {
+      "label": "Station",
+      "value": "Piła Radio 122.405"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Position",
+      "value": "Holding point runway 21"
+    },
+    {
+      "label": "Runway",
+      "value": "21"
+    }
+  ],
+  "steps": [
+    {
+      "id": "run-up",
+      "type": "self_announce",
+      "speaker": "pilot",
+      "prompt": "You stop at the holding point of runway 21 for engine checks. Announce it.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, holding point runway 21, performing engine run-up.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Piła Radio",
+          "acceptedVariants": [
+            "Piła Radio",
+            "Pila Radio"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "holding_point",
+          "label": "Holding point runway 21",
+          "acceptedVariants": [
+            "holding point runway 21"
+          ],
+          "weight": 35
+        },
+        {
+          "id": "run_up",
+          "label": "Performing engine run-up",
+          "acceptedVariants": [
+            "performing engine run-up",
+            "engine run-up",
+            "run-up",
+            "engine checks"
+          ],
+          "weight": 35
+        }
+      ]
+    },
+    {
+      "id": "line-up",
+      "type": "self_announce",
+      "speaker": "pilot",
+      "prompt": "Checks complete, final approach is clear. Announce lining up for departure.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, lining up runway 21 for departure.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Piła Radio",
+          "acceptedVariants": [
+            "Piła Radio",
+            "Pila Radio"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "lining_up",
+          "label": "Lining up",
+          "acceptedVariants": [
+            "lining up",
+            "line up"
+          ],
+          "weight": 30
+        },
+        {
+          "id": "runway",
+          "label": "Runway 21",
+          "acceptedVariants": [
+            "runway 21"
+          ],
+          "weight": 30,
+          "critical": true
+        },
+        {
+          "id": "departure",
+          "label": "For departure",
+          "acceptedVariants": [
+            "for departure",
+            "departure"
+          ],
+          "weight": 10
+        }
+      ],
+      "criticalElements": [
+        "runway"
+      ]
+    }
+  ]
+}

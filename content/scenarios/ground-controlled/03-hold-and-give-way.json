@@ -1,0 +1,152 @@
+{
+  "id": "ground-ctrl-hold-give-way",
+  "title": "Hold position and give way",
+  "packId": "ground-controlled",
+  "difficulty": "medium",
+  "estimatedDurationSec": 90,
+  "objective": "Read back hold-position and give-way instructions while taxiing.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPO Poznań-Ławica"
+    },
+    {
+      "label": "Station",
+      "value": "Poznań Ground 124.140"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Position",
+      "value": "Taxiway Alpha"
+    },
+    {
+      "label": "Runway",
+      "value": "28"
+    }
+  ],
+  "phraseologyNote": {
+    "id": "hold-position",
+    "title": "Hold position",
+    "shortExplanation": "\"Hold position\" means stop now. Read it back exactly and stay stopped until cleared.",
+    "example": "Holding position, giving way to the Boeing 737, SP-TFA.",
+    "whyItMatters": "Readback proves you understood that you must not move."
+  },
+  "steps": [
+    {
+      "id": "hold-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Ground stops you because of crossing traffic. Read back.",
+      "atcText": "SP-TFA, hold position.",
+      "atcAudio": "/audio/atc/ground-ctrl-hold-give-way/hold-readback.mp3",
+      "expectedPilotResponse": "Holding position, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "hold",
+          "label": "Holding position",
+          "acceptedVariants": [
+            "holding position",
+            "hold position"
+          ],
+          "weight": 70,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "hold",
+        "callsign"
+      ]
+    },
+    {
+      "id": "give-way-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Ground tells you whom to give way to. Read back.",
+      "atcText": "SP-TFA, give way to the Boeing 737 passing left to right, then continue taxi.",
+      "atcAudio": "/audio/atc/ground-ctrl-hold-give-way/give-way-readback.mp3",
+      "expectedPilotResponse": "Giving way to the Boeing 737, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "give_way",
+          "label": "Give way to the Boeing 737",
+          "acceptedVariants": [
+            "giving way to the Boeing 737",
+            "give way to the Boeing 737",
+            "giving way to Boeing 737",
+            "give way Boeing 737"
+          ],
+          "weight": 70,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "give_way",
+        "callsign"
+      ]
+    },
+    {
+      "id": "hold-short-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Ground gives you a hold-short instruction before the runway. Read it back.",
+      "atcText": "SP-TFA, hold short of runway 28.",
+      "atcAudio": "/audio/atc/ground-ctrl-hold-give-way/hold-short-readback.mp3",
+      "expectedPilotResponse": "Holding short of runway 28, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "hold_short",
+          "label": "Hold short of runway 28",
+          "acceptedVariants": [
+            "holding short of runway 28",
+            "hold short of runway 28",
+            "holding short runway 28",
+            "hold short runway 28"
+          ],
+          "weight": 70,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "hold_short",
+        "callsign"
+      ]
+    }
+  ]
+}

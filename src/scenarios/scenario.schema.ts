@@ -19,10 +19,36 @@ export const requiredElementSchema = z.object({
   critical: z.boolean().optional(),
 });
 
+/**
+ * UI metadata: what the practice screen shows for a step. Does not affect scoring.
+ * Without it the frontend shows the aerodrome chart.
+ */
+export const stepVisualSchema = z.discriminatedUnion('kind', [
+  // Drills: the text to read out, e.g. a frequency or registration.
+  z.object({
+    kind: z.literal('text'),
+    text: z.string().min(1),
+    caption: z.string().min(1).optional(),
+  }),
+  // Traffic pattern: circuit diagram with the aircraft position.
+  z.object({
+    kind: z.literal('pattern'),
+    side: z.enum(['left', 'right']),
+    position: z.enum(['upwind', 'crosswind', 'downwind', 'base', 'final']),
+    runway: z.string().min(1),
+  }),
+]);
+
 export const scenarioStepSchema = z
   .object({
     id,
-    type: z.enum(['basic_drill', 'pilot_request', 'atc_instruction', 'pilot_readback', 'self_announce']),
+    type: z.enum([
+      'basic_drill',
+      'pilot_request',
+      'atc_instruction',
+      'pilot_readback',
+      'self_announce',
+    ]),
     speaker: z.enum(['pilot', 'atc']),
     prompt: z.string().min(1),
     atcText: z.string().min(1).optional(),
@@ -32,6 +58,7 @@ export const scenarioStepSchema = z
     requiredElements: z.array(requiredElementSchema).min(1),
     criticalElements: z.array(id).optional(),
     phraseologyReferenceId: z.string().optional(),
+    visual: stepVisualSchema.optional(),
   })
   .superRefine((step, ctx) => {
     const elementIds = new Set(step.requiredElements.map((e) => e.id));
@@ -90,6 +117,7 @@ export const practicePackSchema = z.object({
 export const packsFileSchema = z.array(practicePackSchema).min(1);
 
 export type RequiredElement = z.infer<typeof requiredElementSchema>;
+export type StepVisual = z.infer<typeof stepVisualSchema>;
 export type ScenarioStep = z.infer<typeof scenarioStepSchema>;
 export type Scenario = z.infer<typeof scenarioSchema>;
 export type PracticePack = z.infer<typeof practicePackSchema>;

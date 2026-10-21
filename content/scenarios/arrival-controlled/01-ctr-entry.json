@@ -1,0 +1,205 @@
+{
+  "id": "arr-ctrl-ctr-entry",
+  "title": "Control zone entry",
+  "packId": "arrival-controlled",
+  "difficulty": "medium",
+  "estimatedDurationSec": 150,
+  "objective": "Make the initial call to Tower, read back the CTR entry clearance and report the entry point.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPO Poznań-Ławica"
+    },
+    {
+      "label": "Station",
+      "value": "Poznań Tower 119.980"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Position",
+      "value": "10 miles north"
+    },
+    {
+      "label": "Altitude",
+      "value": "2000 feet"
+    },
+    {
+      "label": "ATIS",
+      "value": "Information Lima"
+    }
+  ],
+  "phraseologyNote": {
+    "id": "ctr-entry",
+    "title": "Entering a control zone",
+    "shortExplanation": "You need a clearance to enter a CTR. Read back the entry point, altitude limits and reporting instructions.",
+    "example": "Enter control zone via November, not above 1500 feet, report November, SP-TFA.",
+    "whyItMatters": "Altitude limits keep VFR traffic clear of IFR arrivals."
+  },
+  "steps": [
+    {
+      "id": "initial-call",
+      "type": "pilot_request",
+      "speaker": "pilot",
+      "prompt": "You are 10 miles north at 2000 feet with ATIS Lima. Call Tower: inbound for landing.",
+      "expectedPilotResponse": "Poznań Tower, SP-TFA, Cessna 172, 10 miles north, 2000 feet, information Lima, inbound for landing.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Poznań Tower",
+          "acceptedVariants": [
+            "Poznań Tower",
+            "Poznan Tower"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "type",
+          "label": "Cessna 172",
+          "acceptedVariants": [
+            "Cessna 172"
+          ],
+          "weight": 5
+        },
+        {
+          "id": "position",
+          "label": "10 miles north",
+          "acceptedVariants": [
+            "10 miles north"
+          ],
+          "weight": 15
+        },
+        {
+          "id": "altitude",
+          "label": "2000 feet",
+          "acceptedVariants": [
+            "2000 feet"
+          ],
+          "weight": 15
+        },
+        {
+          "id": "atis",
+          "label": "Information Lima",
+          "acceptedVariants": [
+            "information Lima",
+            "information L"
+          ],
+          "weight": 15
+        },
+        {
+          "id": "inbound",
+          "label": "Inbound for landing",
+          "acceptedVariants": [
+            "inbound for landing"
+          ],
+          "weight": 20
+        }
+      ]
+    },
+    {
+      "id": "entry-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Read back the CTR entry clearance.",
+      "atcText": "SP-TFA, Poznań Tower, enter control zone via November, not above 1500 feet, report November.",
+      "atcAudio": "/audio/atc/arr-ctrl-ctr-entry/entry-readback.mp3",
+      "expectedPilotResponse": "Enter control zone via November, not above 1500 feet, report November, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "enter",
+          "label": "Enter control zone via November",
+          "acceptedVariants": [
+            "enter control zone via November",
+            "entering control zone via November"
+          ],
+          "weight": 30,
+          "critical": true
+        },
+        {
+          "id": "altitude",
+          "label": "Not above 1500 feet",
+          "acceptedVariants": [
+            "not above 1500 feet"
+          ],
+          "weight": 30,
+          "critical": true
+        },
+        {
+          "id": "report",
+          "label": "Report November",
+          "acceptedVariants": [
+            "report November",
+            "will report November",
+            "wilco"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "enter",
+        "altitude",
+        "callsign"
+      ]
+    },
+    {
+      "id": "report-november",
+      "type": "self_announce",
+      "speaker": "pilot",
+      "prompt": "You are over November at 1500 feet. Report.",
+      "expectedPilotResponse": "SP-TFA, November, 1500 feet.",
+      "requiredElements": [
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30
+        },
+        {
+          "id": "november",
+          "label": "November",
+          "acceptedVariants": [
+            "November",
+            "over November"
+          ],
+          "weight": 40
+        },
+        {
+          "id": "altitude",
+          "label": "1500 feet",
+          "acceptedVariants": [
+            "1500 feet"
+          ],
+          "weight": 30
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "id": "basic-standard-words",
+  "title": "Standard words",
+  "packId": "basics-standard-words",
+  "difficulty": "easy",
+  "estimatedDurationSec": 90,
+  "objective": "Answer short ATC calls with the right standard word and your callsign.",
+  "briefing": [
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    }
+  ],
+  "phraseologyNote": {
+    "id": "standard-words",
+    "title": "Standard words",
+    "shortExplanation": "Wilco = I understand and will comply. Affirm = yes. Negative = no. Roger = I received your message.",
+    "example": "Wilco, SP-TFA.",
+    "whyItMatters": "Standard words keep transmissions short and unambiguous."
+  },
+  "steps": [
+    {
+      "id": "wilco",
+      "type": "basic_drill",
+      "speaker": "atc",
+      "prompt": "ATC asks you to report when ready. Answer that you will comply.",
+      "atcText": "SP-TFA, report ready for departure.",
+      "atcAudio": "/audio/atc/basic-standard-words/wilco.mp3",
+      "expectedPilotResponse": "Wilco, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "wilco",
+          "label": "Wilco",
+          "acceptedVariants": [
+            "wilco",
+            "will comply"
+          ],
+          "weight": 60
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 40
+        }
+      ]
+    },
+    {
+      "id": "affirm",
+      "type": "basic_drill",
+      "speaker": "atc",
+      "prompt": "ATC wants to confirm your flight rules. You are VFR: answer yes.",
+      "atcText": "SP-TFA, confirm you are VFR.",
+      "atcAudio": "/audio/atc/basic-standard-words/affirm.mp3",
+      "expectedPilotResponse": "Affirm, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "affirm",
+          "label": "Affirm",
+          "acceptedVariants": [
+            "affirm"
+          ],
+          "weight": 60
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 40
+        }
+      ]
+    },
+    {
+      "id": "traffic",
+      "type": "basic_drill",
+      "speaker": "atc",
+      "prompt": "ATC gives you traffic information. You can see the traffic.",
+      "atcText": "SP-TFA, traffic two o'clock, 3 miles, Cessna 152 opposite direction.",
+      "atcAudio": "/audio/atc/basic-standard-words/traffic.mp3",
+      "expectedPilotResponse": "Traffic in sight, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "traffic_in_sight",
+          "label": "Traffic in sight",
+          "acceptedVariants": [
+            "traffic in sight",
+            "in sight"
+          ],
+          "weight": 60
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 40
+        }
+      ]
+    }
+  ]
+}

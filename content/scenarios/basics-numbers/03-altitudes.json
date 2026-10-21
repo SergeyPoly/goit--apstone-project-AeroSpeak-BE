@@ -1,0 +1,122 @@
+{
+  "id": "numbers-altitudes",
+  "title": "Altitudes and flight levels",
+  "packId": "basics-numbers",
+  "difficulty": "easy",
+  "estimatedDurationSec": 100,
+  "objective": "Say altitudes in thousands and hundreds, flight levels digit by digit.",
+  "phraseologyNote": {
+    "id": "altitudes",
+    "title": "Altitudes",
+    "shortExplanation": "Altitudes use thousands and hundreds; flight levels are read digit by digit.",
+    "example": "Two thousand five hundred feet. Flight level six five.",
+    "whyItMatters": "Mixing the two forms is a common source of level busts."
+  },
+  "steps": [
+    {
+      "id": "alt-2500",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given altitude.",
+      "visual": {
+        "kind": "text",
+        "text": "2500 ft"
+      },
+      "expectedPilotResponse": "Two thousand five hundred feet.",
+      "requiredElements": [
+        {
+          "id": "altitude",
+          "label": "2500 feet",
+          "acceptedVariants": [
+            "2500 feet"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "alt-1500",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given altitude.",
+      "visual": {
+        "kind": "text",
+        "text": "1500 ft"
+      },
+      "expectedPilotResponse": "One thousand five hundred feet.",
+      "requiredElements": [
+        {
+          "id": "altitude",
+          "label": "1500 feet",
+          "acceptedVariants": [
+            "1500 feet"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "alt-500",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given altitude.",
+      "visual": {
+        "kind": "text",
+        "text": "500 ft"
+      },
+      "expectedPilotResponse": "Five hundred feet.",
+      "requiredElements": [
+        {
+          "id": "altitude",
+          "label": "500 feet",
+          "acceptedVariants": [
+            "500 feet"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "alt-3000",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given altitude.",
+      "visual": {
+        "kind": "text",
+        "text": "3000 ft"
+      },
+      "expectedPilotResponse": "Tree thousand feet.",
+      "requiredElements": [
+        {
+          "id": "altitude",
+          "label": "3000 feet",
+          "acceptedVariants": [
+            "3000 feet"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "fl-65",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given flight level.",
+      "visual": {
+        "kind": "text",
+        "text": "FL 65"
+      },
+      "expectedPilotResponse": "Flight level six fife.",
+      "requiredElements": [
+        {
+          "id": "flight_level",
+          "label": "Flight level 65",
+          "acceptedVariants": [
+            "flight level 65"
+          ],
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}

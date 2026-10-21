@@ -18,6 +18,11 @@ This repo is the NestJS backend. The React frontend lives in a separate repo.
 - **Scenarios are JSON files in `/content`**, not in the database. They are validated
   with zod at startup; invalid content stops the app. `content.spec.ts` checks that
   every step's `expectedPilotResponse` scores 100.
+- **This repo is the single source of scenarios.** The frontend reads them through
+  `GET /packs` and `GET /scenarios/:id`. Frontend-only data stays in the frontend repo:
+  `sections.json` (grouping of packs) and ATC audio in `public/audio/atc/`.
+  A step's optional `visual` is UI metadata (drill text or circuit diagram) and never
+  affects scoring. `atcAudio` must be `/audio/atc/<scenarioId>/<stepId>.mp3`.
 
 ## Architecture
 
@@ -33,7 +38,8 @@ src/
   attempts/    POST /attempts (multipart audio): STT -> scoring -> save -> feedback
 content/
   packs.json              practice packs
-  scenarios/<pack>/*.json one file per scenario
+  scenarios/<pack>/*.json one file per scenario, named 01-..., 02-... (= display order)
+  aerodromes.md           aerodrome facts used in scenarios, with open questions
 prisma/schema.prisma      Guest, User, Attempt
 ```
 
@@ -86,6 +92,5 @@ npm run lint && npm run typecheck && npm run build
 ## Next steps (Trello board "AeroSpeak MVP")
 
 1. Record 10-15 real test phrases and check Deepgram output with and without keyterms.
-2. Move the remaining 18-22 scenarios from the spec into `/content`.
-3. Auth (email, Google, Apple) and moving guest progress to the account.
-4. Rate limits, PostHog analytics, Sentry.
+2. Auth (email, Google, Apple) and moving guest progress to the account.
+3. PostHog analytics, Sentry.

@@ -1,0 +1,148 @@
+{
+  "id": "arr-unc-overhead-join",
+  "title": "Overhead join",
+  "packId": "arrival-uncontrolled",
+  "difficulty": "medium",
+  "estimatedDurationSec": 90,
+  "objective": "Announce an overhead join and the first circuit position report.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPI Piła"
+    },
+    {
+      "label": "Station",
+      "value": "Piła Radio 122.405"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Altitude",
+      "value": "2000 feet"
+    },
+    {
+      "label": "Runway",
+      "value": "21"
+    }
+  ],
+  "steps": [
+    {
+      "id": "overhead",
+      "type": "self_announce",
+      "speaker": "pilot",
+      "prompt": "You are overhead the airfield at 2000 feet. Announce joining the circuit for runway 21.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, overhead at 2000 feet, joining the circuit runway 21.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Piła Radio",
+          "acceptedVariants": [
+            "Piła Radio",
+            "Pila Radio"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "overhead",
+          "label": "Overhead at 2000 feet",
+          "acceptedVariants": [
+            "overhead at 2000 feet",
+            "overhead 2000 feet"
+          ],
+          "weight": 25
+        },
+        {
+          "id": "joining",
+          "label": "Joining the circuit",
+          "acceptedVariants": [
+            "joining the circuit",
+            "joining circuit"
+          ],
+          "weight": 25
+        },
+        {
+          "id": "runway",
+          "label": "Runway 21",
+          "acceptedVariants": [
+            "runway 21"
+          ],
+          "weight": 20,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "runway"
+      ]
+    },
+    {
+      "id": "downwind",
+      "type": "self_announce",
+      "speaker": "pilot",
+      "prompt": "You are on downwind. Report with full-stop intention.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, downwind runway 21, full stop.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Piła Radio",
+          "acceptedVariants": [
+            "Piła Radio",
+            "Pila Radio"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "downwind",
+          "label": "Downwind",
+          "acceptedVariants": [
+            "downwind"
+          ],
+          "weight": 25
+        },
+        {
+          "id": "runway",
+          "label": "Runway 21",
+          "acceptedVariants": [
+            "runway 21"
+          ],
+          "weight": 20,
+          "critical": true
+        },
+        {
+          "id": "intention",
+          "label": "Full stop",
+          "acceptedVariants": [
+            "full stop"
+          ],
+          "weight": 25
+        }
+      ],
+      "criticalElements": [
+        "runway"
+      ]
+    }
+  ]
+}

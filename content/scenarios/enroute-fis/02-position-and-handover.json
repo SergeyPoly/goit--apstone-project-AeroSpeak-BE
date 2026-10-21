@@ -1,0 +1,118 @@
+{
+  "id": "fis-position-handover",
+  "title": "Position report and handover",
+  "packId": "enroute-fis",
+  "difficulty": "medium",
+  "estimatedDurationSec": 90,
+  "objective": "Give a position report and read back the frequency change to Approach.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPO Poznań-Ławica"
+    },
+    {
+      "label": "Station",
+      "value": "Poznań Information"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Position",
+      "value": "Over Oborniki"
+    },
+    {
+      "label": "Altitude",
+      "value": "2500 feet"
+    }
+  ],
+  "steps": [
+    {
+      "id": "position-report",
+      "type": "atc_instruction",
+      "speaker": "atc",
+      "prompt": "FIS asked you to report over Oborniki. You are overhead now at 2500 feet.",
+      "atcText": "SP-TFA, report over Oborniki.",
+      "atcAudio": "/audio/atc/fis-position-handover/position-report.mp3",
+      "expectedPilotResponse": "SP-TFA, over Oborniki, 2500 feet.",
+      "requiredElements": [
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30
+        },
+        {
+          "id": "position",
+          "label": "Over Oborniki",
+          "acceptedVariants": [
+            "over Oborniki",
+            "overhead Oborniki",
+            "Oborniki"
+          ],
+          "weight": 40
+        },
+        {
+          "id": "altitude",
+          "label": "2500 feet",
+          "acceptedVariants": [
+            "2500 feet"
+          ],
+          "weight": 30
+        }
+      ]
+    },
+    {
+      "id": "handover-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "FIS hands you over to Poznań Approach. Read back.",
+      "atcText": "SP-TFA, contact Poznań Approach 128.925.",
+      "atcAudio": "/audio/atc/fis-position-handover/handover-readback.mp3",
+      "expectedPilotResponse": "Contact Poznań Approach 128.925, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "contact",
+          "label": "Contact Poznań Approach",
+          "acceptedVariants": [
+            "contact Poznań Approach",
+            "contact Poznan Approach",
+            "contact Approach"
+          ],
+          "weight": 30
+        },
+        {
+          "id": "frequency",
+          "label": "128.925",
+          "acceptedVariants": [
+            "128.925"
+          ],
+          "weight": 45,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 25,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "frequency",
+        "callsign"
+      ]
+    }
+  ]
+}

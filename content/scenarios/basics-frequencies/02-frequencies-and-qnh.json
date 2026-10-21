@@ -1,11 +1,16 @@
 {
   "id": "basic-frequencies-and-qnh",
   "title": "Frequencies and QNH",
-  "packId": "basic-phraseology",
+  "packId": "basics-frequencies",
   "difficulty": "easy",
   "estimatedDurationSec": 90,
   "objective": "Practice reading back frequencies and QNH using ICAO number pronunciation.",
-  "briefing": [{ "label": "Callsign", "value": "SP-TFA" }],
+  "briefing": [
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    }
+  ],
   "phraseologyNote": {
     "id": "numbers-pronunciation",
     "title": "Numbers on the radio",
@@ -26,20 +31,27 @@
         {
           "id": "contact_ground",
           "label": "Contact Ground",
-          "acceptedVariants": ["contact Ground"],
+          "acceptedVariants": [
+            "contact Ground"
+          ],
           "weight": 25
         },
         {
           "id": "frequency",
           "label": "121.900",
-          "acceptedVariants": ["121.900"],
+          "acceptedVariants": [
+            "121.900"
+          ],
           "weight": 50,
           "critical": true
         },
         {
           "id": "callsign",
           "label": "SP-TFA",
-          "acceptedVariants": ["SP-TFA", "Sierra Papa Tango Foxtrot Alpha"],
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
           "weight": 25
         }
       ]
@@ -56,14 +68,19 @@
         {
           "id": "qnh",
           "label": "QNH 1016",
-          "acceptedVariants": ["QNH 1016"],
+          "acceptedVariants": [
+            "QNH 1016"
+          ],
           "weight": 75,
           "critical": true
         },
         {
           "id": "callsign",
           "label": "SP-TFA",
-          "acceptedVariants": ["SP-TFA", "Sierra Papa Tango Foxtrot Alpha"],
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
           "weight": 25
         }
       ]

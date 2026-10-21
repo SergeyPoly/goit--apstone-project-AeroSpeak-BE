@@ -1,0 +1,148 @@
+{
+  "id": "basic-more-standard-words",
+  "title": "Roger, negative, unable, standby",
+  "packId": "basics-standard-words",
+  "difficulty": "easy",
+  "estimatedDurationSec": 120,
+  "objective": "Answer ATC with roger, negative, unable and standby.",
+  "briefing": [
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    }
+  ],
+  "phraseologyNote": {
+    "id": "more-standard-words",
+    "title": "Roger, negative, unable, standby",
+    "shortExplanation": "Roger = message received. Negative = no. Unable = I cannot comply. Standby = wait, I will call you back.",
+    "example": "Unable, SP-TFA.",
+    "whyItMatters": "Unable is the safe answer when an instruction conflicts with VFR or aircraft limits."
+  },
+  "steps": [
+    {
+      "id": "roger",
+      "type": "basic_drill",
+      "speaker": "atc",
+      "prompt": "ATC gives you wind information. Acknowledge it.",
+      "atcText": "SP-TFA, wind 270 degrees 10 knots.",
+      "atcAudio": "/audio/atc/basic-more-standard-words/roger.mp3",
+      "expectedPilotResponse": "Roger, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "roger",
+          "label": "Roger",
+          "acceptedVariants": [
+            "roger"
+          ],
+          "weight": 60
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 40
+        }
+      ]
+    },
+    {
+      "id": "negative",
+      "type": "basic_drill",
+      "speaker": "atc",
+      "prompt": "ATC asks if you are IFR. You are VFR: answer no.",
+      "atcText": "SP-TFA, confirm you are IFR.",
+      "atcAudio": "/audio/atc/basic-more-standard-words/negative.mp3",
+      "expectedPilotResponse": "Negative, VFR, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "negative",
+          "label": "Negative",
+          "acceptedVariants": [
+            "negative"
+          ],
+          "weight": 50
+        },
+        {
+          "id": "vfr",
+          "label": "VFR",
+          "acceptedVariants": [
+            "VFR"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30
+        }
+      ]
+    },
+    {
+      "id": "unable",
+      "type": "basic_drill",
+      "speaker": "atc",
+      "prompt": "You fly VFR under a cloud base at 3500 feet. ATC asks you to climb into cloud. You cannot comply.",
+      "atcText": "SP-TFA, climb to 4500 feet.",
+      "atcAudio": "/audio/atc/basic-more-standard-words/unable.mp3",
+      "expectedPilotResponse": "Unable, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "unable",
+          "label": "Unable",
+          "acceptedVariants": [
+            "unable"
+          ],
+          "weight": 60
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 40
+        }
+      ]
+    },
+    {
+      "id": "standby",
+      "type": "basic_drill",
+      "speaker": "atc",
+      "prompt": "ATC asks for your fuel endurance. You need a moment to check.",
+      "atcText": "SP-TFA, say fuel endurance.",
+      "atcAudio": "/audio/atc/basic-more-standard-words/standby.mp3",
+      "expectedPilotResponse": "Standby, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "standby",
+          "label": "Standby",
+          "acceptedVariants": [
+            "standby",
+            "stand by"
+          ],
+          "weight": 60
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 40
+        }
+      ]
+    }
+  ]
+}

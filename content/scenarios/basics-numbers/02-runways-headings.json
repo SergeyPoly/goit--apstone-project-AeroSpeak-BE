@@ -1,0 +1,136 @@
+{
+  "id": "numbers-runways-headings",
+  "title": "Runways and headings",
+  "packId": "basics-numbers",
+  "difficulty": "easy",
+  "estimatedDurationSec": 120,
+  "objective": "Say runways and headings digit by digit.",
+  "steps": [
+    {
+      "id": "runway-28",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given runway.",
+      "visual": {
+        "kind": "text",
+        "text": "RWY 28"
+      },
+      "expectedPilotResponse": "Runway two eight.",
+      "requiredElements": [
+        {
+          "id": "runway",
+          "label": "Runway 28",
+          "acceptedVariants": [
+            "runway 28"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "runway-03",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given runway.",
+      "visual": {
+        "kind": "text",
+        "text": "RWY 03"
+      },
+      "expectedPilotResponse": "Runway zero tree.",
+      "requiredElements": [
+        {
+          "id": "runway",
+          "label": "Runway 03",
+          "acceptedVariants": [
+            "runway 03"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "runway-21",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given runway.",
+      "visual": {
+        "kind": "text",
+        "text": "RWY 21"
+      },
+      "expectedPilotResponse": "Runway two one.",
+      "requiredElements": [
+        {
+          "id": "runway",
+          "label": "Runway 21",
+          "acceptedVariants": [
+            "runway 21"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "heading-270",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given heading.",
+      "visual": {
+        "kind": "text",
+        "text": "HDG 270"
+      },
+      "expectedPilotResponse": "Heading two seven zero.",
+      "requiredElements": [
+        {
+          "id": "heading",
+          "label": "Heading 270",
+          "acceptedVariants": [
+            "heading 270"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "heading-090",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given heading.",
+      "visual": {
+        "kind": "text",
+        "text": "HDG 090"
+      },
+      "expectedPilotResponse": "Heading zero niner zero.",
+      "requiredElements": [
+        {
+          "id": "heading",
+          "label": "Heading 090",
+          "acceptedVariants": [
+            "heading 090"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "heading-185",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given heading.",
+      "visual": {
+        "kind": "text",
+        "text": "HDG 185"
+      },
+      "expectedPilotResponse": "Heading one eight fife.",
+      "requiredElements": [
+        {
+          "id": "heading",
+          "label": "Heading 185",
+          "acceptedVariants": [
+            "heading 185"
+          ],
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}

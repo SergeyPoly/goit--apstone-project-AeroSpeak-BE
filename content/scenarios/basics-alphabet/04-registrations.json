@@ -1,0 +1,130 @@
+{
+  "id": "alphabet-registrations",
+  "title": "Aircraft registrations",
+  "packId": "basics-alphabet",
+  "difficulty": "easy",
+  "estimatedDurationSec": 90,
+  "objective": "Spell aircraft registrations the way they are said on the radio.",
+  "briefing": [
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    }
+  ],
+  "steps": [
+    {
+      "id": "reg-sptfa",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given registration.",
+      "visual": {
+        "kind": "text",
+        "text": "SP-TFA"
+      },
+      "expectedPilotResponse": "Sierra Papa Tango Foxtrot Alpha.",
+      "requiredElements": [
+        {
+          "id": "registration",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "reg-spkpz",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given registration.",
+      "visual": {
+        "kind": "text",
+        "text": "SP-KPZ"
+      },
+      "expectedPilotResponse": "Sierra Papa Kilo Papa Zulu.",
+      "requiredElements": [
+        {
+          "id": "registration",
+          "label": "SP-KPZ",
+          "acceptedVariants": [
+            "SP-KPZ",
+            "Sierra Papa Kilo Papa Zulu"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "reg-dehga",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given registration.",
+      "visual": {
+        "kind": "text",
+        "text": "D-EHGA"
+      },
+      "expectedPilotResponse": "Delta Echo Hotel Golf Alpha.",
+      "requiredElements": [
+        {
+          "id": "registration",
+          "label": "D-EHGA",
+          "acceptedVariants": [
+            "D-EHGA",
+            "Delta Echo Hotel Golf Alpha"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "reg-gabcd",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given registration.",
+      "visual": {
+        "kind": "text",
+        "text": "G-ABCD"
+      },
+      "expectedPilotResponse": "Golf Alpha Bravo Charlie Delta.",
+      "requiredElements": [
+        {
+          "id": "registration",
+          "label": "G-ABCD",
+          "acceptedVariants": [
+            "G-ABCD",
+            "Golf Alpha Bravo Charlie Delta"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "reg-oknum",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given registration.",
+      "visual": {
+        "kind": "text",
+        "text": "OK-NUM"
+      },
+      "expectedPilotResponse": "Oscar Kilo November Uniform Mike.",
+      "requiredElements": [
+        {
+          "id": "registration",
+          "label": "OK-NUM",
+          "acceptedVariants": [
+            "OK-NUM",
+            "Oscar Kilo November Uniform Mike"
+          ],
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}
