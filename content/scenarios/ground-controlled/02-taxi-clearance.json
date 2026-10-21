@@ -1,0 +1,144 @@
+{
+  "id": "ground-ctrl-taxi-clearance",
+  "title": "Taxi clearance readback",
+  "packId": "ground-controlled",
+  "difficulty": "medium",
+  "estimatedDurationSec": 120,
+  "objective": "Request taxi and read back the taxi route, holding point and runway.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPO Poznań-Ławica"
+    },
+    {
+      "label": "Station",
+      "value": "Poznań Ground 124.140"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Position",
+      "value": "General aviation apron"
+    },
+    {
+      "label": "ATIS",
+      "value": "Information Kilo"
+    },
+    {
+      "label": "Runway",
+      "value": "28"
+    }
+  ],
+  "phraseologyNote": {
+    "id": "taxi-readback",
+    "title": "Taxi clearance readback",
+    "shortExplanation": "Read back the runway, the route and any hold-short instruction. Taxi clearances are clearance limits.",
+    "example": "Taxi to holding point runway 28 via Alpha, SP-TFA.",
+    "whyItMatters": "A wrong route or runway on the ground is a common cause of runway incursions."
+  },
+  "steps": [
+    {
+      "id": "request-taxi",
+      "type": "pilot_request",
+      "speaker": "pilot",
+      "prompt": "Engine running. Ask Ground for taxi for your VFR flight to Piła.",
+      "expectedPilotResponse": "Poznań Ground, SP-TFA, request taxi for VFR flight to Piła.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Poznań Ground",
+          "acceptedVariants": [
+            "Poznań Ground",
+            "Poznan Ground"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "request_taxi",
+          "label": "Request taxi",
+          "acceptedVariants": [
+            "request taxi"
+          ],
+          "weight": 40
+        },
+        {
+          "id": "flight",
+          "label": "VFR flight to Piła",
+          "acceptedVariants": [
+            "VFR flight to Piła",
+            "VFR flight to Pila",
+            "VFR to Piła",
+            "VFR to Pila"
+          ],
+          "weight": 30
+        }
+      ]
+    },
+    {
+      "id": "taxi-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Read back the taxi clearance.",
+      "atcText": "SP-TFA, taxi to holding point runway 28 via Alpha.",
+      "atcAudio": "/audio/atc/ground-ctrl-taxi-clearance/taxi-readback.mp3",
+      "expectedPilotResponse": "Taxi to holding point runway 28 via Alpha, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "holding_point",
+          "label": "Taxi to holding point",
+          "acceptedVariants": [
+            "taxi to holding point",
+            "taxi holding point"
+          ],
+          "weight": 25
+        },
+        {
+          "id": "runway",
+          "label": "Runway 28",
+          "acceptedVariants": [
+            "runway 28"
+          ],
+          "weight": 30,
+          "critical": true
+        },
+        {
+          "id": "route",
+          "label": "Via Alpha",
+          "acceptedVariants": [
+            "via Alpha"
+          ],
+          "weight": 25
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "runway",
+        "callsign"
+      ]
+    }
+  ]
+}

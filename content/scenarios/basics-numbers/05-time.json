@@ -1,0 +1,73 @@
+{
+  "id": "numbers-time",
+  "title": "Time",
+  "packId": "basics-numbers",
+  "difficulty": "easy",
+  "estimatedDurationSec": 60,
+  "objective": "Say times in UTC as four digits.",
+  "steps": [
+    {
+      "id": "time-1435",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given time.",
+      "visual": {
+        "kind": "text",
+        "text": "14:35"
+      },
+      "expectedPilotResponse": "One four tree fife.",
+      "requiredElements": [
+        {
+          "id": "time",
+          "label": "1435",
+          "acceptedVariants": [
+            "1435"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "time-0905",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given time.",
+      "visual": {
+        "kind": "text",
+        "text": "09:05"
+      },
+      "expectedPilotResponse": "Zero niner zero fife.",
+      "requiredElements": [
+        {
+          "id": "time",
+          "label": "0905",
+          "acceptedVariants": [
+            "0905"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "time-2120",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given time.",
+      "visual": {
+        "kind": "text",
+        "text": "21:20"
+      },
+      "expectedPilotResponse": "Two one two zero.",
+      "requiredElements": [
+        {
+          "id": "time",
+          "label": "2120",
+          "acceptedVariants": [
+            "2120"
+          ],
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}

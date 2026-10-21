@@ -1,0 +1,136 @@
+{
+  "id": "ground-unc-backtrack",
+  "title": "Entering and backtracking",
+  "packId": "ground-uncontrolled",
+  "difficulty": "medium",
+  "estimatedDurationSec": 90,
+  "objective": "Announce entering the runway and backtracking, then report lined up.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPI Piła"
+    },
+    {
+      "label": "Station",
+      "value": "Piła Radio 122.405"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Position",
+      "value": "Holding point runway 21"
+    },
+    {
+      "label": "Runway",
+      "value": "21"
+    }
+  ],
+  "phraseologyNote": {
+    "id": "backtrack",
+    "title": "Backtracking",
+    "shortExplanation": "Backtrack means taxiing on the runway in the opposite direction to the take-off direction.",
+    "example": "Piła Radio, SP-TFA, entering runway 21 and backtracking.",
+    "whyItMatters": "Traffic on final must know the runway is occupied."
+  },
+  "steps": [
+    {
+      "id": "entering",
+      "type": "self_announce",
+      "speaker": "pilot",
+      "prompt": "There is no taxiway to the runway threshold. Announce entering runway 21 and backtracking.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, entering runway 21 and backtracking.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Piła Radio",
+          "acceptedVariants": [
+            "Piła Radio",
+            "Pila Radio"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "entering",
+          "label": "Entering runway 21",
+          "acceptedVariants": [
+            "entering runway 21"
+          ],
+          "weight": 35
+        },
+        {
+          "id": "backtracking",
+          "label": "Backtracking",
+          "acceptedVariants": [
+            "backtracking",
+            "backtrack"
+          ],
+          "weight": 35,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "backtracking"
+      ]
+    },
+    {
+      "id": "lined-up",
+      "type": "self_announce",
+      "speaker": "pilot",
+      "prompt": "You turned around at the threshold. Announce lined up and ready to take off.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, lined up runway 21, taking off.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Piła Radio",
+          "acceptedVariants": [
+            "Piła Radio",
+            "Pila Radio"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "lined_up",
+          "label": "Lined up runway 21",
+          "acceptedVariants": [
+            "lined up runway 21",
+            "lining up runway 21"
+          ],
+          "weight": 35
+        },
+        {
+          "id": "taking_off",
+          "label": "Taking off",
+          "acceptedVariants": [
+            "taking off",
+            "departing"
+          ],
+          "weight": 35
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "id": "pattern-positions-right",
+  "title": "Circuit positions, right-hand",
+  "packId": "pattern-basics",
+  "difficulty": "easy",
+  "estimatedDurationSec": 75,
+  "objective": "Name the aircraft position in a right-hand circuit.",
+  "steps": [
+    {
+      "id": "right-crosswind",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the aircraft position (right-hand circuit).",
+      "visual": {
+        "kind": "pattern",
+        "side": "right",
+        "position": "crosswind",
+        "runway": "21"
+      },
+      "expectedPilotResponse": "Crosswind.",
+      "requiredElements": [
+        {
+          "id": "position",
+          "label": "Crosswind",
+          "acceptedVariants": [
+            "crosswind"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "right-base",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the aircraft position (right-hand circuit).",
+      "visual": {
+        "kind": "pattern",
+        "side": "right",
+        "position": "base",
+        "runway": "21"
+      },
+      "expectedPilotResponse": "Base.",
+      "requiredElements": [
+        {
+          "id": "position",
+          "label": "Base",
+          "acceptedVariants": [
+            "base"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "right-downwind",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the aircraft position (right-hand circuit).",
+      "visual": {
+        "kind": "pattern",
+        "side": "right",
+        "position": "downwind",
+        "runway": "21"
+      },
+      "expectedPilotResponse": "Downwind.",
+      "requiredElements": [
+        {
+          "id": "position",
+          "label": "Downwind",
+          "acceptedVariants": [
+            "downwind"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "right-final",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the aircraft position (right-hand circuit).",
+      "visual": {
+        "kind": "pattern",
+        "side": "right",
+        "position": "final",
+        "runway": "21"
+      },
+      "expectedPilotResponse": "Final.",
+      "requiredElements": [
+        {
+          "id": "position",
+          "label": "Final",
+          "acceptedVariants": [
+            "final"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "right-upwind",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the aircraft position (right-hand circuit).",
+      "visual": {
+        "kind": "pattern",
+        "side": "right",
+        "position": "upwind",
+        "runway": "21"
+      },
+      "expectedPilotResponse": "Upwind.",
+      "requiredElements": [
+        {
+          "id": "position",
+          "label": "Upwind",
+          "acceptedVariants": [
+            "upwind"
+          ],
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}

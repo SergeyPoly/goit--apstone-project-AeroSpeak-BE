@@ -1,0 +1,129 @@
+{
+  "id": "arr-ctrl-joining",
+  "title": "Joining instructions",
+  "packId": "arrival-controlled",
+  "difficulty": "medium",
+  "estimatedDurationSec": 90,
+  "objective": "Read back joining instructions for the circuit and report downwind.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPO Poznań-Ławica"
+    },
+    {
+      "label": "Station",
+      "value": "Poznań Tower 119.980"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Position",
+      "value": "November"
+    },
+    {
+      "label": "Runway",
+      "value": "28"
+    }
+  ],
+  "steps": [
+    {
+      "id": "join-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Tower gives you joining instructions. Read back.",
+      "atcText": "SP-TFA, join right downwind runway 28, report downwind.",
+      "atcAudio": "/audio/atc/arr-ctrl-joining/join-readback.mp3",
+      "expectedPilotResponse": "Join right downwind runway 28, report downwind, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "join",
+          "label": "Join right downwind",
+          "acceptedVariants": [
+            "join right downwind",
+            "joining right downwind"
+          ],
+          "weight": 35,
+          "critical": true
+        },
+        {
+          "id": "runway",
+          "label": "Runway 28",
+          "acceptedVariants": [
+            "runway 28"
+          ],
+          "weight": 25,
+          "critical": true
+        },
+        {
+          "id": "report",
+          "label": "Report downwind",
+          "acceptedVariants": [
+            "report downwind",
+            "wilco"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "join",
+        "runway",
+        "callsign"
+      ]
+    },
+    {
+      "id": "downwind",
+      "type": "self_announce",
+      "speaker": "pilot",
+      "prompt": "You are on right downwind. Report.",
+      "expectedPilotResponse": "SP-TFA, right downwind runway 28.",
+      "requiredElements": [
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30
+        },
+        {
+          "id": "downwind",
+          "label": "Right downwind",
+          "acceptedVariants": [
+            "right downwind",
+            "downwind"
+          ],
+          "weight": 40
+        },
+        {
+          "id": "runway",
+          "label": "Runway 28",
+          "acceptedVariants": [
+            "runway 28"
+          ],
+          "weight": 30,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "runway"
+      ]
+    }
+  ]
+}

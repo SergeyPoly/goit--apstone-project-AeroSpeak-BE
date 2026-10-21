@@ -1,69 +1,99 @@
 [
   {
-    "id": "basic-phraseology",
-    "title": "Basic Phraseology",
-    "description": "NATO alphabet, numbers, frequencies, QNH and standard words.",
+    "id": "basics-alphabet",
+    "title": "Phonetic alphabet",
+    "description": "Letters, registrations and airport codes with the ICAO alphabet.",
     "order": 1,
     "recommendedForBeginners": true
+  },
+  {
+    "id": "basics-numbers",
+    "title": "Numbers",
+    "description": "Digits, runways, headings, altitudes, QNH, squawk and time.",
+    "order": 2
+  },
+  {
+    "id": "basics-frequencies",
+    "title": "Frequencies",
+    "description": "Reading and reading back radio frequencies and QNH.",
+    "order": 3
+  },
+  {
+    "id": "basics-standard-words",
+    "title": "Standard words",
+    "description": "Wilco, affirm, roger, negative, unable, standby.",
+    "order": 4
+  },
+  {
+    "id": "pattern-basics",
+    "title": "Circuit basics",
+    "description": "Circuit legs and aircraft positions, left- and right-hand.",
+    "order": 5
+  },
+  {
+    "id": "traffic-pattern-uncontrolled",
+    "title": "Circuit — uncontrolled",
+    "description": "Aerodrome circuit calls: downwind, final, go-around.",
+    "order": 6
+  },
+  {
+    "id": "pattern-controlled",
+    "title": "Circuit — controlled",
+    "description": "Circuits with Tower: sequencing, extending downwind, go-around.",
+    "order": 7
   },
   {
     "id": "ground-uncontrolled",
     "title": "Ground Operations — Uncontrolled",
     "description": "Self-announcing on an uncontrolled aerodrome frequency.",
-    "order": 2
-  },
-  {
-    "id": "ground-controlled",
-    "title": "Ground Operations — Controlled",
-    "description": "Startup, taxi and take-off clearances with Ground and Tower.",
-    "order": 3
+    "order": 8
   },
   {
     "id": "departure-uncontrolled",
     "title": "Departure — Uncontrolled",
     "description": "Departure calls when there is no ATC.",
-    "order": 4
-  },
-  {
-    "id": "departure-controlled",
-    "title": "Departure — Controlled",
-    "description": "Ready for departure, departure instructions and frequency change.",
-    "order": 5
-  },
-  {
-    "id": "traffic-pattern-uncontrolled",
-    "title": "Traffic Pattern — Uncontrolled",
-    "description": "Aerodrome circuit calls: downwind, final, go-around.",
-    "order": 6
+    "order": 9
   },
   {
     "id": "enroute-fis",
     "title": "Enroute / FIS",
     "description": "Initial call, position reports and frequency changes with FIS.",
-    "order": 7
+    "order": 10
   },
   {
     "id": "arrival-uncontrolled",
     "title": "Arrival — Uncontrolled",
     "description": "Inbound and joining calls at an uncontrolled aerodrome.",
-    "order": 8
-  },
-  {
-    "id": "arrival-controlled",
-    "title": "Arrival — Controlled",
-    "description": "Initial contact with Tower and control zone entry.",
-    "order": 9
+    "order": 11
   },
   {
     "id": "landing-uncontrolled",
     "title": "Landing — Uncontrolled",
     "description": "Final and runway vacated calls.",
-    "order": 10
+    "order": 12
+  },
+  {
+    "id": "ground-controlled",
+    "title": "Ground Operations — Controlled",
+    "description": "Startup, taxi and take-off clearances with Ground and Tower.",
+    "order": 13
+  },
+  {
+    "id": "departure-controlled",
+    "title": "Departure — Controlled",
+    "description": "Ready for departure, departure instructions and frequency change.",
+    "order": 14
+  },
+  {
+    "id": "arrival-controlled",
+    "title": "Arrival — Controlled",
+    "description": "Initial contact with Tower and control zone entry.",
+    "order": 15
   },
   {
     "id": "landing-controlled",
     "title": "Landing — Controlled",
     "description": "Landing clearance readback and contacting Ground after landing.",
-    "order": 11
+    "order": 16
   }
 ]

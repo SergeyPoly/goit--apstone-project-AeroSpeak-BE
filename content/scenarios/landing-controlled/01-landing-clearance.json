@@ -1,0 +1,134 @@
+{
+  "id": "lnd-ctrl-landing-clearance",
+  "title": "Landing clearance",
+  "packId": "landing-controlled",
+  "difficulty": "easy",
+  "estimatedDurationSec": 90,
+  "objective": "Report final and read back the landing clearance.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPO Poznań-Ławica"
+    },
+    {
+      "label": "Station",
+      "value": "Poznań Tower 119.980"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Runway",
+      "value": "28"
+    },
+    {
+      "label": "Position",
+      "value": "Final runway 28"
+    }
+  ],
+  "phraseologyNote": {
+    "id": "landing-clearance",
+    "title": "Landing clearance",
+    "shortExplanation": "Read back the runway and \"cleared to land\". Wind does not need a readback.",
+    "example": "Runway 28, cleared to land, SP-TFA.",
+    "whyItMatters": "Landing on the wrong runway or without clearance is a serious incident."
+  },
+  "steps": [
+    {
+      "id": "final",
+      "type": "pilot_request",
+      "speaker": "pilot",
+      "prompt": "You are on final runway 28. Report to Tower.",
+      "expectedPilotResponse": "Poznań Tower, SP-TFA, final runway 28.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Poznań Tower",
+          "acceptedVariants": [
+            "Poznań Tower",
+            "Poznan Tower"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30
+        },
+        {
+          "id": "final",
+          "label": "Final",
+          "acceptedVariants": [
+            "final"
+          ],
+          "weight": 30
+        },
+        {
+          "id": "runway",
+          "label": "Runway 28",
+          "acceptedVariants": [
+            "runway 28"
+          ],
+          "weight": 30,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "runway"
+      ]
+    },
+    {
+      "id": "clearance-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Read back the landing clearance.",
+      "atcText": "SP-TFA, wind 260 degrees 8 knots, runway 28, cleared to land.",
+      "atcAudio": "/audio/atc/lnd-ctrl-landing-clearance/clearance-readback.mp3",
+      "expectedPilotResponse": "Runway 28, cleared to land, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "runway",
+          "label": "Runway 28",
+          "acceptedVariants": [
+            "runway 28"
+          ],
+          "weight": 30,
+          "critical": true
+        },
+        {
+          "id": "cleared_to_land",
+          "label": "Cleared to land",
+          "acceptedVariants": [
+            "cleared to land"
+          ],
+          "weight": 40,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "runway",
+        "cleared_to_land",
+        "callsign"
+      ]
+    }
+  ]
+}

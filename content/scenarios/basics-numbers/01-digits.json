@@ -1,0 +1,227 @@
+{
+  "id": "numbers-digits",
+  "title": "Digits",
+  "packId": "basics-numbers",
+  "difficulty": "easy",
+  "estimatedDurationSec": 120,
+  "objective": "Say single digits with ICAO pronunciation: tree, fife, niner.",
+  "phraseologyNote": {
+    "id": "icao-digits",
+    "title": "ICAO digits",
+    "shortExplanation": "3 is \"tree\", 5 is \"fife\", 9 is \"niner\". All other digits are said normally.",
+    "example": "Tree, fife, niner",
+    "whyItMatters": "These forms stay clear on a noisy radio and for non-native speakers."
+  },
+  "steps": [
+    {
+      "id": "digit-1",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given number.",
+      "visual": {
+        "kind": "text",
+        "text": "1"
+      },
+      "expectedPilotResponse": "One.",
+      "requiredElements": [
+        {
+          "id": "digit",
+          "label": "1",
+          "acceptedVariants": [
+            "1"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "digit-3",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given number.",
+      "visual": {
+        "kind": "text",
+        "text": "3"
+      },
+      "expectedPilotResponse": "Tree.",
+      "requiredElements": [
+        {
+          "id": "digit",
+          "label": "3",
+          "acceptedVariants": [
+            "3"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "digit-5",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given number.",
+      "visual": {
+        "kind": "text",
+        "text": "5"
+      },
+      "expectedPilotResponse": "Fife.",
+      "requiredElements": [
+        {
+          "id": "digit",
+          "label": "5",
+          "acceptedVariants": [
+            "5"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "digit-9",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given number.",
+      "visual": {
+        "kind": "text",
+        "text": "9"
+      },
+      "expectedPilotResponse": "Niner.",
+      "requiredElements": [
+        {
+          "id": "digit",
+          "label": "9",
+          "acceptedVariants": [
+            "9"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "digit-0",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given number.",
+      "visual": {
+        "kind": "text",
+        "text": "0"
+      },
+      "expectedPilotResponse": "Zero.",
+      "requiredElements": [
+        {
+          "id": "digit",
+          "label": "0",
+          "acceptedVariants": [
+            "0"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "digit-4",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given number.",
+      "visual": {
+        "kind": "text",
+        "text": "4"
+      },
+      "expectedPilotResponse": "Four.",
+      "requiredElements": [
+        {
+          "id": "digit",
+          "label": "4",
+          "acceptedVariants": [
+            "4"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "digit-7",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given number.",
+      "visual": {
+        "kind": "text",
+        "text": "7"
+      },
+      "expectedPilotResponse": "Seven.",
+      "requiredElements": [
+        {
+          "id": "digit",
+          "label": "7",
+          "acceptedVariants": [
+            "7"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "digit-2",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given number.",
+      "visual": {
+        "kind": "text",
+        "text": "2"
+      },
+      "expectedPilotResponse": "Two.",
+      "requiredElements": [
+        {
+          "id": "digit",
+          "label": "2",
+          "acceptedVariants": [
+            "2"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "digit-8",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given number.",
+      "visual": {
+        "kind": "text",
+        "text": "8"
+      },
+      "expectedPilotResponse": "Eight.",
+      "requiredElements": [
+        {
+          "id": "digit",
+          "label": "8",
+          "acceptedVariants": [
+            "8"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "digit-6",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given number.",
+      "visual": {
+        "kind": "text",
+        "text": "6"
+      },
+      "expectedPilotResponse": "Six.",
+      "requiredElements": [
+        {
+          "id": "digit",
+          "label": "6",
+          "acceptedVariants": [
+            "6"
+          ],
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}

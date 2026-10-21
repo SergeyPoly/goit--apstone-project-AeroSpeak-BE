@@ -1,0 +1,178 @@
+{
+  "id": "lnd-ctrl-vacate-taxi",
+  "title": "Vacate and taxi in",
+  "packId": "landing-controlled",
+  "difficulty": "medium",
+  "estimatedDurationSec": 150,
+  "objective": "Read back vacating instructions, call Ground and read back the taxi-in route.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPO Poznań-Ławica"
+    },
+    {
+      "label": "Station",
+      "value": "Poznań Tower 119.980"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Runway",
+      "value": "28"
+    },
+    {
+      "label": "Position",
+      "value": "Landing roll runway 28"
+    }
+  ],
+  "steps": [
+    {
+      "id": "vacate-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "After landing, Tower tells you how to vacate. Read back.",
+      "atcText": "SP-TFA, vacate left via Bravo, contact Ground 124.140.",
+      "atcAudio": "/audio/atc/lnd-ctrl-vacate-taxi/vacate-readback.mp3",
+      "expectedPilotResponse": "Vacate left via Bravo, contact Ground 124.140, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "vacate",
+          "label": "Vacate left via Bravo",
+          "acceptedVariants": [
+            "vacate left via Bravo",
+            "vacating left via Bravo"
+          ],
+          "weight": 30,
+          "critical": true
+        },
+        {
+          "id": "contact",
+          "label": "Contact Ground",
+          "acceptedVariants": [
+            "contact Ground"
+          ],
+          "weight": 15
+        },
+        {
+          "id": "frequency",
+          "label": "124.140",
+          "acceptedVariants": [
+            "124.140",
+            "124.14"
+          ],
+          "weight": 35,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "vacate",
+        "frequency",
+        "callsign"
+      ]
+    },
+    {
+      "id": "call-ground",
+      "type": "pilot_request",
+      "speaker": "pilot",
+      "prompt": "You have vacated via Bravo. Call Ground and request taxi to the general aviation apron.",
+      "expectedPilotResponse": "Poznań Ground, SP-TFA, runway vacated via Bravo, request taxi to the general aviation apron.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Poznań Ground",
+          "acceptedVariants": [
+            "Poznań Ground",
+            "Poznan Ground"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "vacated",
+          "label": "Runway vacated via Bravo",
+          "acceptedVariants": [
+            "runway vacated via Bravo",
+            "vacated via Bravo"
+          ],
+          "weight": 30
+        },
+        {
+          "id": "request",
+          "label": "Request taxi to the general aviation apron",
+          "acceptedVariants": [
+            "request taxi to the general aviation apron",
+            "request taxi to general aviation apron",
+            "request taxi to the GA apron"
+          ],
+          "weight": 40
+        }
+      ]
+    },
+    {
+      "id": "taxi-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Read back the taxi-in route.",
+      "atcText": "SP-TFA, taxi to the general aviation apron via Bravo.",
+      "atcAudio": "/audio/atc/lnd-ctrl-vacate-taxi/taxi-readback.mp3",
+      "expectedPilotResponse": "Taxi to the general aviation apron via Bravo, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "taxi",
+          "label": "Taxi to the general aviation apron",
+          "acceptedVariants": [
+            "taxi to the general aviation apron",
+            "taxi to general aviation apron",
+            "taxi to the GA apron"
+          ],
+          "weight": 45
+        },
+        {
+          "id": "route",
+          "label": "Via Bravo",
+          "acceptedVariants": [
+            "via Bravo"
+          ],
+          "weight": 35
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "callsign"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "id": "arr-unc-inbound",
+  "title": "Inbound call",
+  "packId": "arrival-uncontrolled",
+  "difficulty": "easy",
+  "estimatedDurationSec": 120,
+  "objective": "Call Piła Radio inbound, read back the airfield information and announce joining.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPI Piła"
+    },
+    {
+      "label": "Station",
+      "value": "Piła Radio 122.405"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Position",
+      "value": "10 miles south"
+    },
+    {
+      "label": "Altitude",
+      "value": "2000 feet"
+    },
+    {
+      "label": "Intention",
+      "value": "Full-stop landing"
+    }
+  ],
+  "steps": [
+    {
+      "id": "inbound",
+      "type": "pilot_request",
+      "speaker": "pilot",
+      "prompt": "You are 10 miles south at 2000 feet, inbound for landing. Call Piła Radio and ask for airfield information.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, 10 miles south, 2000 feet, inbound for landing, request airfield information.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Piła Radio",
+          "acceptedVariants": [
+            "Piła Radio",
+            "Pila Radio"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "position",
+          "label": "10 miles south",
+          "acceptedVariants": [
+            "10 miles south"
+          ],
+          "weight": 15
+        },
+        {
+          "id": "altitude",
+          "label": "2000 feet",
+          "acceptedVariants": [
+            "2000 feet"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "inbound",
+          "label": "Inbound for landing",
+          "acceptedVariants": [
+            "inbound for landing",
+            "inbound"
+          ],
+          "weight": 25
+        },
+        {
+          "id": "request",
+          "label": "Request airfield information",
+          "acceptedVariants": [
+            "request airfield information",
+            "request information"
+          ],
+          "weight": 20
+        }
+      ]
+    },
+    {
+      "id": "information-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Read back runway and QNH.",
+      "atcText": "SP-TFA, Piła Radio, runway 21 in use, QNH 1012, one Cessna in the circuit.",
+      "atcAudio": "/audio/atc/arr-unc-inbound/information-readback.mp3",
+      "expectedPilotResponse": "Runway 21, QNH 1012, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "runway",
+          "label": "Runway 21",
+          "acceptedVariants": [
+            "runway 21"
+          ],
+          "weight": 30,
+          "critical": true
+        },
+        {
+          "id": "qnh",
+          "label": "QNH 1012",
+          "acceptedVariants": [
+            "QNH 1012"
+          ],
+          "weight": 40,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "runway",
+        "qnh",
+        "callsign"
+      ]
+    },
+    {
+      "id": "joining",
+      "type": "self_announce",
+      "speaker": "pilot",
+      "prompt": "Announce joining downwind for runway 21.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, joining downwind runway 21.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Piła Radio",
+          "acceptedVariants": [
+            "Piła Radio",
+            "Pila Radio"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "joining",
+          "label": "Joining downwind",
+          "acceptedVariants": [
+            "joining downwind",
+            "join downwind"
+          ],
+          "weight": 40
+        },
+        {
+          "id": "runway",
+          "label": "Runway 21",
+          "acceptedVariants": [
+            "runway 21"
+          ],
+          "weight": 30,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "runway"
+      ]
+    }
+  ]
+}

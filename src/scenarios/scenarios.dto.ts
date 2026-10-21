@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiExtraModels, ApiProperty, ApiPropertyOptional, getSchemaPath } from '@nestjs/swagger';
 
 /**
  * Response DTOs. They exist for the OpenAPI schema (the frontend generates its
@@ -26,6 +26,22 @@ export class RequiredElementDto {
   @ApiPropertyOptional() critical?: boolean;
 }
 
+export class TextVisualDto {
+  @ApiProperty({ enum: ['text'] }) kind: 'text';
+  @ApiProperty({ description: 'Text to read out, e.g. a frequency or registration' })
+  text: string;
+  @ApiPropertyOptional() caption?: string;
+}
+
+export class PatternVisualDto {
+  @ApiProperty({ enum: ['pattern'] }) kind: 'pattern';
+  @ApiProperty({ enum: ['left', 'right'] }) side: 'left' | 'right';
+  @ApiProperty({ enum: ['upwind', 'crosswind', 'downwind', 'base', 'final'] })
+  position: 'upwind' | 'crosswind' | 'downwind' | 'base' | 'final';
+  @ApiProperty() runway: string;
+}
+
+@ApiExtraModels(TextVisualDto, PatternVisualDto)
 export class ScenarioStepDto {
   @ApiProperty() id: string;
   @ApiProperty({
@@ -41,6 +57,16 @@ export class ScenarioStepDto {
   @ApiProperty({ type: [RequiredElementDto] }) requiredElements: RequiredElementDto[];
   @ApiPropertyOptional({ type: [String] }) criticalElements?: string[];
   @ApiPropertyOptional() phraseologyReferenceId?: string;
+  @ApiPropertyOptional({
+    description:
+      'UI metadata, does not affect scoring. Without it the practice screen shows the aerodrome chart.',
+    oneOf: [{ $ref: getSchemaPath(TextVisualDto) }, { $ref: getSchemaPath(PatternVisualDto) }],
+    discriminator: {
+      propertyName: 'kind',
+      mapping: { text: getSchemaPath(TextVisualDto), pattern: getSchemaPath(PatternVisualDto) },
+    },
+  })
+  visual?: TextVisualDto | PatternVisualDto;
 }
 
 export class ScenarioSummaryDto {

@@ -1,0 +1,153 @@
+{
+  "id": "ground-ctrl-start-up",
+  "title": "Start-up request",
+  "packId": "ground-controlled",
+  "difficulty": "easy",
+  "estimatedDurationSec": 90,
+  "objective": "Request start-up from Poznań Ground with full identification and read back the approval.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPO Poznań-Ławica"
+    },
+    {
+      "label": "Station",
+      "value": "Poznań Ground 124.140"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Position",
+      "value": "General aviation apron"
+    },
+    {
+      "label": "ATIS",
+      "value": "Information Kilo"
+    },
+    {
+      "label": "QNH",
+      "value": "1013"
+    }
+  ],
+  "phraseologyNote": {
+    "id": "initial-call",
+    "title": "Initial call",
+    "shortExplanation": "First contact: station, callsign, aircraft type, position, ATIS letter, request.",
+    "example": "Poznań Ground, SP-TFA, Cessna 172 at the general aviation apron, information Kilo, request start-up.",
+    "whyItMatters": "ATC gets everything it needs in one call and confirms you have the current ATIS."
+  },
+  "steps": [
+    {
+      "id": "request-start-up",
+      "type": "pilot_request",
+      "speaker": "pilot",
+      "prompt": "You are parked at the general aviation apron with ATIS Kilo. Request start-up from Ground.",
+      "expectedPilotResponse": "Poznań Ground, SP-TFA, Cessna 172 at the general aviation apron, information Kilo, request start-up.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Poznań Ground",
+          "acceptedVariants": [
+            "Poznań Ground",
+            "Poznan Ground"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "type",
+          "label": "Cessna 172",
+          "acceptedVariants": [
+            "Cessna 172"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "position",
+          "label": "General aviation apron",
+          "acceptedVariants": [
+            "general aviation apron",
+            "GA apron"
+          ],
+          "weight": 15
+        },
+        {
+          "id": "atis",
+          "label": "Information Kilo",
+          "acceptedVariants": [
+            "information Kilo",
+            "information K"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "request",
+          "label": "Request start-up",
+          "acceptedVariants": [
+            "request start-up",
+            "request startup"
+          ],
+          "weight": 25
+        }
+      ]
+    },
+    {
+      "id": "start-up-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Ground approves the start-up. Read it back.",
+      "atcText": "SP-TFA, Poznań Ground, start-up approved, QNH 1013.",
+      "atcAudio": "/audio/atc/ground-ctrl-start-up/start-up-readback.mp3",
+      "expectedPilotResponse": "Start-up approved, QNH 1013, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "approved",
+          "label": "Start-up approved",
+          "acceptedVariants": [
+            "start-up approved",
+            "startup approved",
+            "starting up"
+          ],
+          "weight": 30
+        },
+        {
+          "id": "qnh",
+          "label": "QNH 1013",
+          "acceptedVariants": [
+            "QNH 1013"
+          ],
+          "weight": 40,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "qnh",
+        "callsign"
+      ]
+    }
+  ]
+}

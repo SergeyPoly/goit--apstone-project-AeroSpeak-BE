@@ -1,0 +1,137 @@
+{
+  "id": "dep-ctrl-departure-instructions",
+  "title": "Departure instructions and frequency change",
+  "packId": "departure-controlled",
+  "difficulty": "hard",
+  "estimatedDurationSec": 120,
+  "objective": "Read back the departure route with an altitude restriction and the frequency change.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPO Poznań-Ławica"
+    },
+    {
+      "label": "Station",
+      "value": "Poznań Tower 119.980"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Runway",
+      "value": "28"
+    },
+    {
+      "label": "Intention",
+      "value": "VFR to Piła via Whiskey"
+    }
+  ],
+  "steps": [
+    {
+      "id": "route-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Tower gives you the departure route. Read it back.",
+      "atcText": "SP-TFA, after departure turn right, leave control zone via Whiskey, not above 1500 feet.",
+      "atcAudio": "/audio/atc/dep-ctrl-departure-instructions/route-readback.mp3",
+      "expectedPilotResponse": "After departure turn right, leave control zone via Whiskey, not above 1500 feet, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "turn",
+          "label": "After departure turn right",
+          "acceptedVariants": [
+            "after departure turn right",
+            "turn right"
+          ],
+          "weight": 20,
+          "critical": true
+        },
+        {
+          "id": "exit",
+          "label": "Leave control zone via Whiskey",
+          "acceptedVariants": [
+            "leave control zone via Whiskey",
+            "leaving control zone via Whiskey",
+            "via Whiskey"
+          ],
+          "weight": 30,
+          "critical": true
+        },
+        {
+          "id": "altitude",
+          "label": "Not above 1500 feet",
+          "acceptedVariants": [
+            "not above 1500 feet"
+          ],
+          "weight": 30,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "turn",
+        "exit",
+        "altitude",
+        "callsign"
+      ]
+    },
+    {
+      "id": "frequency-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Approaching Whiskey, Tower hands you over. Read back.",
+      "atcText": "SP-TFA, contact Poznań Approach 128.925.",
+      "atcAudio": "/audio/atc/dep-ctrl-departure-instructions/frequency-readback.mp3",
+      "expectedPilotResponse": "Contact Poznań Approach 128.925, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "contact",
+          "label": "Contact Poznań Approach",
+          "acceptedVariants": [
+            "contact Poznań Approach",
+            "contact Poznan Approach",
+            "contact Approach"
+          ],
+          "weight": 30
+        },
+        {
+          "id": "frequency",
+          "label": "128.925",
+          "acceptedVariants": [
+            "128.925"
+          ],
+          "weight": 45,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 25,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "frequency",
+        "callsign"
+      ]
+    }
+  ]
+}

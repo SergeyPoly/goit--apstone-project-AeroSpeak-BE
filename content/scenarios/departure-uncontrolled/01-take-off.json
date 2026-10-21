@@ -1,0 +1,136 @@
+{
+  "id": "dep-unc-take-off",
+  "title": "Take-off call",
+  "packId": "departure-uncontrolled",
+  "difficulty": "easy",
+  "estimatedDurationSec": 60,
+  "objective": "Announce lining up and taking off at an uncontrolled airfield.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPI Piła"
+    },
+    {
+      "label": "Station",
+      "value": "Piła Radio 122.405"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Runway",
+      "value": "21"
+    },
+    {
+      "label": "Intention",
+      "value": "Leave the circuit to the south"
+    }
+  ],
+  "steps": [
+    {
+      "id": "lining-up",
+      "type": "self_announce",
+      "speaker": "pilot",
+      "prompt": "You are at the holding point and final is clear. Announce lining up runway 21.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, lining up runway 21.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Piła Radio",
+          "acceptedVariants": [
+            "Piła Radio",
+            "Pila Radio"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "lining_up",
+          "label": "Lining up",
+          "acceptedVariants": [
+            "lining up"
+          ],
+          "weight": 35
+        },
+        {
+          "id": "runway",
+          "label": "Runway 21",
+          "acceptedVariants": [
+            "runway 21"
+          ],
+          "weight": 35,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "runway"
+      ]
+    },
+    {
+      "id": "taking-off",
+      "type": "self_announce",
+      "speaker": "pilot",
+      "prompt": "Announce that you are taking off and will leave the circuit to the south.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, taking off runway 21, departing to the south.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Piła Radio",
+          "acceptedVariants": [
+            "Piła Radio",
+            "Pila Radio"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "taking_off",
+          "label": "Taking off",
+          "acceptedVariants": [
+            "taking off"
+          ],
+          "weight": 25
+        },
+        {
+          "id": "runway",
+          "label": "Runway 21",
+          "acceptedVariants": [
+            "runway 21"
+          ],
+          "weight": 25
+        },
+        {
+          "id": "direction",
+          "label": "Departing to the south",
+          "acceptedVariants": [
+            "departing to the south",
+            "departing south",
+            "to the south"
+          ],
+          "weight": 20
+        }
+      ]
+    }
+  ]
+}

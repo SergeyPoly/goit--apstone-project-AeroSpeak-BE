@@ -1,0 +1,193 @@
+{
+  "id": "ground-unc-information-taxi",
+  "title": "Airfield information and taxi",
+  "packId": "ground-uncontrolled",
+  "difficulty": "easy",
+  "estimatedDurationSec": 120,
+  "objective": "Ask Piła Radio for airfield information, read back the essentials and announce your taxi.",
+  "briefing": [
+    {
+      "label": "Airport",
+      "value": "EPPI Piła"
+    },
+    {
+      "label": "Station",
+      "value": "Piła Radio 122.405"
+    },
+    {
+      "label": "Callsign",
+      "value": "SP-TFA"
+    },
+    {
+      "label": "Aircraft",
+      "value": "Cessna 172"
+    },
+    {
+      "label": "Position",
+      "value": "Apron"
+    },
+    {
+      "label": "Intention",
+      "value": "VFR flight to Poznań"
+    }
+  ],
+  "phraseologyNote": {
+    "id": "ag-radio",
+    "title": "A/G radio (Radio)",
+    "shortExplanation": "An A/G station gives information, not clearances. You decide and announce what you do.",
+    "example": "Piła Radio, SP-TFA, taxiing to holding point runway 21.",
+    "whyItMatters": "Other traffic builds its picture from your announcements."
+  },
+  "steps": [
+    {
+      "id": "request-information",
+      "type": "pilot_request",
+      "speaker": "pilot",
+      "prompt": "You are on the apron at Piła. Call Piła Radio: who you are, where you are, your flight, and ask for airfield information.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, Cessna 172 on the apron, VFR flight to Poznań, request airfield information.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Piła Radio",
+          "acceptedVariants": [
+            "Piła Radio",
+            "Pila Radio"
+          ],
+          "weight": 11
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 22
+        },
+        {
+          "id": "position",
+          "label": "On the apron",
+          "acceptedVariants": [
+            "on the apron",
+            "at the apron",
+            "apron"
+          ],
+          "weight": 17
+        },
+        {
+          "id": "flight",
+          "label": "VFR flight to Poznań",
+          "acceptedVariants": [
+            "VFR flight to Poznań",
+            "VFR flight to Poznan",
+            "VFR to Poznań",
+            "VFR to Poznan"
+          ],
+          "weight": 22
+        },
+        {
+          "id": "request",
+          "label": "Request airfield information",
+          "acceptedVariants": [
+            "request airfield information",
+            "request information"
+          ],
+          "weight": 28
+        }
+      ]
+    },
+    {
+      "id": "information-readback",
+      "type": "pilot_readback",
+      "speaker": "atc",
+      "prompt": "Piła Radio gives you the runway in use and QNH. Read back runway and QNH.",
+      "atcText": "SP-TFA, Piła Radio, runway 21 in use, wind 220 degrees 8 knots, QNH 1013.",
+      "atcAudio": "/audio/atc/ground-unc-information-taxi/information-readback.mp3",
+      "expectedPilotResponse": "Runway 21, QNH 1013, SP-TFA.",
+      "requiredElements": [
+        {
+          "id": "runway",
+          "label": "Runway 21",
+          "acceptedVariants": [
+            "runway 21"
+          ],
+          "weight": 30,
+          "critical": true
+        },
+        {
+          "id": "qnh",
+          "label": "QNH 1013",
+          "acceptedVariants": [
+            "QNH 1013"
+          ],
+          "weight": 40,
+          "critical": true
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 30,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "runway",
+        "qnh",
+        "callsign"
+      ]
+    },
+    {
+      "id": "taxiing",
+      "type": "self_announce",
+      "speaker": "pilot",
+      "prompt": "Announce that you are taxiing to the holding point of the runway in use.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, taxiing to holding point runway 21.",
+      "requiredElements": [
+        {
+          "id": "station",
+          "label": "Piła Radio",
+          "acceptedVariants": [
+            "Piła Radio",
+            "Pila Radio"
+          ],
+          "weight": 10
+        },
+        {
+          "id": "callsign",
+          "label": "SP-TFA",
+          "acceptedVariants": [
+            "SP-TFA",
+            "Sierra Papa Tango Foxtrot Alpha"
+          ],
+          "weight": 20
+        },
+        {
+          "id": "taxiing",
+          "label": "Taxiing to holding point",
+          "acceptedVariants": [
+            "taxiing to holding point",
+            "taxiing to the holding point",
+            "taxi to holding point"
+          ],
+          "weight": 35
+        },
+        {
+          "id": "runway",
+          "label": "Runway 21",
+          "acceptedVariants": [
+            "runway 21"
+          ],
+          "weight": 35,
+          "critical": true
+        }
+      ],
+      "criticalElements": [
+        "runway"
+      ]
+    }
+  ]
+}

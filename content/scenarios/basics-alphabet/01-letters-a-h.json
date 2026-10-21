@@ -1,0 +1,186 @@
+{
+  "id": "alphabet-letters-a-h",
+  "title": "Letters A–H",
+  "packId": "basics-alphabet",
+  "difficulty": "easy",
+  "estimatedDurationSec": 120,
+  "objective": "Say the letters A–H with the ICAO phonetic alphabet.",
+  "phraseologyNote": {
+    "id": "phonetic-alphabet",
+    "title": "Phonetic alphabet",
+    "shortExplanation": "Letters are spoken with ICAO code words: Alpha, Bravo, Charlie…",
+    "example": "B = Bravo, J = Juliett",
+    "whyItMatters": "Single letters sound alike on a noisy frequency; code words do not."
+  },
+  "steps": [
+    {
+      "id": "letter-a",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "A"
+      },
+      "expectedPilotResponse": "Alpha.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Alpha",
+          "acceptedVariants": [
+            "Alpha",
+            "Alfa"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-b",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "B"
+      },
+      "expectedPilotResponse": "Bravo.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Bravo",
+          "acceptedVariants": [
+            "Bravo"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-c",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "C"
+      },
+      "expectedPilotResponse": "Charlie.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Charlie",
+          "acceptedVariants": [
+            "Charlie"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-d",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "D"
+      },
+      "expectedPilotResponse": "Delta.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Delta",
+          "acceptedVariants": [
+            "Delta"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-e",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "E"
+      },
+      "expectedPilotResponse": "Echo.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Echo",
+          "acceptedVariants": [
+            "Echo"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-f",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "F"
+      },
+      "expectedPilotResponse": "Foxtrot.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Foxtrot",
+          "acceptedVariants": [
+            "Foxtrot"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-g",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "G"
+      },
+      "expectedPilotResponse": "Golf.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Golf",
+          "acceptedVariants": [
+            "Golf"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "letter-h",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given letter.",
+      "visual": {
+        "kind": "text",
+        "text": "H"
+      },
+      "expectedPilotResponse": "Hotel.",
+      "requiredElements": [
+        {
+          "id": "letter",
+          "label": "Hotel",
+          "acceptedVariants": [
+            "Hotel"
+          ],
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}

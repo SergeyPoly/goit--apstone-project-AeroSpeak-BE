@@ -1,0 +1,125 @@
+{
+  "id": "alphabet-airport-codes",
+  "title": "Airport codes",
+  "packId": "basics-alphabet",
+  "difficulty": "easy",
+  "estimatedDurationSec": 75,
+  "objective": "Spell ICAO airport codes with the phonetic alphabet.",
+  "steps": [
+    {
+      "id": "code-eppo",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Spell the given ICAO airport code.",
+      "visual": {
+        "kind": "text",
+        "text": "EPPO",
+        "caption": "Poznań-Ławica"
+      },
+      "expectedPilotResponse": "Echo Papa Papa Oscar.",
+      "requiredElements": [
+        {
+          "id": "code",
+          "label": "EPPO",
+          "acceptedVariants": [
+            "EPPO",
+            "Echo Papa Papa Oscar"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "code-eppi",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Spell the given ICAO airport code.",
+      "visual": {
+        "kind": "text",
+        "text": "EPPI",
+        "caption": "Piła"
+      },
+      "expectedPilotResponse": "Echo Papa Papa India.",
+      "requiredElements": [
+        {
+          "id": "code",
+          "label": "EPPI",
+          "acceptedVariants": [
+            "EPPI",
+            "Echo Papa Papa India"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "code-epwa",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Spell the given ICAO airport code.",
+      "visual": {
+        "kind": "text",
+        "text": "EPWA",
+        "caption": "Warsaw Chopin"
+      },
+      "expectedPilotResponse": "Echo Papa Whiskey Alpha.",
+      "requiredElements": [
+        {
+          "id": "code",
+          "label": "EPWA",
+          "acceptedVariants": [
+            "EPWA",
+            "Echo Papa Whiskey Alpha"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "code-epkk",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Spell the given ICAO airport code.",
+      "visual": {
+        "kind": "text",
+        "text": "EPKK",
+        "caption": "Kraków"
+      },
+      "expectedPilotResponse": "Echo Papa Kilo Kilo.",
+      "requiredElements": [
+        {
+          "id": "code",
+          "label": "EPKK",
+          "acceptedVariants": [
+            "EPKK",
+            "Echo Papa Kilo Kilo"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "code-eddb",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Spell the given ICAO airport code.",
+      "visual": {
+        "kind": "text",
+        "text": "EDDB",
+        "caption": "Berlin Brandenburg"
+      },
+      "expectedPilotResponse": "Echo Delta Delta Bravo.",
+      "requiredElements": [
+        {
+          "id": "code",
+          "label": "EDDB",
+          "acceptedVariants": [
+            "EDDB",
+            "Echo Delta Delta Bravo"
+          ],
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "id": "frequencies-reading",
+  "title": "Reading frequencies",
+  "packId": "basics-frequencies",
+  "difficulty": "easy",
+  "estimatedDurationSec": 90,
+  "objective": "Read radio frequencies digit by digit with \"decimal\".",
+  "phraseologyNote": {
+    "id": "frequencies",
+    "title": "Frequencies",
+    "shortExplanation": "Say every digit and \"decimal\" for the point. Trailing zeros may be dropped.",
+    "example": "One two four decimal one four zero",
+    "whyItMatters": "A wrong frequency means losing contact with ATC."
+  },
+  "steps": [
+    {
+      "id": "freq-118-505",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given frequency.",
+      "visual": {
+        "kind": "text",
+        "text": "118.505"
+      },
+      "expectedPilotResponse": "One one eight decimal fife zero fife.",
+      "requiredElements": [
+        {
+          "id": "frequency",
+          "label": "118.505",
+          "acceptedVariants": [
+            "118.505"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "freq-124-140",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given frequency.",
+      "visual": {
+        "kind": "text",
+        "text": "124.140"
+      },
+      "expectedPilotResponse": "One two four decimal one four zero.",
+      "requiredElements": [
+        {
+          "id": "frequency",
+          "label": "124.140",
+          "acceptedVariants": [
+            "124.140"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "freq-121-805",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given frequency.",
+      "visual": {
+        "kind": "text",
+        "text": "121.805"
+      },
+      "expectedPilotResponse": "One two one decimal eight zero fife.",
+      "requiredElements": [
+        {
+          "id": "frequency",
+          "label": "121.805",
+          "acceptedVariants": [
+            "121.805"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "freq-122-405",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given frequency.",
+      "visual": {
+        "kind": "text",
+        "text": "122.405"
+      },
+      "expectedPilotResponse": "One two two decimal four zero fife.",
+      "requiredElements": [
+        {
+          "id": "frequency",
+          "label": "122.405",
+          "acceptedVariants": [
+            "122.405"
+          ],
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "id": "freq-119-980",
+      "type": "basic_drill",
+      "speaker": "pilot",
+      "prompt": "Say the given frequency.",
+      "visual": {
+        "kind": "text",
+        "text": "119.980"
+      },
+      "expectedPilotResponse": "One one niner decimal niner eight zero.",
+      "requiredElements": [
+        {
+          "id": "frequency",
+          "label": "119.980",
+          "acceptedVariants": [
+            "119.980"
+          ],
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}
