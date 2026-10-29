@@ -82,9 +82,12 @@ export class AttemptsService {
       score: result.score,
       displayScore: result.displayScore,
       success: result.success,
-      elements: result.elements.map(({ position: _position, ...element }) => element),
+      elements: result.elements.map(
+        ({ position: _position, issues: _issues, ...element }) => element,
+      ),
       missedCritical: result.missedCritical,
       orderCorrect: result.orderCorrect,
+      ...(result.order ? { order: result.order } : {}),
       tip: result.tip,
       feedbackProcessingMs,
     };

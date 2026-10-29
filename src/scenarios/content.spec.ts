@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { expandToSpoken, scoreTransmission } from '../scoring';
+import { CALLSIGN_ID, expandToSpoken, orderRuleFor, scoreTransmission } from '../scoring';
 import { loadContent } from './content-loader';
 import { CONTENT_DIR } from './scenarios.service';
 
@@ -47,9 +47,8 @@ describe('scenario content', () => {
         expect(result.score).toBe(100);
       });
 
-      // Team rule: a flight level is written with three digits everywhere the user sees
-      // or says it ("FL 065", not "FL 65").
-      it(`${scenario.id} / ${step.id}: writes flight levels with three digits`, () => {
+      // Doc 9432 2.4.2: "FL 95" is "flight level niner five", without a leading zero.
+      it(`${scenario.id} / ${step.id}: flight levels have no leading zero`, () => {
         const texts = [
           step.visual?.kind === 'text' ? step.visual.text : '',
           step.prompt,
@@ -57,11 +56,17 @@ describe('scenario content', () => {
           step.expectedPilotResponse,
           ...step.requiredElements.flatMap((e) => [e.label, ...e.acceptedVariants]),
         ];
-        const shortLevels = texts.flatMap(
-          (t) => t.match(/\b(?:FL|flight level)\s*\d{1,2}\b/gi) ?? [],
-        );
-        expect(shortLevels).toEqual([]);
+        const zeroLevels = texts.flatMap((t) => t.match(/\b(?:FL|flight level)\s*0\d/gi) ?? []);
+        expect(zeroLevels).toEqual([]);
       });
+
+      if (orderRuleFor(step) === 'readback') {
+        // A readback puts the callsign at the start or at the end, never in the middle.
+        it(`${scenario.id} / ${step.id}: readback callsign is first or last`, () => {
+          const ids = step.requiredElements.map((e) => e.id);
+          expect([ids[0], ids.at(-1)]).toContain(CALLSIGN_ID);
+        });
+      }
 
       if (step.atcAudio) {
         // The frontend serves ATC audio from public/audio/atc/<scenarioId>/<stepId>.mp3.
