@@ -1,4 +1,6 @@
 export * from './types';
-export { normalize, tokenize } from './normalize';
-export { levenshtein, similarity, matchElement } from './match';
+export { expandToSpoken, type SpokenWord } from './spoken';
+export { tokenizeTranscript, type HeardWord, type SttWord } from './transcript';
+export { compareWords, levenshtein, similarity } from './compare';
+export { matchElement, spokenForms } from './match';
 export { scoreTransmission, toDisplayScore, CRITICAL_MISS_CAP } from './score';

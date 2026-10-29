@@ -11,7 +11,11 @@ const MAX_KEYTERMS = 50;
 interface DeepgramResponse {
   results?: {
     channels?: Array<{
-      alternatives?: Array<{ transcript?: string; confidence?: number }>;
+      alternatives?: Array<{
+        transcript?: string;
+        confidence?: number;
+        words?: Array<{ word: string; confidence: number }>;
+      }>;
     }>;
   };
 }
@@ -33,7 +37,7 @@ export class DeepgramSttProvider extends SttProvider {
     const params = new URLSearchParams({
       model: this.config.get('DEEPGRAM_MODEL', { infer: true }),
       language: 'en',
-      // Keep raw words: our own normalizer handles numbers and letters.
+      // Keep raw words: scoring compares spoken words ("tree", "niner"), not digits.
       smart_format: 'false',
       punctuate: 'false',
     });
@@ -65,6 +69,7 @@ export class DeepgramSttProvider extends SttProvider {
     return {
       transcript: alternative?.transcript ?? '',
       confidence: alternative?.confidence,
+      words: alternative?.words?.map(({ word, confidence }) => ({ word, confidence })),
       provider: this.name,
     };
   }

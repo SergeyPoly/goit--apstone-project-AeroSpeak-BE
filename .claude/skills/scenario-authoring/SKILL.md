@@ -32,10 +32,14 @@ The `NN-` prefix (`01-`, `02-`, ...) is the order users see inside a pack.
    for take-off / to land, frequency, QNH, squawk, altitude, reporting point, and the
    callsign in a readback.
 5. `acceptedVariants` hold realistic alternatives a pilot may say ("hold short runway 29",
-   "holding short runway 29"). Numbers may be written as digits; the normalizer
-   (`src/scoring/normalize.ts`) turns "two niner" into "29".
-6. Every `expectedPilotResponse` must score 100 against its own elements: each element
-   needs a variant contained in the expected phrase.
+   "holding short runway 29"). Write values as on paper: digits (`QNH 1013`, `118.505`,
+   `2500 feet`, `FL 065`), registrations (`SP-TFA`), NATO words for letters
+   (`information Lima`, `via Bravo`; never a bare letter). `src/scoring/spoken.ts` turns
+   them into ICAO speech ("qnh one zero one tree"); check its tests for the rules
+   (altitudes, flight levels, squawk, headings, frequencies).
+6. Every `expectedPilotResponse`, said in ICAO phraseology, must score 100 against its own
+   elements: each element needs a variant contained in the expected phrase. Drill responses
+   are written as spoken ("Flight level zero six fife.").
 7. Optional `visual` is UI metadata and never affects scoring. Drills get
    `{ "kind": "text", "text": "RWY 28", "caption": "optional" }` so the practice screen shows
    the item. Circuit steps get

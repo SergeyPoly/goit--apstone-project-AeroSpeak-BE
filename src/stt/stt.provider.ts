@@ -9,6 +9,8 @@ export interface SttResult {
   transcript: string;
   /** 0..1, if the provider reports it. */
   confidence?: number;
+  /** Recognized words with their 0..1 confidence, if the provider reports them. */
+  words?: Array<{ word: string; confidence: number }>;
   provider: string;
 }
 

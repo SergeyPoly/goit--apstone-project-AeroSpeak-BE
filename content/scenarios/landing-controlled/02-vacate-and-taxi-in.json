@@ -63,8 +63,7 @@
           "id": "frequency",
           "label": "124.140",
           "acceptedVariants": [
-            "124.140",
-            "124.14"
+            "124.140"
           ],
           "weight": 35,
           "critical": true
