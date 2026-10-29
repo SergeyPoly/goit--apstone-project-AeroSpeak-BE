@@ -5,6 +5,27 @@
   "difficulty": "easy",
   "estimatedDurationSec": 120,
   "objective": "Say runways and headings digit by digit.",
+  "phraseologyNote": {
+    "id": "runways-headings",
+    "title": "Runways and headings",
+    "shortExplanation": "Runway numbers and headings are said digit by digit, keeping the leading zero.",
+    "overview": [
+      "A runway number is its magnetic direction in tens of degrees: runway 28 points to about 280°. Say each digit, and keep the zero in runway 03.",
+      "A heading always has three digits, said one by one, with the leading zero.",
+      "The runway in use and heading instructions are always read back."
+    ],
+    "whyItMatters": "A heading or runway digit heard wrong points the aircraft somewhere else.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.4 Transmission of numbers"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "runway-28",

@@ -15,6 +15,27 @@
       "value": "Cessna 172"
     }
   ],
+  "phraseologyNote": {
+    "id": "registrations",
+    "title": "Aircraft registrations",
+    "shortExplanation": "A registration callsign is spelled letter by letter: country prefix first, then the rest.",
+    "overview": [
+      "Each letter of an aircraft callsign is spoken separately with the spelling alphabet; only a telephony designator and the aircraft type are said as words. The dash is not spoken.",
+      "The prefix shows the country of registration: SP is Poland, D Germany, G the United Kingdom, OK the Czech Republic.",
+      "After two-way contact ATC may abbreviate your callsign. Use the short form only after ATC has used it first."
+    ],
+    "whyItMatters": "Your callsign is in almost every transmission; ATC must be sure which aircraft answered.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.3 Transmission of letters"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.7 Call signs"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "reg-sptfa",

@@ -15,8 +15,26 @@
     "id": "numbers-pronunciation",
     "title": "Numbers on the radio",
     "shortExplanation": "Say each digit separately and use 'decimal' in frequencies. 'Niner' is used for 9.",
-    "example": "One two one decimal niner",
-    "whyItMatters": "Digit-by-digit transmission prevents mistakes with similar-sounding numbers."
+    "overview": [
+      "QNH is an altimeter setting and must always be read back. Read back a frequency change too, so ATC knows you will be on the right frequency.",
+      "Both are said digit by digit. In Polish phraseology a whole thousand, such as QNH 1000, is said \"one thousand\"."
+    ],
+    "whyItMatters": "Digit-by-digit transmission prevents mistakes with similar-sounding numbers.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.4 Transmission of numbers"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      },
+      {
+        "source": "AIP Polska",
+        "section": "GEN 1.7 Differences from ICAO phraseology",
+        "url": "https://ais.pansa.pl/publikacje/aip-polska/"
+      }
+    ]
   },
   "steps": [
     {

@@ -9,8 +9,17 @@
     "id": "icao-digits",
     "title": "ICAO digits",
     "shortExplanation": "3 is \"tree\", 5 is \"fife\", 9 is \"niner\". All other digits are said normally.",
-    "example": "Tree, fife, niner",
-    "whyItMatters": "These forms stay clear on a noisy radio and for non-native speakers."
+    "overview": [
+      "ICAO changes the sound of three digits so they stay clear on the radio: 3 is \"tree\", 5 is \"fife\", 9 is \"niner\".",
+      "Doc 9432 also marks the stress: TREE, FOW-er, FIFE, NIN-er. The other digits are said as in everyday English."
+    ],
+    "whyItMatters": "These forms stay clear on a noisy radio and for non-native speakers.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.4 Transmission of numbers"
+      }
+    ]
   },
   "steps": [
     {

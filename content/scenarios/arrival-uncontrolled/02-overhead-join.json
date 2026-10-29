@@ -35,6 +35,27 @@
       "value": "220° 8 kt"
     }
   ],
+  "phraseologyNote": {
+    "id": "overhead-join",
+    "title": "Overhead join",
+    "shortExplanation": "Cross the aerodrome above circuit height to see the runway and the traffic, then join the circuit.",
+    "overview": [
+      "An overhead join lets you check the windsock, the runway in use and the circuit traffic before you join. You fly over the aerodrome above circuit height, then descend and join the circuit the way the visual approach chart shows.",
+      "Announce the overhead with your altitude and the runway you join for. From then on report each circuit leg with its side, the runway and your intention: full stop or touch-and-go."
+    ],
+    "whyItMatters": "Seeing the aerodrome first is the safest way to join when nobody controls the circuit.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.6 Aerodrome traffic circuit"
+      },
+      {
+        "source": "AIP VFR Polska",
+        "section": "AD 4 EPPI 4-1 Visual approach chart",
+        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "overhead",

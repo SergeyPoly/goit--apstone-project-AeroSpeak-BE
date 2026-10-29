@@ -35,6 +35,26 @@
       "value": "Full stop"
     }
   ],
+  "phraseologyNote": {
+    "id": "ag-go-around",
+    "title": "Go-around at an A/G aerodrome",
+    "shortExplanation": "If the landing is not safe, go around, announce it and rejoin the circuit.",
+    "overview": [
+      "Go around when the approach is not stable or the runway is not clear. Fly first: power, attitude, climb. Then announce the go-around.",
+      "Fly the circuit again and report downwind as usual."
+    ],
+    "whyItMatters": "Traffic on the ground and in the circuit has to know that you are climbing away again.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.8 Go around"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.6 Aerodrome traffic circuit"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "final",

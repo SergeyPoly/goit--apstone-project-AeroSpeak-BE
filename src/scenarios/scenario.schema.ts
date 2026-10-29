@@ -86,12 +86,24 @@ export const scenarioStepSchema = z
     }
   });
 
+/** A document the note is based on: "ICAO Doc 9432", section "4.4 Taxi instructions". */
+export const referenceSchema = z.object({
+  source: z.string().min(1),
+  section: z.string().min(1).optional(),
+  url: z.string().url().optional(),
+});
+
+/**
+ * The lesson overview shown before practice. It explains the rules, not the answer:
+ * no sample transmission that matches what the scenario expects.
+ */
 export const phraseologyNoteSchema = z.object({
   id,
   title: z.string().min(1),
   shortExplanation: z.string().min(1),
-  example: z.string().min(1),
+  overview: z.array(z.string().min(1)).min(1),
   whyItMatters: z.string().optional(),
+  references: z.array(referenceSchema).min(1),
 });
 
 export const scenarioSchema = z
@@ -103,7 +115,7 @@ export const scenarioSchema = z
     estimatedDurationSec: z.number().int().positive(),
     objective: z.string().min(1),
     briefing: z.array(z.object({ label: z.string().min(1), value: z.string().min(1) })).optional(),
-    phraseologyNote: phraseologyNoteSchema.optional(),
+    phraseologyNote: phraseologyNoteSchema,
     steps: z.array(scenarioStepSchema).min(1),
   })
   .superRefine((scenario, ctx) => {

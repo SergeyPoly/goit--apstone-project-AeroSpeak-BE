@@ -39,8 +39,22 @@
     "id": "landing-clearance",
     "title": "Landing clearance",
     "shortExplanation": "Read back the runway and \"cleared to land\". Wind does not need a readback.",
-    "example": "Runway 28, cleared to land, SP-TFA.",
-    "whyItMatters": "Landing on the wrong runway or without clearance is a serious incident."
+    "overview": [
+      "Report \"final\" when you turn onto final within 4 NM (7 km) of touchdown. Further out, report \"long final\".",
+      "Read back the runway and \"cleared to land\". The wind is information and needs no readback.",
+      "Without a landing clearance you do not land: be ready to go around."
+    ],
+    "whyItMatters": "Landing on the wrong runway or without clearance is a serious incident.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.7 Final approach and landing"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      }
+    ]
   },
   "steps": [
     {

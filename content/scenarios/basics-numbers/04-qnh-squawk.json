@@ -5,6 +5,32 @@
   "difficulty": "easy",
   "estimatedDurationSec": 80,
   "objective": "Say pressure settings and transponder codes digit by digit.",
+  "phraseologyNote": {
+    "id": "qnh-squawk",
+    "title": "QNH and squawk codes",
+    "shortExplanation": "QNH and transponder codes are said digit by digit; whole thousands as a thousand.",
+    "overview": [
+      "QNH sets the altimeter to show altitude above mean sea level. ATC gives it in hectopascals.",
+      "A squawk is the four-digit transponder code. 7000 is the VFR code; 7500, 7600 and 7700 are unlawful interference, radio failure and emergency.",
+      "Both are always read back. Polish phraseology says whole thousands as a thousand: \"seven thousand\" (AIP Polska GEN 1.7)."
+    ],
+    "whyItMatters": "A wrong QNH gives a wrong altitude; a wrong squawk hides you from the controller.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.4 Transmission of numbers"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      },
+      {
+        "source": "AIP Polska",
+        "section": "GEN 1.7 Differences from ICAO phraseology",
+        "url": "https://ais.pansa.pl/publikacje/aip-polska/"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "qnh-1013",

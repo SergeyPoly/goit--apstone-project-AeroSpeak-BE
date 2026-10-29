@@ -35,6 +35,31 @@
       "value": "Full stop, taxi to the apron"
     }
   ],
+  "phraseologyNote": {
+    "id": "ag-final-vacated",
+    "title": "Final and runway vacated",
+    "shortExplanation": "Report final with your intention, then report the runway vacated.",
+    "overview": [
+      "At an uncontrolled aerodrome the final report tells the circuit that the runway will be occupied. Give the runway and your intention: full stop or touch-and-go.",
+      "After landing, report the runway vacated once the whole aircraft is clear of it."
+    ],
+    "whyItMatters": "Pilots behind you decide whether to land or go around from your calls.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.7 Final approach and landing"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.9 After landing"
+      },
+      {
+        "source": "AIP VFR Polska",
+        "section": "AD 4 EPPI 4-1 Visual approach chart",
+        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "final",

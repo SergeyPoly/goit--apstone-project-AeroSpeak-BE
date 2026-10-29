@@ -5,6 +5,22 @@
   "difficulty": "easy",
   "estimatedDurationSec": 60,
   "objective": "Say times in UTC as four digits.",
+  "phraseologyNote": {
+    "id": "time",
+    "title": "Time on the radio",
+    "shortExplanation": "Aviation uses UTC. Each digit of the time is said separately.",
+    "overview": [
+      "Times are UTC, also called Zulu. Each digit is said separately with ICAO digits.",
+      "Normally only the minutes are needed; the hour is added when the time could be misunderstood. This drill practises the full four digits."
+    ],
+    "whyItMatters": "Estimates and position reports only help if everyone uses the same clock.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.5 Transmission of time"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "time-1435",

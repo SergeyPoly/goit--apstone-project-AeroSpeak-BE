@@ -39,8 +39,22 @@
     "id": "circuit-calls",
     "title": "Circuit position reports",
     "shortExplanation": "Report downwind, base and final with the runway and your intention (touch-and-go or full stop).",
-    "example": "Piła Radio, SP-TFA, right downwind runway 21, touch-and-go.",
-    "whyItMatters": "Other pilots in the circuit sequence themselves from your calls."
+    "overview": [
+      "Without a controller, position reports are how pilots see each other on the radio.",
+      "Keep each report short: station, callsign, leg, runway and intention. Giving the intention on downwind and final helps the pilots behind you plan their spacing."
+    ],
+    "whyItMatters": "Other pilots in the circuit sequence themselves from your calls.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.6 Aerodrome traffic circuit"
+      },
+      {
+        "source": "AIP VFR Polska",
+        "section": "AD 4 EPPI 4-1 Visual approach chart",
+        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+      }
+    ]
   },
   "steps": [
     {

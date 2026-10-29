@@ -19,8 +19,22 @@
     "id": "more-standard-words",
     "title": "Roger, negative, unable, standby",
     "shortExplanation": "Roger = message received. Negative = no. Unable = I cannot comply. Standby = wait, I will call you back.",
-    "example": "Unable, SP-TFA.",
-    "whyItMatters": "Unable is the safe answer when an instruction conflicts with VFR or aircraft limits."
+    "overview": [
+      "ROGER only means that you received the message. It is never the answer to a question, and it does not replace a readback.",
+      "UNABLE means you cannot comply; give the reason if you can. STANDBY means wait, you will call back; it is neither yes nor no.",
+      "After NEGATIVE, give the correct information."
+    ],
+    "whyItMatters": "Unable is the safe answer when an instruction conflicts with VFR or aircraft limits.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.6 Standard words and phrases"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      }
+    ]
   },
   "steps": [
     {

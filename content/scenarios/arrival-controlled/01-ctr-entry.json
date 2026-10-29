@@ -43,8 +43,36 @@
     "id": "ctr-entry",
     "title": "Entering a control zone",
     "shortExplanation": "You need a clearance to enter a CTR. Read back the entry point, altitude limits and reporting instructions.",
-    "example": "Enter control zone via Delta, not above altitude 1500 feet, report Victor, SP-TFA.",
-    "whyItMatters": "Altitude limits keep VFR traffic clear of IFR arrivals."
+    "overview": [
+      "A control zone (CTR) is controlled airspace from the surface up to a published upper limit around a controlled aerodrome. A VFR flight needs a clearance from Tower before it enters, so call well before the entry point.",
+      "In the first contact use the full callsign of the station and of your aircraft. Give your position, altitude, the ATIS letter and your intention. Tower answers with an entry clearance: the VFR entry point, an altitude limit and the next point to report.",
+      "An altitude limit is a level instruction, so it must always be read back. Say \"altitude\" with the value and never \"to\" before a number. Report each point when you reach it."
+    ],
+    "whyItMatters": "Altitude limits keep VFR traffic clear of IFR arrivals.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "7.4 VFR arrivals"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "3.3 Level instructions"
+      },
+      {
+        "source": "AIP Polska",
+        "section": "GEN 1.7 Differences from ICAO phraseology",
+        "url": "https://ais.pansa.pl/publikacje/aip-polska/"
+      },
+      {
+        "source": "AIP Polska",
+        "section": "AD 2 EPPO 13-1 Visual approach chart",
+        "url": "https://ais.pansa.pl/publikacje/aip-polska/"
+      }
+    ]
   },
   "steps": [
     {

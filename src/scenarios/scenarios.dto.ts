@@ -10,12 +10,19 @@ export class BriefingItemDto {
   @ApiProperty() value: string;
 }
 
+export class ReferenceDto {
+  @ApiProperty() source: string;
+  @ApiPropertyOptional() section?: string;
+  @ApiPropertyOptional() url?: string;
+}
+
 export class PhraseologyNoteDto {
   @ApiProperty() id: string;
   @ApiProperty() title: string;
   @ApiProperty() shortExplanation: string;
-  @ApiProperty() example: string;
+  @ApiProperty({ type: [String] }) overview: string[];
   @ApiPropertyOptional() whyItMatters?: string;
+  @ApiProperty({ type: [ReferenceDto] }) references: ReferenceDto[];
 }
 
 export class RequiredElementDto {
@@ -104,7 +111,7 @@ export class ScenarioDto {
   @ApiProperty() estimatedDurationSec: number;
   @ApiProperty() objective: string;
   @ApiPropertyOptional({ type: [BriefingItemDto] }) briefing?: BriefingItemDto[];
-  @ApiPropertyOptional({ type: PhraseologyNoteDto }) phraseologyNote?: PhraseologyNoteDto;
+  @ApiProperty({ type: PhraseologyNoteDto }) phraseologyNote: PhraseologyNoteDto;
   @ApiProperty({ type: [ScenarioStepDto] }) steps: ScenarioStepDto[];
 }
 

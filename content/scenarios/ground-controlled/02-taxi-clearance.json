@@ -43,8 +43,22 @@
     "id": "taxi-readback",
     "title": "Taxi clearance readback",
     "shortExplanation": "Read back the runway, the route and any hold-short instruction. Taxi clearances are clearance limits.",
-    "example": "Taxi to holding point runway 28 via Alpha, SP-TFA.",
-    "whyItMatters": "A wrong route or runway on the ground is a common cause of runway incursions."
+    "overview": [
+      "Every taxi instruction ends at a clearance limit, usually the holding point of the runway in use. Stop there until you are cleared further.",
+      "If the route crosses a runway, the instruction must say explicitly to cross it or to hold short.",
+      "Read back the runway, the route and any hold-short instruction."
+    ],
+    "whyItMatters": "A wrong route or runway on the ground is a common cause of runway incursions.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.4 Taxi instructions"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      }
+    ]
   },
   "steps": [
     {

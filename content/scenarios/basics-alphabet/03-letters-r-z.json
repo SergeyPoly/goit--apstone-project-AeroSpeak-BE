@@ -5,6 +5,22 @@
   "difficulty": "easy",
   "estimatedDurationSec": 135,
   "objective": "Say the letters R–Z with the ICAO phonetic alphabet.",
+  "phraseologyNote": {
+    "id": "alphabet-r-z",
+    "title": "Phonetic alphabet, R–Z",
+    "shortExplanation": "Romeo, Sierra, Tango, Uniform, Victor, Whiskey, X-ray, Yankee, Zulu.",
+    "overview": [
+      "The stress is part of the word: ROW-me-oh, see-AIR-rah, TANG-go, YOU-nee-form, VIK-tah, WISS-key, ECKS-ray, YANG-key, ZOO-loo.",
+      "\"Zulu\" also stands for UTC time, and \"Sierra Papa\" starts every Polish registration."
+    ],
+    "whyItMatters": "A misheard letter can send you to the wrong taxiway or the wrong reporting point.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.3 Transmission of letters"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "letter-r",

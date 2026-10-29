@@ -9,8 +9,17 @@
     "id": "frequencies",
     "title": "Frequencies",
     "shortExplanation": "Say all six figures and \"decimal\" for the point. Only when the last two are zeros are the first four enough: 122.500 is \"one two two decimal fife\".",
-    "example": "One two four decimal one four zero",
-    "whyItMatters": "A wrong frequency means losing contact with ATC."
+    "overview": [
+      "Frequencies are said digit by digit, with \"decimal\" for the point. ICAO digits apply: tree, fife, niner.",
+      "With 8.33 kHz channel spacing the full six figures identify the channel. Only when the last two figures are zeros may the first four be enough."
+    ],
+    "whyItMatters": "A wrong frequency means losing contact with ATC.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.4 Transmission of numbers"
+      }
+    ]
   },
   "steps": [
     {

@@ -5,6 +5,22 @@
   "difficulty": "easy",
   "estimatedDurationSec": 75,
   "objective": "Name the aircraft position in a right-hand circuit.",
+  "phraseologyNote": {
+    "id": "right-hand-circuit",
+    "title": "Right-hand circuit",
+    "shortExplanation": "The same five legs, but every turn is to the right, and the circuit is always stated as right-hand.",
+    "overview": [
+      "Aerodromes use right-hand circuits because of noise, terrain or another runway. The visual approach chart shows the side for each runway.",
+      "A right-hand circuit is always stated, and position reports include the side: right downwind, right base."
+    ],
+    "whyItMatters": "Joining on the wrong side puts you head-on with the circuit traffic.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.6 Aerodrome traffic circuit"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "right-crosswind",
