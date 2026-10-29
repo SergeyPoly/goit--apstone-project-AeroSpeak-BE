@@ -1,13 +1,19 @@
 /**
  * Expander: turns a written accepted variant into the words a pilot says in
- * ICAO phraseology. Content keeps written values, scoring compares spoken words:
- *   "QNH 998"            -> "qnh niner niner eight"
- *   "SP-TFA"             -> "sierra papa tango foxtrot alpha"
+ * ICAO phraseology. Content keeps written values, scoring compares spoken words.
+ * Number rules follow CAP 413 chapter 2 (2.12-2.15):
+ *   "QNH 998"            -> "qnh niner niner eight"     every digit (2.13.1)
+ *   "heading 300"        -> "heading tree zero zero"
+ *   "10 miles"           -> "one zero miles"
+ *   "flight level 100"   -> "flight level one hundred"  FL100, 200, 300 (2.13.1)
+ *   "flight level 65"    -> "flight level zero six fife" (team rule: leading zero below 100)
+ *   "2500 feet"          -> "two thousand fife hundred feet"  whole hundreds/thousands (2.13.2)
+ *   "QNH 1000"           -> "qnh one thousand" | "qnh one zero zero zero"
+ *   "squawk 7000"        -> "squawk seven thousand" | "squawk seven zero zero zero"
+ *   "118.125"            -> "one one eight decimal one two fife"  all six figures (2.15)
+ *   "122.500"            -> "one two two decimal fife" | "... decimal fife zero zero"
+ *   "SP-TFA"             -> "sierra papa tango foxtrot alpha"   (2.11)
  *   "information L"      -> "information lima"
- *   "2500 feet"          -> "two thousand fife hundred feet"
- *   "flight level 65"    -> "flight level zero six fife"
- *   "squawk 7000"        -> "squawk seven zero zero zero" | "squawk seven thousand"
- *   "122.500"            -> "one two two decimal fife zero zero" | "... decimal fife"
  *
  * A variant can have several spoken forms, so the result is a list of alternatives.
  * Each word made from a number remembers the number (`group`): STT sometimes writes
@@ -15,7 +21,6 @@
  */
 import {
   AIRCRAFT_MAKERS,
-  CARDINAL_UNITS,
   ICAO_DIGITS,
   NATO_ALPHABET,
   PHRASE_REWRITES,
@@ -76,11 +81,15 @@ function cardinal(n: number): string[] {
   return n % 10 === 0 ? [tens] : [tens, CARDINAL_UNDER_20[n % 10]];
 }
 
-/** Whole thousands: 3 -> "tree", 10 -> "one zero" (each digit of 10 and above). */
+/** Whole thousands: 3 -> "tree", 11 -> "one one" (each digit, CAP 413 table 5). */
 const thousandsWords = (k: number) => digitWords(String(k));
 
-/** Altitude and height: whole hundreds and thousands are said as such (2500 -> two thousand fife hundred). */
-function altitudeWords(digits: string): string[] {
+/**
+ * Altitude, height, visibility (CAP 413 2.13.2): whole hundreds and thousands are
+ * said as such (2500 -> two thousand fife hundred, 11000 -> one one thousand),
+ * other values digit by digit.
+ */
+function hundredsThousandsWords(digits: string): string[] {
   const n = Number(digits);
   if (n > 0 && n % 1000 === 0) return [...thousandsWords(n / 1000), 'thousand'];
   if (n > 0 && n % 100 === 0) {
@@ -91,13 +100,20 @@ function altitudeWords(digits: string): string[] {
   return digitWords(digits);
 }
 
-/** Frequencies: every digit, trailing zeros may be dropped (122.500 -> 122.5). */
+/**
+ * Frequencies (CAP 413 2.15): all six figures; when the last two are both zero,
+ * the first four are enough (122.500 -> "one two two decimal fife"). That short
+ * form is the standard one, the full one is also accepted.
+ */
 function frequencyForms(value: string): string[][] {
   const [whole, fraction] = value.split('.');
-  const trimmed = fraction.replace(/0+$/, '') || '0';
-  const forms = [fraction, trimmed].map((f) => [...digitWords(whole), 'decimal', ...digitWords(f)]);
-  return dedupe(forms);
+  const say = (f: string) => [...digitWords(whole), 'decimal', ...digitWords(f)];
+  if (fraction.length === 3 && fraction.endsWith('00')) return [say(fraction[0]), say(fraction)];
+  return [say(fraction)];
 }
+
+/** Units of altitude, height and visibility: CAP 413 2.13.2 applies to them. */
+const HUNDREDS_THOUSANDS_UNITS = new Set(['feet', 'ft', 'metres', 'meters', 'm']);
 
 /**
  * Spoken forms of one written number. The context words decide the rule,
@@ -108,43 +124,28 @@ function numberForms(value: string, prev: string[], next: string | undefined): s
 
   const n = Number(value);
   const last = prev.at(-1);
-  const roundHundreds = n > 0 && n % 100 === 0;
 
-  if (next === 'feet' || next === 'ft') return [altitudeWords(value)];
+  if (next && HUNDREDS_THOUSANDS_UNITS.has(next)) return [hundredsThousandsWords(value)];
   if (last === 'level') {
-    // FL below 100 keeps the leading zero: FL 65 -> zero six fife.
-    const padded = value.padStart(3, '0');
-    return roundHundreds
-      ? [digitWords(padded), [...digitWords(String(n / 100)), 'hundred']]
-      : [digitWords(padded)];
+    // FL100, 200, 300... are "one hundred" (2.13.1). Team rule: below 100 the leading
+    // zero is said (FL 65 -> zero six fife).
+    if (n > 0 && n % 100 === 0) return [[...digitWords(String(n / 100)), 'hundred']];
+    return [digitWords(value.padStart(3, '0'))];
   }
-  if (last === 'heading') {
-    const padded = value.padStart(3, '0');
-    return roundHundreds
-      ? [digitWords(padded), [...digitWords(String(n / 100)), 'hundred']]
-      : [digitWords(padded)];
-  }
-  if (last === 'squawk' && n > 0 && n % 1000 === 0) {
-    return [digitWords(value), [...digitWords(String(n / 1000)), 'thousand']];
+  if (last === 'heading') return [digitWords(value.padStart(3, '0'))];
+  if ((last === 'squawk' || last === 'qnh' || last === 'qfe') && n > 0 && n % 1000 === 0) {
+    // Transponder codes and pressure settings in whole thousands (2.13.2, table 5:
+    // squawk 1000, QNH 1000 -> "one tousand"). Digit by digit is accepted too.
+    return [[...digitWords(String(n / 1000)), 'thousand'], digitWords(value)];
   }
   if (last && AIRCRAFT_MAKERS.has(last)) {
-    // Cessna 172: "one seven two" or "one seventy two".
+    // An aircraft type is a name, not a number value: "one seven two" or "one seventy two".
     if (value.length === 3)
       return [digitWords(value), [ICAO_DIGITS[Number(value[0])], ...cardinal(n % 100)]];
     return [digitWords(value)];
   }
-  if (next && CARDINAL_UNITS.has(next) && n < 100) return dedupe([digitWords(value), cardinal(n)]);
+  // Everything else digit by digit, including distances: 10 -> "one zero" (table 5).
   return [digitWords(value)];
-}
-
-function dedupe(forms: string[][]): string[][] {
-  const seen = new Set<string>();
-  return forms.filter((f) => {
-    const key = f.join(' ');
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
 }
 
 const spell = (letters: string) => [...letters.toLowerCase()].map((ch) => NATO_ALPHABET[ch]);

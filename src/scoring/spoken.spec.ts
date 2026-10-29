@@ -37,15 +37,27 @@ describe('expandToSpoken', () => {
     expect(forms(variant)[0]).toBe(spoken);
   });
 
+  // CAP 413 chapter 2, tables 4-6
   it.each([
-    ['squawk 7000', ['squawk seven zero zero zero', 'squawk seven thousand']],
-    ['heading 300', ['heading tree zero zero', 'heading tree hundred']],
+    ['squawk 7000', ['squawk seven thousand', 'squawk seven zero zero zero']],
+    ['squawk 6500', ['squawk six fife zero zero']],
+    ['QNH 1000', ['qnh one thousand', 'qnh one zero zero zero']],
+    ['heading 300', ['heading tree zero zero']],
     ['heading 330', ['heading tree tree zero']],
-    ['flight level 100', ['flight level one zero zero', 'flight level one hundred']],
-    ['122.500', ['one two two decimal fife zero zero', 'one two two decimal fife']],
-    ['118.505', ['one one eight decimal fife zero fife']],
+    ['flight level 100', ['flight level one hundred']],
+    ['flight level 180', ['flight level one eight zero']],
+    ['11000 feet', ['one one thousand feet']],
+    ['25000 feet', ['two fife thousand feet']],
+    ['5000 metres', ['fife thousand metres']],
+    ['10 miles north', ['one zero miles north']],
+    ['18 knots', ['one eight knots']],
+    ['118.125', ['one one eight decimal one two fife']],
+    ['119.050', ['one one niner decimal zero fife zero']],
+    ['124.140', ['one two four decimal one four zero']],
+    ['122.500', ['one two two decimal fife', 'one two two decimal fife zero zero']],
+    ['118.000', ['one one eight decimal zero', 'one one eight decimal zero zero zero']],
+    ['122.1', ['one two two decimal one']],
     ['Cessna 172', ['cessna one seven two', 'cessna one seventy two']],
-    ['10 miles north', ['one zero miles north', 'ten miles north']],
   ])('%s has the accepted forms %j', (variant, expected) => {
     expect(forms(variant)).toEqual(expected);
   });

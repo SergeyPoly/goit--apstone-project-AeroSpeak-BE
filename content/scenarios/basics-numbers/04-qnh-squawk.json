@@ -57,7 +57,7 @@
         "kind": "text",
         "text": "SQUAWK 7000"
       },
-      "expectedPilotResponse": "Squawk seven zero zero zero.",
+      "expectedPilotResponse": "Squawk seven thousand.",
       "requiredElements": [
         {
           "id": "squawk",

@@ -266,12 +266,36 @@ describe('scoreTransmission: drills', () => {
     },
   );
 
-  it.each(['heading three zero zero', 'heading three hundred'])(
-    'accepts "%s" for heading 300',
-    (transcript) => {
-      expect(scoreTransmission(drill(['heading 300']), { transcript }).score).toBe(100);
-    },
-  );
+  it('wants a heading digit by digit (CAP 413 2.13.1)', () => {
+    const heading = drill(['heading 300']);
+    expect(scoreTransmission(heading, { transcript: 'heading three zero zero' }).score).toBe(100);
+    expect(scoreTransmission(heading, { transcript: 'heading three hundred' }).score).toBeLessThan(
+      100,
+    );
+  });
+
+  it('wants all six figures of a frequency unless the last two are zeros (CAP 413 2.15)', () => {
+    const short = { transcript: 'one two four decimal one four' };
+    expect(scoreTransmission(drill(['124.140']), short).score).toBeLessThan(100);
+    expect(
+      scoreTransmission(drill(['122.500']), { transcript: 'one two two decimal five' }).score,
+    ).toBe(100);
+  });
+
+  it('wants distances digit by digit: "one zero miles", not "ten miles"', () => {
+    expect(scoreTransmission(drill(['10 miles']), { transcript: 'one zero miles' }).score).toBe(
+      100,
+    );
+    expect(scoreTransmission(drill(['10 miles']), { transcript: 'ten miles' }).score).toBeLessThan(
+      100,
+    );
+  });
+
+  it('accepts QNH 1000 as "one thousand" or digit by digit (CAP 413 table 5)', () => {
+    for (const transcript of ['qnh one thousand', 'qnh one zero zero zero']) {
+      expect(scoreTransmission(drill(['QNH 1000'], true), { transcript }).score).toBe(100);
+    }
+  });
 
   it('accepts an abbreviation spelled out by STT', () => {
     const result = scoreTransmission(drill(['QNH 1013'], true), {

@@ -3,7 +3,10 @@
  * Plain data, no logic.
  */
 
-/** ICAO digit pronunciation (Annex 10, Vol. II, 5.2.1.4). */
+/**
+ * ICAO digit words (Annex 10 Vol. II 5.2.1.4, CAP 413 table 3). Shown to the user as
+ * the expected word; "wun", "too", "fower", "ait" are accepted as equivalents.
+ */
 export const ICAO_DIGITS = [
   'zero',
   'one',
@@ -138,9 +141,6 @@ export const RADIO_WORDS = new Set<string>([
 
 /** Words before a number that name an aircraft type: "Cessna 172". */
 export const AIRCRAFT_MAKERS = new Set(['airbus', 'boeing', 'cessna', 'diamond', 'piper', 'robin']);
-
-/** Units after which a number may be said as a cardinal: "ten miles". */
-export const CARDINAL_UNITS = new Set(['mile', 'miles', 'minute', 'minutes', 'nm']);
 
 /** Multi-word phrases joined into one token on both sides. Order matters. */
 export const PHRASE_REWRITES: Array<[RegExp, string]> = [
