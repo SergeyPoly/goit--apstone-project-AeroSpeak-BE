@@ -1,7 +1,8 @@
 import { alignWords, type Alignment, type AlignmentIssues } from './align';
 import { expandToSpoken, type SpokenWord } from './spoken';
 import type { HeardWord } from './transcript';
-import type { ElementResult, ElementStatus, RequiredElement } from './types';
+import type { ElementResult, ElementStatus, RequiredElement, WordResult } from './types';
+import { NON_STANDARD_FORMS } from './vocabulary';
 
 /** A non-critical element with at least this share of credit gets partial status. */
 export const PARTIAL_RATIO = 0.5;
@@ -21,11 +22,21 @@ export function spokenForms(variant: string): SpokenWord[][] {
 /** What to say instead, when the element was understood but not said the standard way. */
 function hintFor({ nonStandard, omitted, unexpected }: AlignmentIssues): string | undefined {
   const hints = [
+    ...(unexpected.includes('to')
+      ? ['"to" before a number or "altitude" is an error (AIP Polska GEN 1.7): leave it out.']
+      : []),
     ...nonStandard.map((form) => `Say "${form}": that is the standard form.`),
     ...omitted.map((word) => `Say "${word}" too.`),
-    ...(unexpected.includes('to') ? ['Don\'t say "to" before a number.'] : []),
   ];
   return hints.length ? hints.join(' ') : undefined;
+}
+
+/** Understood but non-standard phraseology: each one costs score points (see score.ts). */
+function countIssues(issues: AlignmentIssues, words: WordResult[]): number {
+  const plainForms = words.filter(
+    (w) => w.status === 'almost' && w.heard && NON_STANDARD_FORMS.get(w.expected) === w.heard,
+  );
+  return issues.nonStandard.length + issues.omitted.length + plainForms.length;
 }
 
 /**
@@ -65,9 +76,13 @@ export function matchElement(
   const anyMissing = words.some((w) => w.status === 'missing');
   const issues = leftOut ? undefined : alignment?.issues;
   const hint = issues && hintFor(issues);
+  // "climbing TO 2000 feet": an error, not a style issue (AIP Polska GEN 1.7).
+  const toError = issues?.unexpected.includes('to') ?? false;
 
   let status: ElementStatus;
-  if (words.length > 0 && words.every((w) => w.status === 'correct') && !hint) status = 'matched';
+  if (toError) status = 'missed';
+  else if (words.length > 0 && words.every((w) => w.status === 'correct') && !hint)
+    status = 'matched';
   else if (ratio > 0 && (critical ? !anyMissing : ratio >= PARTIAL_RATIO)) status = 'partial';
   else status = 'missed';
 
@@ -76,9 +91,10 @@ export function matchElement(
     label: element.label,
     status,
     critical,
-    similarity: Math.round(Math.min(1, ratio) * 100) / 100,
+    similarity: toError ? 0 : Math.round(Math.min(1, ratio) * 100) / 100,
     words,
-    ...(hint && status !== 'missed' ? { hint } : {}),
+    ...(hint ? { hint } : {}),
+    ...(issues && status === 'partial' ? { issues: countIssues(issues, words) } : {}),
     ...(status !== 'missed' && alignment?.heardText !== undefined
       ? { matchedText: alignment.heardText, position: alignment.start }
       : {}),

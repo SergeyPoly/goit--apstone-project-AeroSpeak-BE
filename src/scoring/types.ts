@@ -71,6 +71,8 @@ export interface ElementResult {
    * ("Say \"altitude\" too.", "Say \"seven thousand\": that is the standard form.").
    */
   hint?: string;
+  /** Number of non-standard things said (internal, not sent to the API). */
+  issues?: number;
   /** Token index where the match starts, used for the order check. */
   position?: number;
 }

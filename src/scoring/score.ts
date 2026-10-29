@@ -12,6 +12,12 @@ import { NON_STANDARD_FORMS } from './vocabulary';
  */
 const WEIGHTS = { words: 90, order: 10 };
 
+/**
+ * Each non-standard but understood item (squawk "seven zero zero zero", no "altitude",
+ * "nine" for "niner") costs at least this many points, however small its element is.
+ */
+export const NON_STANDARD_PENALTY = 5;
+
 /** A missed critical element caps the score just below "success" (display 4). */
 export const CRITICAL_MISS_CAP = 59;
 export const SUCCESS_DISPLAY_SCORE = 4;
@@ -34,10 +40,12 @@ function weightedCredit(results: ElementResult[], weights: Map<string, number>):
 
 function buildTip(results: ElementResult[], order: OrderFeedback | null): string {
   const criticalMiss = results.find((r) => r.critical && r.status === 'missed');
+  if (criticalMiss?.hint) return `${criticalMiss.label}: ${criticalMiss.hint}`;
   if (criticalMiss) {
     return `You missed "${criticalMiss.label}". This is a safety-critical element and must be included.`;
   }
   const miss = results.find((r) => r.status === 'missed');
+  if (miss?.hint) return `${miss.label}: ${miss.hint}`;
   if (miss) return `Include "${miss.label}" in your transmission.`;
   const hinted = results.find((r) => r.hint);
   if (hinted?.hint) return `${hinted.label}: ${hinted.hint}`;
@@ -94,6 +102,9 @@ export function scoreTransmission(step: ScoringStep, input: ScoreInput): ScoreRe
 
   // Without any recognized element the transmission gets no credit for order.
   if (elements.every((r) => r.status === 'missed')) score = 0;
+
+  const issues = elements.reduce((sum, r) => sum + (r.issues ?? 0), 0);
+  score = Math.min(score, 100 - NON_STANDARD_PENALTY * issues);
 
   const missedCritical = elements
     .filter((r) => r.critical && r.status === 'missed')
