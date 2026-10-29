@@ -152,19 +152,43 @@ describe('scoreTransmission: taxi clearance readback', () => {
     expect(result.elements.find((e) => e.id === 'taxi_to_holding_point')?.status).toBe('matched');
   });
 
-  it('lowers the score when elements are out of order but still passes', () => {
-    const inOrder = scoreTransmission(taxiReadback, {
-      transcript:
-        'taxi to holding point runway two one via alpha bravo hold short runway two one sierra papa tango foxtrot alpha',
+  it.each([
+    'taxi to holding point runway two one via alpha bravo hold short runway two one sierra papa tango foxtrot alpha',
+    'sierra papa tango foxtrot alpha taxi to holding point runway two one via alpha bravo hold short runway two one',
+  ])('accepts the callsign at the start or at the end of a readback: %s', (transcript) => {
+    const result = scoreTransmission(taxiReadback, { transcript });
+    expect(result.score).toBe(100);
+    expect(result.order).toEqual({
+      rule: 'readback',
+      correct: true,
+      outOfOrder: [],
+      lostPoints: 0,
     });
-    const outOfOrder = scoreTransmission(taxiReadback, {
-      transcript:
-        'sierra papa tango foxtrot alpha hold short runway two one taxi to holding point runway two one via alpha bravo',
-    });
+  });
 
-    expect(outOfOrder.orderCorrect).toBe(false);
-    expect(outOfOrder.score).toBeLessThan(inOrder.score);
-    expect(outOfOrder.success).toBe(true);
+  it('does not grade the order of the read-back items', () => {
+    const result = scoreTransmission(taxiReadback, {
+      transcript:
+        'hold short runway two one taxi to holding point runway two one via alpha bravo sierra papa tango foxtrot alpha',
+    });
+    expect(result.order?.correct).toBe(true);
+    expect(result.score).toBe(100);
+  });
+
+  it('marks a callsign in the middle of a readback and says how much it cost', () => {
+    const result = scoreTransmission(taxiReadback, {
+      transcript:
+        'taxi to holding point runway two one via alpha bravo sierra papa tango foxtrot alpha hold short runway two one',
+    });
+    expect(result.order).toEqual({
+      rule: 'readback',
+      correct: false,
+      outOfOrder: ['callsign'],
+      message: 'In a readback, say the callsign at the start or at the end, not in the middle.',
+      lostPoints: 10,
+    });
+    expect(result.score).toBe(90);
+    expect(result.tip).toBe(result.order?.message);
   });
 
   it('gives zero for an unrelated transmission', () => {
@@ -204,6 +228,30 @@ const startUpRequest: ScoringStep = {
     },
   ],
 };
+
+describe('scoreTransmission: order of a call', () => {
+  it('accepts the standard order: station, callsign, position, request', () => {
+    const result = scoreTransmission(startUpRequest, {
+      transcript:
+        'poznan ground sierra papa tango foxtrot alpha cessna one seven two at general aviation apron information kilo request startup',
+    });
+    expect(result.order).toEqual({ rule: 'call', correct: true, outOfOrder: [], lostPoints: 0 });
+  });
+
+  it('marks the element said in the wrong place and shows the standard order', () => {
+    const result = scoreTransmission(startUpRequest, {
+      transcript:
+        'sierra papa tango foxtrot alpha poznan ground cessna one seven two at general aviation apron information kilo request startup',
+    });
+    expect(result.order?.rule).toBe('call');
+    expect(result.order?.correct).toBe(false);
+    expect(result.order?.outOfOrder).toHaveLength(1);
+    expect(result.order?.lostPoints).toBe(2);
+    expect(result.order?.message).toContain(
+      'Standard order: Poznań Ground → SP-TFA → Cessna 172 → General aviation apron → Information Kilo → Request start-up.',
+    );
+  });
+});
 
 describe('scoreTransmission: words of other elements', () => {
   const result = scoreTransmission(startUpRequest, {

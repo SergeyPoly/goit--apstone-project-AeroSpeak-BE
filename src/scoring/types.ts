@@ -70,6 +70,21 @@ export interface ElementResult {
   position?: number;
 }
 
+/** See `orderRuleFor` in order.ts. */
+export type OrderRule = 'call' | 'readback';
+
+export interface OrderFeedback {
+  rule: OrderRule;
+  /** The elements were said in an acceptable order. */
+  correct: boolean;
+  /** Ids of elements said in the wrong place. */
+  outOfOrder: string[];
+  /** What to fix, when the order is wrong. */
+  message?: string;
+  /** Score points lost for the order, 0..10. */
+  lostPoints: number;
+}
+
 export interface ScoreResult {
   /** Internal score, 0..100. */
   score: number;
@@ -82,5 +97,7 @@ export interface ScoreResult {
   elements: ElementResult[];
   missedCritical: string[];
   orderCorrect: boolean;
+  /** Order check, or null when there is nothing to compare. */
+  order: OrderFeedback | null;
   tip: string;
 }

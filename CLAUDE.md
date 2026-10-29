@@ -68,6 +68,12 @@ Scoring grades ICAO phraseology word by word (like ArSim: each word is recognize
   for another is wrong; regular words and accents get fuzzy matching.
 - `alignWords()` aligns each spoken form with the transcript in order. A wrong word
   that STT itself was unsure about (word confidence < 0.5) is "unclear" (almost).
+- `checkOrder()` (`order.ts`) picks the order rule by step type. Readbacks (`pilot_readback`,
+  and drills with a `callsign` element such as "Wilco, SP-TFA"): the callsign goes at the
+  start or at the end, never in the middle; the read-back items may come in any order.
+  Calls the pilot starts (`pilot_request`, `self_announce`, `atc_instruction`): the content
+  element order (station, callsign, position, request, information). The result goes to
+  the API as `order` (rule, out-of-order element ids, message, points lost).
 - `scoreTransmission()`: 90% share of recognized words weighted by element, 10% order.
   STT confidence is never part of the score. A critical element with a missing word is
   missed and caps the score at 59 (display 3, not a success). Display mapping 0-100 -> 1-6

@@ -38,6 +38,22 @@ export class ElementResultDto {
   words: WordResultDto[];
 }
 
+export class OrderFeedbackDto {
+  @ApiProperty({
+    enum: ['call', 'readback'],
+    description:
+      'call: elements in the standard order (station, callsign, position, request, information); ' +
+      'readback: callsign at the start or at the end',
+  })
+  rule: 'call' | 'readback';
+  @ApiProperty({ description: 'The elements were said in an acceptable order' }) correct: boolean;
+  @ApiProperty({ type: [String], description: 'Ids of elements said in the wrong place' })
+  outOfOrder: string[];
+  @ApiPropertyOptional({ description: 'What to fix, when the order is wrong' }) message?: string;
+  @ApiProperty({ minimum: 0, maximum: 10, description: 'Score points lost for the order' })
+  lostPoints: number;
+}
+
 export class AttemptResultDto {
   @ApiProperty({ format: 'uuid' }) attemptId: string;
   @ApiProperty({ description: 'Recognized transcript as returned by STT' }) transcript: string;
@@ -48,6 +64,11 @@ export class AttemptResultDto {
   @ApiProperty({ type: [ElementResultDto] }) elements: ElementResultDto[];
   @ApiProperty({ type: [String] }) missedCritical: string[];
   @ApiProperty() orderCorrect: boolean;
+  @ApiPropertyOptional({
+    type: OrderFeedbackDto,
+    description: 'Order check; absent when there is nothing to compare',
+  })
+  order?: OrderFeedbackDto;
   @ApiProperty() tip: string;
   @ApiProperty({ description: 'Time from receiving the audio to the result' })
   feedbackProcessingMs: number;

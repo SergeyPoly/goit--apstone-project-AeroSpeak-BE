@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { expandToSpoken, scoreTransmission } from '../scoring';
+import { CALLSIGN_ID, expandToSpoken, orderRuleFor, scoreTransmission } from '../scoring';
 import { loadContent } from './content-loader';
 import { CONTENT_DIR } from './scenarios.service';
 
@@ -62,6 +62,14 @@ describe('scenario content', () => {
         );
         expect(shortLevels).toEqual([]);
       });
+
+      if (orderRuleFor(step) === 'readback') {
+        // A readback puts the callsign at the start or at the end, never in the middle.
+        it(`${scenario.id} / ${step.id}: readback callsign is first or last`, () => {
+          const ids = step.requiredElements.map((e) => e.id);
+          expect([ids[0], ids.at(-1)]).toContain(CALLSIGN_ID);
+        });
+      }
 
       if (step.atcAudio) {
         // The frontend serves ATC audio from public/audio/atc/<scenarioId>/<stepId>.mp3.
