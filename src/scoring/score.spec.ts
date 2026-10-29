@@ -424,6 +424,18 @@ describe('scoreTransmission: drills', () => {
     expect(result.tip).toBe('not above [altitude] 1500 feet: Say "altitude" too.');
   });
 
+  it('accepts "altitude" after the value too', () => {
+    for (const transcript of ['altitude two thousand feet', 'two thousand feet altitude']) {
+      const result = scoreTransmission(drill(['[altitude] 2000 feet'], true), { transcript });
+      expect(result.elements[0].status).toBe('matched');
+      expect(result.score).toBe(100);
+    }
+    const reported = scoreTransmission(drill(['not above [altitude] 1500 feet'], true), {
+      transcript: 'not above one thousand five hundred feet altitude',
+    });
+    expect(reported.elements[0].status).toBe('matched');
+  });
+
   it('treats "to" before a number or "altitude" as an error (AIP Polska GEN 1.7)', () => {
     const climbing = drill(['climbing [altitude] 2000 feet'], true);
     const error =
