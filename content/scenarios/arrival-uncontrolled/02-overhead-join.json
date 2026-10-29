@@ -91,7 +91,13 @@
       ],
       "criticalElements": [
         "runway"
-      ]
+      ],
+      "visual": {
+        "kind": "pattern",
+        "side": "right",
+        "position": "overhead",
+        "runway": "21"
+      }
     },
     {
       "id": "downwind",
@@ -147,7 +153,13 @@
       ],
       "criticalElements": [
         "runway"
-      ]
+      ],
+      "visual": {
+        "kind": "pattern",
+        "side": "right",
+        "position": "downwind",
+        "runway": "21"
+      }
     }
   ]
 }

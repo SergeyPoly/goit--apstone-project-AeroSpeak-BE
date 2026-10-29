@@ -21,8 +21,8 @@ This repo is the NestJS backend. The React frontend lives in a separate repo.
 - **This repo is the single source of scenarios.** The frontend reads them through
   `GET /packs` and `GET /scenarios/:id`. Frontend-only data stays in the frontend repo:
   `sections.json` (grouping of packs) and ATC audio in `public/audio/atc/`.
-  A step's optional `visual` is UI metadata (drill text or circuit diagram) and never
-  affects scoring. `atcAudio` must be `/audio/atc/<scenarioId>/<stepId>.mp3`.
+  A step's optional `visual` is UI metadata (drill text, circuit diagram or aerodrome
+  airspace chart, see `content/aerodromes.md`) and never affects scoring. `atcAudio` must be `/audio/atc/<scenarioId>/<stepId>.mp3`.
 
 ## Architecture
 

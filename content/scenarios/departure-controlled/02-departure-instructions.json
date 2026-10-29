@@ -135,7 +135,12 @@
       "criticalElements": [
         "frequency",
         "callsign"
-      ]
+      ],
+      "visual": {
+        "kind": "airspace",
+        "point": "Delta",
+        "direction": "outbound"
+      }
     }
   ]
 }

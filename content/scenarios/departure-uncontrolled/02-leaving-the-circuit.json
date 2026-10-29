@@ -86,7 +86,13 @@
       ],
       "criticalElements": [
         "altitude"
-      ]
+      ],
+      "visual": {
+        "kind": "pattern",
+        "side": "right",
+        "position": "leaving",
+        "runway": "21"
+      }
     },
     {
       "id": "leaving-frequency",
@@ -136,7 +142,12 @@
       ],
       "criticalElements": [
         "frequency"
-      ]
+      ],
+      "visual": {
+        "kind": "airspace",
+        "point": "Kilo",
+        "direction": "outbound"
+      }
     }
   ]
 }

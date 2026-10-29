@@ -36,12 +36,21 @@ export class TextVisualDto {
 export class PatternVisualDto {
   @ApiProperty({ enum: ['pattern'] }) kind: 'pattern';
   @ApiProperty({ enum: ['left', 'right'] }) side: 'left' | 'right';
-  @ApiProperty({ enum: ['upwind', 'crosswind', 'downwind', 'base', 'final'] })
-  position: 'upwind' | 'crosswind' | 'downwind' | 'base' | 'final';
+  @ApiProperty({
+    enum: ['overhead', 'upwind', 'crosswind', 'downwind', 'base', 'final', 'leaving'],
+  })
+  position: 'overhead' | 'upwind' | 'crosswind' | 'downwind' | 'base' | 'final' | 'leaving';
   @ApiProperty() runway: string;
 }
 
-@ApiExtraModels(TextVisualDto, PatternVisualDto)
+export class AirspaceVisualDto {
+  @ApiProperty({ enum: ['airspace'] }) kind: 'airspace';
+  @ApiProperty({ description: 'VFR reporting point name as in the AIP, e.g. "Delta"' })
+  point: string;
+  @ApiProperty({ enum: ['inbound', 'outbound'] }) direction: 'inbound' | 'outbound';
+}
+
+@ApiExtraModels(TextVisualDto, PatternVisualDto, AirspaceVisualDto)
 export class ScenarioStepDto {
   @ApiProperty() id: string;
   @ApiProperty({
@@ -59,14 +68,22 @@ export class ScenarioStepDto {
   @ApiPropertyOptional() phraseologyReferenceId?: string;
   @ApiPropertyOptional({
     description:
-      'UI metadata, does not affect scoring. Without it the practice screen shows the aerodrome chart.',
-    oneOf: [{ $ref: getSchemaPath(TextVisualDto) }, { $ref: getSchemaPath(PatternVisualDto) }],
+      'UI metadata, does not affect scoring. Without it the practice screen shows the aerodrome ground chart.',
+    oneOf: [
+      { $ref: getSchemaPath(TextVisualDto) },
+      { $ref: getSchemaPath(PatternVisualDto) },
+      { $ref: getSchemaPath(AirspaceVisualDto) },
+    ],
     discriminator: {
       propertyName: 'kind',
-      mapping: { text: getSchemaPath(TextVisualDto), pattern: getSchemaPath(PatternVisualDto) },
+      mapping: {
+        text: getSchemaPath(TextVisualDto),
+        pattern: getSchemaPath(PatternVisualDto),
+        airspace: getSchemaPath(AirspaceVisualDto),
+      },
     },
   })
-  visual?: TextVisualDto | PatternVisualDto;
+  visual?: TextVisualDto | PatternVisualDto | AirspaceVisualDto;
 }
 
 export class ScenarioSummaryDto {

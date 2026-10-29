@@ -84,6 +84,13 @@ placed by hand and are **unverified**. Positions outside the chart (for example 
 north" or "Delta") are shown as "off chart". The generator scripts are not in the repo;
 re-fetch from the OSM API (bbox `16.78,52.405,16.86,52.44` and `16.68,53.15,16.75,53.195`).
 
+Which chart a step shows depends on where the aircraft is: on the ground, no `visual`
+(ground chart); in, joining or leaving the circuit, `pattern`; in the aerodrome airspace,
+`airspace` with a VFR point and `inbound` / `outbound` (simplified VFR operations chart, redrawn
+from AIP AD 2 EPPO 13-1 and AIP VFR AD 4 EPPI 4-1). EPPO points use the AIP coordinates;
+EPPI has no coordinate table, so its points are read off the chart grid (± a few hundred metres).
+En route charts are not drawn yet.
+
 ## Scenario text that conflicts with OSM
 
 - **EPPO `lnd-ctrl-vacate-taxi`** (fixed 2026-10-18): was "vacate left via Alpha", but in OSM
