@@ -46,6 +46,22 @@ The `NN-` prefix (`01-`, `02-`, ...) is the order users see inside a pack.
    `{ "kind": "pattern", "side": "left|right", "position": "upwind|crosswind|downwind|base|final", "runway": "21" }`.
    Steps without `visual` show the aerodrome chart from the "Airport" briefing value.
 
+## Phraseology rules
+
+ICAO Doc 9432 with the Polish differences (AIP Polska GEN 1.7, Doc 9432 appendix 1) and
+UK CAA CAP 413 chapter 2 for numbers:
+
+- ATC: the first transmission of each unit in a scenario has the station after the
+  callsign ("SP-TFA, Poznań Tower, ..."); later ones may omit it (Doc 9432 2.7.1.2).
+- Altitude: ALTITUDE before the value and no "to" before a number: "climb altitude
+  4500 feet", "not above altitude 1500 feet", "altitude 2000 feet" in position reports.
+  Flight levels without "to": "descend FL 045". `content.spec.ts` rejects "to" + number.
+- No aircraft type in the pilot's calls (the briefing still shows the aircraft).
+- Changing frequency on your own: "changing to (unit) (frequency)".
+- A readback ends with the callsign; a call the pilot starts goes station, callsign,
+  position, request, information (the order of `requiredElements`).
+- Briefing: add "Wind" matching the runway in use (and the ATC wind in the scenario).
+
 ## Per scenario
 
 - `briefing`: Airport, ATC unit / frequency, Callsign, Aircraft, Position, ATIS/QNH,

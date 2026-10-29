@@ -27,6 +27,10 @@
       "value": "28"
     },
     {
+      "label": "Wind",
+      "value": "270° 10 kt"
+    },
+    {
       "label": "Position",
       "value": "Landing roll runway 28"
     }
@@ -37,7 +41,7 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "After landing, Tower tells you how to vacate. Read back.",
-      "atcText": "SP-TFA, vacate left via Bravo, contact Ground 124.140.",
+      "atcText": "SP-TFA, Poznań Tower, vacate left via Bravo, contact Ground 124.140.",
       "atcAudio": "/audio/atc/lnd-ctrl-vacate-taxi/vacate-readback.mp3",
       "expectedPilotResponse": "Vacate left via Bravo, contact Ground 124.140, SP-TFA.",
       "requiredElements": [
@@ -90,7 +94,7 @@
       "type": "pilot_request",
       "speaker": "pilot",
       "prompt": "You have vacated via Bravo. Call Ground and request taxi to the general aviation apron.",
-      "expectedPilotResponse": "Poznań Ground, SP-TFA, runway vacated via Bravo, request taxi to the general aviation apron.",
+      "expectedPilotResponse": "Poznań Ground, SP-TFA, runway vacated via Bravo, request taxi to general aviation apron.",
       "requiredElements": [
         {
           "id": "station",
@@ -121,11 +125,11 @@
         },
         {
           "id": "request",
-          "label": "Request taxi to the general aviation apron",
+          "label": "Request taxi to general aviation apron",
           "acceptedVariants": [
-            "request taxi to the general aviation apron",
             "request taxi to general aviation apron",
-            "request taxi to the GA apron"
+            "request taxi to the general aviation apron",
+            "request taxi to GA apron"
           ],
           "weight": 40
         }
@@ -136,17 +140,17 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Read back the taxi-in route.",
-      "atcText": "SP-TFA, taxi to the general aviation apron via Bravo.",
+      "atcText": "SP-TFA, Poznań Ground, taxi to general aviation apron via Bravo.",
       "atcAudio": "/audio/atc/lnd-ctrl-vacate-taxi/taxi-readback.mp3",
-      "expectedPilotResponse": "Taxi to the general aviation apron via Bravo, SP-TFA.",
+      "expectedPilotResponse": "Taxi to general aviation apron via Bravo, SP-TFA.",
       "requiredElements": [
         {
           "id": "taxi",
-          "label": "Taxi to the general aviation apron",
+          "label": "Taxi to general aviation apron",
           "acceptedVariants": [
-            "taxi to the general aviation apron",
             "taxi to general aviation apron",
-            "taxi to the GA apron"
+            "taxi to the general aviation apron",
+            "taxi to GA apron"
           ],
           "weight": 45
         },

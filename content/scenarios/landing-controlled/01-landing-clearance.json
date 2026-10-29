@@ -27,6 +27,10 @@
       "value": "28"
     },
     {
+      "label": "Wind",
+      "value": "260° 8 kt"
+    },
+    {
       "label": "Position",
       "value": "Final runway 28"
     }
@@ -91,7 +95,7 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Read back the landing clearance.",
-      "atcText": "SP-TFA, wind 260 degrees 8 knots, runway 28, cleared to land.",
+      "atcText": "SP-TFA, Poznań Tower, wind 260 degrees 8 knots, runway 28, cleared to land.",
       "atcAudio": "/audio/atc/lnd-ctrl-landing-clearance/clearance-readback.mp3",
       "expectedPilotResponse": "Runway 28, cleared to land, SP-TFA.",
       "requiredElements": [

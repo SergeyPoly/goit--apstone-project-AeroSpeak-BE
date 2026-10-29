@@ -33,13 +33,17 @@
     {
       "label": "QNH",
       "value": "1013"
+    },
+    {
+      "label": "Wind",
+      "value": "270° 10 kt"
     }
   ],
   "phraseologyNote": {
     "id": "initial-call",
     "title": "Initial call",
-    "shortExplanation": "First contact: station, callsign, aircraft type, position, ATIS letter, request.",
-    "example": "Poznań Ground, SP-TFA, Cessna 172 at the general aviation apron, information Kilo, request start-up.",
+    "shortExplanation": "First contact: station, callsign, position, ATIS letter, request.",
+    "example": "Poznań Ground, SP-TFA, at general aviation apron, information Kilo, request start-up.",
     "whyItMatters": "ATC gets everything it needs in one call and confirms you have the current ATIS."
   },
   "steps": [
@@ -48,7 +52,7 @@
       "type": "pilot_request",
       "speaker": "pilot",
       "prompt": "You are parked at the general aviation apron with ATIS Kilo. Request start-up from Ground.",
-      "expectedPilotResponse": "Poznań Ground, SP-TFA, Cessna 172 at the general aviation apron, information Kilo, request start-up.",
+      "expectedPilotResponse": "Poznań Ground, SP-TFA, at general aviation apron, information Kilo, request start-up.",
       "requiredElements": [
         {
           "id": "station",
@@ -69,21 +73,15 @@
           "weight": 20
         },
         {
-          "id": "type",
-          "label": "Cessna 172",
-          "acceptedVariants": [
-            "Cessna 172"
-          ],
-          "weight": 10
-        },
-        {
           "id": "position",
-          "label": "General aviation apron",
+          "label": "At general aviation apron",
           "acceptedVariants": [
+            "at general aviation apron",
             "general aviation apron",
+            "at GA apron",
             "GA apron"
           ],
-          "weight": 15
+          "weight": 25
         },
         {
           "id": "atis",

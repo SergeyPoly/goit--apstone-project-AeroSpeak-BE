@@ -12,7 +12,7 @@
     },
     {
       "label": "Station",
-      "value": "Poznań Information"
+      "value": "Poznań Information 126.300"
     },
     {
       "label": "Callsign",
@@ -37,9 +37,9 @@
       "type": "atc_instruction",
       "speaker": "atc",
       "prompt": "FIS asked you to report over Oborniki. You are overhead now at 2500 feet.",
-      "atcText": "SP-TFA, report over Oborniki.",
+      "atcText": "SP-TFA, Poznań Information, report over Oborniki.",
       "atcAudio": "/audio/atc/fis-position-handover/position-report.mp3",
-      "expectedPilotResponse": "SP-TFA, over Oborniki, 2500 feet.",
+      "expectedPilotResponse": "SP-TFA, over Oborniki, altitude 2500 feet.",
       "requiredElements": [
         {
           "id": "callsign",
@@ -62,8 +62,9 @@
         },
         {
           "id": "altitude",
-          "label": "2500 feet",
+          "label": "Altitude 2500 feet",
           "acceptedVariants": [
+            "altitude 2500 feet",
             "2500 feet"
           ],
           "weight": 30

@@ -27,6 +27,10 @@
       "value": "28"
     },
     {
+      "label": "Wind",
+      "value": "270° 10 kt"
+    },
+    {
       "label": "Intention",
       "value": "Circuits, touch-and-go"
     }
@@ -50,7 +54,7 @@
         "position": "upwind",
         "runway": "28"
       },
-      "atcText": "SP-TFA, runway 28, cleared for take-off, right-hand circuit, report downwind.",
+      "atcText": "SP-TFA, Poznań Tower, runway 28, cleared for take-off, right-hand circuit, report downwind.",
       "atcAudio": "/audio/atc/pattern-ctrl-circuit/take-off-readback.mp3",
       "expectedPilotResponse": "Runway 28, cleared for take-off, right-hand circuit, wilco, SP-TFA.",
       "requiredElements": [

@@ -4,7 +4,7 @@ Scenarios use only the facts below. Items marked **unverified** are placeholders
 be checked against the current Polish AIP (or provided by the team) before release.
 After a fact changes, update the scenarios that use it and run `npm test`.
 
-As of 2026-10-18.
+As of 2026-10-29.
 
 ## Aircraft
 
@@ -19,6 +19,7 @@ As of 2026-10-18.
 | --- | --- | --- |
 | Runway | 10/28, 2504 × 50 m | [learn-atc](https://www.learn-atc.com/tools/aerodrome/EPPO) |
 | Runway in use in scenarios | 28 | assumption (westerly wind) |
+| Wind in scenarios | 270° 10 kt (landing scenario: 260° 8 kt) | example, matches runway 28 |
 | Poznań Delivery | 121.805 | [learn-atc](https://www.learn-atc.com/tools/aerodrome/EPPO), [PLVACC](https://plvacc.pl/pilots/airports/EPPO) |
 | Poznań Ground | 124.140 | [PLVACC](https://plvacc.pl/pilots/airports/EPPO) |
 | Poznań Tower | 119.980 | [learn-atc](https://www.learn-atc.com/tools/aerodrome/EPPO), [PLVACC](https://plvacc.pl/pilots/airports/EPPO) |
@@ -38,10 +39,11 @@ As of 2026-10-18.
 | Station | Piła Radio, 122.405 | [dlapilota.pl](https://dlapilota.pl/wiadomosci/aeroklub-ziemi-pilskiej/od-nowego-roku-nowa-czestotliwosc-operacyjna-na-ladowisku-pila-ep) |
 | Runway | 03/21 concrete, 2400 × 60 m | [Aeroklub Ziemi Pilskiej](https://www.azp.pila.pl/lotnisko/) |
 | Runway in use in scenarios | 21 | assumption |
+| Wind in scenarios | 220° 8 kt | example, matches runway 21 |
 | Runway in OSM | tagged `21R/03L`, which hints at a parallel strip (03R/21L, likely grass) that OSM does not map | **check**; scenarios say plain 03/21 |
 | Taxiways | not named in scenarios ("apron", "holding point runway 21"); OSM has no taxiway refs | **unverified** |
 | Taxi route | OSM shows a parallel taxiway from the aprons to the runway 21 threshold | see conflicts below |
-| Pattern | circuit side not specified in scenarios | **unverified** |
+| Pattern | right-hand circuit runway 21 | team (2026-10-29) |
 
 ## Charts
 
@@ -69,6 +71,6 @@ re-fetch from the OSM API (bbox `16.78,52.405,16.86,52.44` and `16.68,53.15,16.7
 
 | Item | Value | Status |
 | --- | --- | --- |
-| FIS | Poznań Information | **unverified** name, frequency not used |
+| FIS | Poznań Information 126.300 | team (2026-10-29) |
 | Reporting point | Oborniki (town between Piła and Poznań) | **unverified** as a VFR point |
 | VFR squawk assigned by FIS | 5201 | example value |

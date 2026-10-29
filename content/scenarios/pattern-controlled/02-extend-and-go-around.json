@@ -27,6 +27,10 @@
       "value": "28"
     },
     {
+      "label": "Wind",
+      "value": "270° 10 kt"
+    },
+    {
       "label": "Intention",
       "value": "Full stop"
     }
@@ -43,7 +47,7 @@
         "position": "downwind",
         "runway": "28"
       },
-      "atcText": "SP-TFA, extend downwind, I will call your base.",
+      "atcText": "SP-TFA, Poznań Tower, extend downwind, I will call your base.",
       "atcAudio": "/audio/atc/pattern-ctrl-extend-go-around/extend-readback.mp3",
       "expectedPilotResponse": "Extending downwind, SP-TFA.",
       "requiredElements": [

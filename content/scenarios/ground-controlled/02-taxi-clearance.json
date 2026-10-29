@@ -33,6 +33,10 @@
     {
       "label": "Runway",
       "value": "28"
+    },
+    {
+      "label": "Wind",
+      "value": "270° 10 kt"
     }
   ],
   "phraseologyNote": {
@@ -94,7 +98,7 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Read back the taxi clearance.",
-      "atcText": "SP-TFA, taxi to holding point runway 28 via Alpha.",
+      "atcText": "SP-TFA, Poznań Ground, taxi to holding point runway 28 via Alpha.",
       "atcAudio": "/audio/atc/ground-ctrl-taxi-clearance/taxi-readback.mp3",
       "expectedPilotResponse": "Taxi to holding point runway 28 via Alpha, SP-TFA.",
       "requiredElements": [

@@ -27,6 +27,10 @@
       "value": "21"
     },
     {
+      "label": "Wind",
+      "value": "220° 8 kt"
+    },
+    {
       "label": "Intention",
       "value": "Touch-and-go"
     }
@@ -35,7 +39,7 @@
     "id": "circuit-calls",
     "title": "Circuit position reports",
     "shortExplanation": "Report downwind, base and final with the runway and your intention (touch-and-go or full stop).",
-    "example": "Piła Radio, SP-TFA, downwind runway 21, touch-and-go.",
+    "example": "Piła Radio, SP-TFA, right downwind runway 21, touch-and-go.",
     "whyItMatters": "Other pilots in the circuit sequence themselves from your calls."
   },
   "steps": [
@@ -46,11 +50,11 @@
       "prompt": "You are abeam the threshold on downwind. Report position and your intention: touch-and-go.",
       "visual": {
         "kind": "pattern",
-        "side": "left",
+        "side": "right",
         "position": "downwind",
         "runway": "21"
       },
-      "expectedPilotResponse": "Piła Radio, SP-TFA, downwind runway 21, touch-and-go.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, right downwind runway 21, touch-and-go.",
       "requiredElements": [
         {
           "id": "station",
@@ -72,8 +76,9 @@
         },
         {
           "id": "downwind",
-          "label": "Downwind",
+          "label": "Right downwind",
           "acceptedVariants": [
+            "right downwind",
             "downwind"
           ],
           "weight": 25
@@ -108,7 +113,7 @@
       "prompt": "You turned base. Report it.",
       "visual": {
         "kind": "pattern",
-        "side": "left",
+        "side": "right",
         "position": "base",
         "runway": "21"
       },
@@ -161,7 +166,7 @@
       "prompt": "You are on final. Report with your intention.",
       "visual": {
         "kind": "pattern",
-        "side": "left",
+        "side": "right",
         "position": "final",
         "runway": "21"
       },

@@ -29,6 +29,10 @@
     {
       "label": "Runway",
       "value": "28"
+    },
+    {
+      "label": "Wind",
+      "value": "270° 10 kt"
     }
   ],
   "phraseologyNote": {
@@ -88,7 +92,7 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Read back the line-up instruction.",
-      "atcText": "SP-TFA, line up and wait runway 28.",
+      "atcText": "SP-TFA, Poznań Tower, line up and wait runway 28.",
       "atcAudio": "/audio/atc/dep-ctrl-ready-take-off/line-up-readback.mp3",
       "expectedPilotResponse": "Line up and wait runway 28, SP-TFA.",
       "requiredElements": [

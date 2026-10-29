@@ -8,7 +8,7 @@
   "phraseologyNote": {
     "id": "frequencies",
     "title": "Frequencies",
-    "shortExplanation": "Say every digit and \"decimal\" for the point. Trailing zeros may be dropped.",
+    "shortExplanation": "Say all six figures and \"decimal\" for the point. Only when the last two are zeros are the first four enough: 122.500 is \"one two two decimal fife\".",
     "example": "One two four decimal one four zero",
     "whyItMatters": "A wrong frequency means losing contact with ATC."
   },
