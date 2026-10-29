@@ -73,9 +73,9 @@ UK CAA CAP 413 applies only to UK aerodromes if we add them. The PDFs are not co
   for another is wrong; regular words and accents get fuzzy matching.
 - `alignWords()` aligns each spoken form with the transcript in order. A wrong word
   that STT itself was unsure about (word confidence < 0.5) is "unclear" (almost).
-  "to" before a number or before "altitude" / "height" / "flight level" is non-standard
-  (AIP Polska GEN 1.7) and makes the element almost. Each element carries a `hint` when it
-  was understood but not said the standard way.
+  "to" before a number or before "altitude" / "height" / "flight level" is an error
+  (AIP Polska GEN 1.7): the element is missed (a critical one caps the score at 59).
+  Each element carries a `hint` when it was understood but not said the standard way.
 - `checkOrder()` (`order.ts`) picks the order rule by step type. Readbacks (`pilot_readback`,
   and drills with a `callsign` element such as "Wilco, SP-TFA"): the callsign goes at the
   start or at the end, never in the middle; the read-back items may come in any order.
@@ -83,6 +83,8 @@ UK CAA CAP 413 applies only to UK aerodromes if we add them. The PDFs are not co
   element order (station, callsign, position, request, information). The result goes to
   the API as `order` (rule, out-of-order element ids, message, points lost).
 - `scoreTransmission()`: 90% share of recognized words weighted by element, 10% order.
+  Each non-standard but understood item (non-standard number form, a left-out optional
+  word, "nine" / "point") costs at least 5 points, however small its element is.
   STT confidence is never part of the score. A critical element with a missing word is
   missed and caps the score at 59 (display 3, not a success). Display mapping 0-100 -> 1-6
   per spec 11.1.

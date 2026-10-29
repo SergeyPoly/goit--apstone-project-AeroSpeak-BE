@@ -424,18 +424,64 @@ describe('scoreTransmission: drills', () => {
     expect(result.tip).toBe('not above [altitude] 1500 feet: Say "altitude" too.');
   });
 
-  it('marks "to" before a number as almost (AIP Polska GEN 1.7)', () => {
+  it('treats "to" before a number or "altitude" as an error (AIP Polska GEN 1.7)', () => {
     const climbing = drill(['climbing [altitude] 2000 feet'], true);
-    const withTo = scoreTransmission(climbing, {
-      transcript: 'climbing to altitude two thousand feet',
-    });
-    expect(withTo.elements[0].status).toBe('partial');
-    expect(withTo.elements[0].hint).toBe('Don\'t say "to" before a number.');
-    const both = scoreTransmission(climbing, { transcript: 'climbing to two thousand feet' });
-    expect(both.elements[0].hint).toBe('Say "altitude" too. Don\'t say "to" before a number.');
+    const error =
+      '"to" before a number or "altitude" is an error (AIP Polska GEN 1.7): leave it out.';
+    for (const transcript of [
+      'climbing to altitude two thousand feet',
+      'climbing to two thousand feet',
+    ]) {
+      const result = scoreTransmission(climbing, { transcript });
+      expect(result.elements[0].status).toBe('missed');
+      expect(result.elements[0].hint?.startsWith(error)).toBe(true);
+      expect(result.missedCritical).toEqual(['item']);
+      expect(result.score).toBeLessThanOrEqual(CRITICAL_MISS_CAP);
+      expect(result.tip.startsWith('climbing [altitude] 2000 feet: "to"')).toBe(true);
+    }
     expect(
       scoreTransmission(climbing, { transcript: 'climbing altitude two thousand feet' }).score,
     ).toBe(100);
+  });
+
+  it('takes at least 5 points for each non-standard item, even in a long call', () => {
+    const call: ScoringStep = {
+      type: 'pilot_request',
+      expectedPilotResponse:
+        'Poznań Tower, SP-TFA, approaching Delta, altitude 2000 feet, inbound for landing.',
+      requiredElements: [
+        { id: 'station', label: 'Poznań Tower', acceptedVariants: ['Poznań Tower'], weight: 20 },
+        { id: 'callsign', label: 'SP-TFA', acceptedVariants: ['SP-TFA'], weight: 25 },
+        {
+          id: 'position',
+          label: 'Approaching Delta',
+          acceptedVariants: ['approaching Delta'],
+          weight: 20,
+        },
+        {
+          id: 'altitude',
+          label: 'Altitude 2000 feet',
+          acceptedVariants: ['[altitude] 2000 feet'],
+          weight: 15,
+        },
+        {
+          id: 'inbound',
+          label: 'Inbound for landing',
+          acceptedVariants: ['inbound for landing'],
+          weight: 20,
+        },
+      ],
+    };
+    const words = 'poznan tower sierra papa tango foxtrot alpha approaching delta';
+    expect(
+      scoreTransmission(call, {
+        transcript: `${words} altitude two thousand feet inbound for landing`,
+      }).score,
+    ).toBe(100);
+    expect(
+      scoreTransmission(call, { transcript: `${words} two thousand feet inbound for landing` })
+        .score,
+    ).toBe(95);
   });
 
   it('does not take "to" for "two" inside a number', () => {
