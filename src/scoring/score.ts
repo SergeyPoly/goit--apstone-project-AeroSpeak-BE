@@ -87,9 +87,17 @@ export function scoreTransmission(step: ScoringStep, input: ScoreInput): ScoreRe
     ...step.requiredElements.filter((e) => e.critical).map((e) => e.id),
   ]);
 
-  const elements = step.requiredElements.map((element) =>
-    matchElement(element, heard, criticalIds.has(element.id)),
+  // Two passes: first find which heard words each element recognized, then match
+  // again so that no element shows another element's word as "heard instead".
+  const isCritical = (id: string) => criticalIds.has(id);
+  const sole = step.requiredElements.length === 1;
+  const firstPass = step.requiredElements.map((e) =>
+    matchElement(e, heard, isCritical(e.id), new Set(), sole),
   );
+  const elements = step.requiredElements.map((element, index) => {
+    const blocked = new Set(firstPass.flatMap((m, other) => (other === index ? [] : m.claimed)));
+    return matchElement(element, heard, isCritical(element.id), blocked, sole).result;
+  });
 
   const weights = new Map(step.requiredElements.map((e) => [e.id, e.weight]));
   const order = orderScore(elements);
