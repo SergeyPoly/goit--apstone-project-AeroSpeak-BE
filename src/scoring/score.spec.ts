@@ -357,26 +357,23 @@ describe('scoreTransmission: drills', () => {
     expect(result.score).toBe(0);
   });
 
-  it('wants the leading zero of a flight level below 100', () => {
-    const result = scoreTransmission(drill(['flight level 065']), {
-      transcript: 'flight level six five',
-    });
-    expect(wordsOf(result)).toEqual([
-      'flight:correct',
-      'level:correct',
-      'zero:missing',
-      'six:correct',
-      'fife:correct',
-    ]);
-    expect(result.elements[0].status).toBe('partial');
+  it('wants a flight level digit by digit, without a leading zero (Doc 9432 2.4.2)', () => {
+    expect(scoreTransmission(drill(['FL 65']), { transcript: 'flight level six five' }).score).toBe(
+      100,
+    );
   });
 
-  it.each(['squawk seven zero zero zero', 'squawk seven thousand'])(
-    'accepts "%s" for squawk 7000',
-    (transcript) => {
-      expect(scoreTransmission(drill(['squawk 7000']), { transcript }).score).toBe(100);
-    },
-  );
+  it('marks a non-standard number form as almost and names the standard one', () => {
+    const result = scoreTransmission(drill(['squawk 7000']), {
+      transcript: 'squawk seven zero zero zero',
+    });
+    expect(result.elements[0].status).toBe('partial');
+    expect(result.elements[0].hint).toBe('Say "seven thousand": that is the standard form.');
+    expect(result.score).toBe(76);
+    expect(
+      scoreTransmission(drill(['squawk 7000']), { transcript: 'squawk seven thousand' }).score,
+    ).toBe(100);
+  });
 
   it('wants a heading digit by digit (CAP 413 2.13.1)', () => {
     const heading = drill(['heading 300']);
@@ -403,10 +400,93 @@ describe('scoreTransmission: drills', () => {
     );
   });
 
-  it('accepts QNH 1000 as "one thousand" or digit by digit (CAP 413 table 5)', () => {
-    for (const transcript of ['qnh one thousand', 'qnh one zero zero zero']) {
-      expect(scoreTransmission(drill(['QNH 1000'], true), { transcript }).score).toBe(100);
+  it('accepts QNH 1000 as "one thousand"; digit by digit is almost (Doc 9432 2.4.3)', () => {
+    expect(
+      scoreTransmission(drill(['QNH 1000'], true), { transcript: 'qnh one thousand' }).score,
+    ).toBe(100);
+    const digits = scoreTransmission(drill(['QNH 1000'], true), {
+      transcript: 'qnh one zero zero zero',
+    });
+    expect(digits.missedCritical).toEqual([]);
+    expect(digits.elements[0].status).toBe('partial');
+  });
+
+  it('marks a left-out optional word as almost, not missing', () => {
+    const result = scoreTransmission(drill(['not above [altitude] 1500 feet'], true), {
+      transcript: 'not above one thousand five hundred feet',
+    });
+    expect(result.missedCritical).toEqual([]);
+    expect(result.elements[0].words.find((w) => w.expected === 'altitude')).toEqual({
+      expected: 'altitude',
+      status: 'almost',
+    });
+    expect(result.elements[0].hint).toBe('Say "altitude" too.');
+    expect(result.tip).toBe('not above [altitude] 1500 feet: Say "altitude" too.');
+  });
+
+  it('treats "to" before a number or "altitude" as an error (AIP Polska GEN 1.7)', () => {
+    const climbing = drill(['climbing [altitude] 2000 feet'], true);
+    const error =
+      '"to" before a number or "altitude" is an error (AIP Polska GEN 1.7): leave it out.';
+    for (const transcript of [
+      'climbing to altitude two thousand feet',
+      'climbing to two thousand feet',
+    ]) {
+      const result = scoreTransmission(climbing, { transcript });
+      expect(result.elements[0].status).toBe('missed');
+      expect(result.elements[0].hint?.startsWith(error)).toBe(true);
+      expect(result.missedCritical).toEqual(['item']);
+      expect(result.score).toBeLessThanOrEqual(CRITICAL_MISS_CAP);
+      expect(result.tip.startsWith('climbing [altitude] 2000 feet: "to"')).toBe(true);
     }
+    expect(
+      scoreTransmission(climbing, { transcript: 'climbing altitude two thousand feet' }).score,
+    ).toBe(100);
+  });
+
+  it('takes at least 5 points for each non-standard item, even in a long call', () => {
+    const call: ScoringStep = {
+      type: 'pilot_request',
+      expectedPilotResponse:
+        'Poznań Tower, SP-TFA, approaching Delta, altitude 2000 feet, inbound for landing.',
+      requiredElements: [
+        { id: 'station', label: 'Poznań Tower', acceptedVariants: ['Poznań Tower'], weight: 20 },
+        { id: 'callsign', label: 'SP-TFA', acceptedVariants: ['SP-TFA'], weight: 25 },
+        {
+          id: 'position',
+          label: 'Approaching Delta',
+          acceptedVariants: ['approaching Delta'],
+          weight: 20,
+        },
+        {
+          id: 'altitude',
+          label: 'Altitude 2000 feet',
+          acceptedVariants: ['[altitude] 2000 feet'],
+          weight: 15,
+        },
+        {
+          id: 'inbound',
+          label: 'Inbound for landing',
+          acceptedVariants: ['inbound for landing'],
+          weight: 20,
+        },
+      ],
+    };
+    const words = 'poznan tower sierra papa tango foxtrot alpha approaching delta';
+    expect(
+      scoreTransmission(call, {
+        transcript: `${words} altitude two thousand feet inbound for landing`,
+      }).score,
+    ).toBe(100);
+    expect(
+      scoreTransmission(call, { transcript: `${words} two thousand feet inbound for landing` })
+        .score,
+    ).toBe(95);
+  });
+
+  it('does not take "to" for "two" inside a number', () => {
+    const result = scoreTransmission(drill(['runway 21']), { transcript: 'runway to one' });
+    expect(result.score).toBe(100);
   });
 
   it('accepts an abbreviation spelled out by STT', () => {
@@ -420,7 +500,7 @@ describe('scoreTransmission: drills', () => {
     expect(scoreTransmission(drill(['QNH 1013'], true), { transcript: 'qnh 1013' }).score).toBe(
       100,
     );
-    expect(scoreTransmission(drill(['FL 065']), { transcript: 'flight level 65' }).score).toBe(100);
+    expect(scoreTransmission(drill(['FL 65']), { transcript: 'flight level 65' }).score).toBe(100);
   });
 
   it('fails a QNH with a wrong digit or said as a cardinal', () => {
@@ -441,12 +521,15 @@ describe('scoreTransmission: frequencies', () => {
     expect(result.elements.find((e) => e.id === 'frequency')?.status).toBe('matched');
   });
 
-  it('accepts all digits of a frequency', () => {
+  it('marks six digits as almost when the last two are zeros (Doc 9432 2.4.4)', () => {
     const result = scoreTransmission(frequencyDrill, {
       transcript:
         'contact ground one two one decimal niner zero zero sierra papa tango foxtrot alpha',
     });
-    expect(result.score).toBe(100);
+    const frequency = result.elements.find((e) => e.id === 'frequency');
+    expect(frequency?.status).toBe('partial');
+    expect(frequency?.hint).toBe('Say "one two one decimal niner": that is the standard form.');
+    expect(result.missedCritical).toEqual([]);
   });
 
   it('gives "point" partial credit without failing the critical frequency', () => {

@@ -47,17 +47,22 @@ prisma/schema.prisma      Guest, User, Attempt
 
 Scoring grades ICAO phraseology word by word (like ArSim: each word is recognized or not).
 
+**Source of truth:** ICAO Doc 9432 (Manual of Radiotelephony, Polish ULC edition) with the
+Polish differences of its appendix 1 (AIP Polska GEN 1.7), since all aerodromes are Polish.
+UK CAA CAP 413 applies only to UK aerodromes if we add them. The PDFs are not committed
+(copyright, public repo).
+
 - `expandToSpoken()` turns a written accepted variant into the words a pilot says:
   "QNH 998" -> "qnh niner niner eight", "SP-TFA" / "EPPO" / "information L" -> NATO words,
-  "2500 feet" -> "two thousand fife hundred feet", "FL 065" -> "flight level zero six fife".
-  Number rules follow UK CAA CAP 413 (Radiotelephony Manual, ed. 23) chapter 2, 2.11-2.15:
-  every digit separately (headings, QNH, distances: 10 -> "one zero"); whole hundreds and
-  thousands for altitude, height, visibility ("two thousand fife hundred"); FL100/200/300
-  as "one hundred"; frequencies with all six figures, four when the last two are zeros
-  (122.500 -> "one two two decimal fife"). Squawk and QNH in whole thousands accept both
-  "seven thousand" and "seven zero zero zero". Team rule: a flight level is always written
-  and said with three digits (FL 065, "zero six fife"); `content.spec.ts` checks it.
-  Content keeps written values.
+  "2500 feet" -> "two thousand fife hundred feet", "FL 65" -> "flight level six fife".
+  Number rules follow Doc 9432 2.4: every digit separately (headings, QNH, squawk,
+  distances: 10 -> "one zero", flight levels without a leading zero); whole hundreds and
+  thousands for altitude, cloud base, visibility; FL100 / squawk 7000 / QNH 1000 as
+  "one hundred" / "seven thousand" / "one thousand"; frequencies with six digits, four when
+  the last two are zeros. A non-standard form (squawk "seven zero zero zero", six digits
+  for 122.500, FL "one zero zero") is recognized and marked almost with a hint.
+  Words in square brackets are standard but optional: `"not above [altitude] 1500 feet"`;
+  leaving one out is almost, not a miss. Content keeps written values.
 - `tokenizeTranscript()` keeps the STT words as heard (no digits, no letter groups), so
   "a" is not "alpha". It only joins bare letters into a known abbreviation
   ("q n h" -> "qnh", list in `vocabulary.ts`) and keeps digits written by STT as one
@@ -68,6 +73,9 @@ Scoring grades ICAO phraseology word by word (like ArSim: each word is recognize
   for another is wrong; regular words and accents get fuzzy matching.
 - `alignWords()` aligns each spoken form with the transcript in order. A wrong word
   that STT itself was unsure about (word confidence < 0.5) is "unclear" (almost).
+  "to" before a number or before "altitude" / "height" / "flight level" is an error
+  (AIP Polska GEN 1.7): the element is missed (a critical one caps the score at 59).
+  Each element carries a `hint` when it was understood but not said the standard way.
 - `checkOrder()` (`order.ts`) picks the order rule by step type. Readbacks (`pilot_readback`,
   and drills with a `callsign` element such as "Wilco, SP-TFA"): the callsign goes at the
   start or at the end, never in the middle; the read-back items may come in any order.
@@ -75,6 +83,8 @@ Scoring grades ICAO phraseology word by word (like ArSim: each word is recognize
   element order (station, callsign, position, request, information). The result goes to
   the API as `order` (rule, out-of-order element ids, message, points lost).
 - `scoreTransmission()`: 90% share of recognized words weighted by element, 10% order.
+  Each non-standard but understood item (non-standard number form, a left-out optional
+  word, "nine" / "point") costs at least 5 points, however small its element is.
   STT confidence is never part of the score. A critical element with a missing word is
   missed and caps the score at 59 (display 3, not a success). Display mapping 0-100 -> 1-6
   per spec 11.1.
