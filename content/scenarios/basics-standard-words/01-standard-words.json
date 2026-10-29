@@ -19,8 +19,18 @@
     "id": "standard-words",
     "title": "Standard words",
     "shortExplanation": "Wilco = I understand and will comply. Affirm = yes. Negative = no. Roger = I received your message.",
-    "example": "Wilco, SP-TFA.",
-    "whyItMatters": "Standard words keep transmissions short and unambiguous."
+    "overview": [
+      "Standard words have one fixed meaning, so a short answer cannot be misread.",
+      "WILCO already includes ROGER, so the two are never said together. AFFIRM means yes; NEGATIVE means no.",
+      "End each answer with your callsign so ATC knows who answered."
+    ],
+    "whyItMatters": "Standard words keep transmissions short and unambiguous.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.6 Standard words and phrases"
+      }
+    ]
   },
   "steps": [
     {

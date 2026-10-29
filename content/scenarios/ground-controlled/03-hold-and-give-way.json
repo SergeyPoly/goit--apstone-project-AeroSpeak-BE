@@ -39,8 +39,22 @@
     "id": "hold-position",
     "title": "Hold position",
     "shortExplanation": "\"Hold position\" means stop now. Read it back exactly and stay stopped until cleared.",
-    "example": "Holding position, giving way to the Boeing 737, SP-TFA.",
-    "whyItMatters": "Readback proves you understood that you must not move."
+    "overview": [
+      "\"Hold position\" means stop now and stay stopped until cleared.",
+      "Hold short of a runway is a runway instruction and is always read back.",
+      "For give way, read back what you give way to, then continue once it has passed."
+    ],
+    "whyItMatters": "Readback proves you understood that you must not move.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.4 Taxi instructions"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      }
+    ]
   },
   "steps": [
     {

@@ -31,6 +31,26 @@
       "value": "220° 8 kt"
     }
   ],
+  "phraseologyNote": {
+    "id": "touch-and-go",
+    "title": "Touch-and-go",
+    "shortExplanation": "On final, say your intention: touch-and-go keeps you in the circuit, full stop ends it.",
+    "overview": [
+      "In a touch-and-go you land, keep rolling and take off again without stopping.",
+      "Announce it on final, so others know you will be on the runway only briefly and then back in the circuit. On the last circuit report full stop, then the runway vacated."
+    ],
+    "whyItMatters": "Your intention tells the traffic behind you how long the runway will be occupied.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.6 Aerodrome traffic circuit"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.7 Final approach and landing"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "final-touch-go",

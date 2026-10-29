@@ -39,8 +39,23 @@
     "id": "backtrack",
     "title": "Backtracking",
     "shortExplanation": "Backtrack means taxiing on the runway in the opposite direction to the take-off direction.",
-    "example": "Piła Radio, SP-TFA, entering runway 21 and backtracking.",
-    "whyItMatters": "Traffic on final must know the runway is occupied."
+    "overview": [
+      "When there is no taxiway to the threshold, you taxi along the runway and turn around at its end.",
+      "While you backtrack the runway is occupied, so announce entering and backtracking, then report lined up.",
+      "At a controlled aerodrome backtracking is a runway clearance and is always read back."
+    ],
+    "whyItMatters": "Traffic on final must know the runway is occupied.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      },
+      {
+        "source": "AIP VFR Polska",
+        "section": "AD 4 EPPI 4-1 Visual approach chart",
+        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+      }
+    ]
   },
   "steps": [
     {

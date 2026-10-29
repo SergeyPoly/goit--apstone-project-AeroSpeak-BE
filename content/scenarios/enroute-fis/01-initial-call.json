@@ -39,8 +39,26 @@
     "id": "fis-initial-call",
     "title": "Initial call to FIS",
     "shortExplanation": "Station, callsign, flight rules and route, position, altitude. FIS knows what you need from the call itself.",
-    "example": "Poznań Information, SP-TFA, VFR from Piła to Poznań, overhead Kilo, altitude 2500 feet.",
-    "whyItMatters": "FIS can only help (traffic, weather) if it knows who and where you are."
+    "overview": [
+      "FIS (flight information service) gives information and alerting service but does not separate VFR traffic. In Poland its stations are called \"Information\".",
+      "Make the first call with full callsigns, flight rules and route, position and altitude.",
+      "FIS usually gives a squawk and the QNH. Both are always read back."
+    ],
+    "whyItMatters": "FIS can only help (traffic, weather) if it knows who and where you are.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.1 Establishment and continuation of communication"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "3.4 Position reporting"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      }
+    ]
   },
   "steps": [
     {

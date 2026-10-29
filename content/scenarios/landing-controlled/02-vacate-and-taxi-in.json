@@ -35,6 +35,31 @@
       "value": "Landing roll runway 28"
     }
   ],
+  "phraseologyNote": {
+    "id": "vacate-taxi-in",
+    "title": "Vacating and taxiing in",
+    "shortExplanation": "Read back the vacating instruction and frequency, then call Ground with your request.",
+    "overview": [
+      "After landing, Tower tells you where to vacate and which frequency is next. Read back both.",
+      "The runway is vacated only when the whole aircraft has passed the runway-holding position. Then call Ground and request taxi.",
+      "Read back the taxi route and stop at any clearance limit."
+    ],
+    "whyItMatters": "The next aircraft cannot land until you report the runway vacated.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.9 After landing"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.4 Taxi instructions"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.2 Transfer of communications"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "vacate-readback",

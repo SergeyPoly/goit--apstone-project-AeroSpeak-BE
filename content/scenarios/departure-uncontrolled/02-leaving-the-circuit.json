@@ -39,6 +39,27 @@
       "value": "VFR to Poznań"
     }
   ],
+  "phraseologyNote": {
+    "id": "leaving-circuit",
+    "title": "Leaving the circuit and the frequency",
+    "shortExplanation": "Report where you leave the circuit, then tell the station before you change frequency.",
+    "overview": [
+      "Report leaving the circuit with the exit point and your altitude, so arriving traffic knows where you are.",
+      "Before you change frequency, tell the station where you go. Around Piła, FIS is split by a line through the airfield: Gdańsk Information to the north, Poznań Information to the south."
+    ],
+    "whyItMatters": "A station that does not know you left may start a search when you stop answering.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.2 Transfer of communications"
+      },
+      {
+        "source": "AIP VFR Polska",
+        "section": "AD 4 EPPI 4-1 Visual approach chart",
+        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "leaving-circuit",

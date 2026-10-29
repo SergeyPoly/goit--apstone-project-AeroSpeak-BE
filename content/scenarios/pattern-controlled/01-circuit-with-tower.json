@@ -39,8 +39,26 @@
     "id": "circuit-tower",
     "title": "Circuits at a controlled aerodrome",
     "shortExplanation": "Tower sequences you in the circuit. Read back clearances and \"number two\" sequencing; report where you are asked to.",
-    "example": "Number two, traffic in sight, SP-TFA.",
-    "whyItMatters": "Sequencing keeps aircraft in the circuit separated."
+    "overview": [
+      "Tower sequences the circuit traffic. \"Number two\" means one aircraft lands before you; follow it and report it in sight.",
+      "Report downwind with your intention, so Tower can plan the next clearance.",
+      "Read back a touch-and-go clearance like a landing clearance: runway and clearance."
+    ],
+    "whyItMatters": "Sequencing keeps aircraft in the circuit separated.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.6 Aerodrome traffic circuit"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.7 Final approach and landing"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      }
+    ]
   },
   "steps": [
     {

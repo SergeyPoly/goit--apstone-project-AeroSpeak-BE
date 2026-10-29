@@ -35,6 +35,32 @@
       "value": "270° 10 kt"
     }
   ],
+  "phraseologyNote": {
+    "id": "joining-instructions",
+    "title": "Joining the circuit",
+    "shortExplanation": "Tower tells you which leg to join, for which runway, and where to report next.",
+    "overview": [
+      "Before you reach the aerodrome, Tower gives joining instructions: the leg to join (downwind, base or straight-in final), the runway and the next report.",
+      "A right-hand circuit is always stated; a left-hand circuit may be left out. Read back the leg with its side, the runway and the report request.",
+      "When you reach the point, report the leg and the runway. Tower uses your reports to sequence you with the other traffic in the circuit."
+    ],
+    "whyItMatters": "Several aircraft may join at once; your readback tells Tower you will fly the pattern it expects.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.6 Aerodrome traffic circuit"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      },
+      {
+        "source": "AIP Polska",
+        "section": "AD 2 EPPO 13-1 Visual approach chart",
+        "url": "https://ais.pansa.pl/publikacje/aip-polska/"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "join-readback",

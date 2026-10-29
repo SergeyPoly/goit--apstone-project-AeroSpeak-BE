@@ -9,8 +9,18 @@
     "id": "circuit-legs",
     "title": "Circuit legs",
     "shortExplanation": "A circuit has five legs: upwind, crosswind, downwind, base and final. In a left-hand circuit all turns are to the left.",
-    "example": "Downwind",
-    "whyItMatters": "Pilots and controllers use leg names to report and find traffic."
+    "overview": [
+      "Upwind is along the runway after take-off. Crosswind is the first 90° turn. Downwind runs parallel to the runway, opposite to the landing direction. Base is the turn towards the runway, and final is in line with it.",
+      "A left-hand circuit is the standard one and need not be stated.",
+      "Position reports name the leg and the runway."
+    ],
+    "whyItMatters": "Pilots and controllers use leg names to report and find traffic.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.6 Aerodrome traffic circuit"
+      }
+    ]
   },
   "steps": [
     {

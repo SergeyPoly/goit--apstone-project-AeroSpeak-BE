@@ -35,6 +35,27 @@
       "value": "220° 8 kt"
     }
   ],
+  "phraseologyNote": {
+    "id": "run-up-line-up",
+    "title": "Run-up and line-up",
+    "shortExplanation": "Tell the station what you are doing at the holding point and before you enter the runway.",
+    "overview": [
+      "Do the engine run-up at the holding point, clear of the runway, and announce it so nobody expects you to enter the runway yet.",
+      "Before lining up, check the final approach and the runway. Then announce lining up with the runway. These calls are announcements: nobody approves them."
+    ],
+    "whyItMatters": "Traffic on final needs to know that the runway is about to be occupied.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.5 Take-off procedures"
+      },
+      {
+        "source": "AIP VFR Polska",
+        "section": "AD 4 EPPI 4-1 Visual approach chart",
+        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "run-up",

@@ -39,8 +39,26 @@
     "id": "ag-radio",
     "title": "A/G radio (Radio)",
     "shortExplanation": "An A/G station gives information, not clearances. You decide and announce what you do.",
-    "example": "Piła Radio, SP-TFA, taxiing to holding point runway 21.",
-    "whyItMatters": "Other traffic builds its picture from your announcements."
+    "overview": [
+      "Piła Radio is an air/ground station: the operator passes the runway in use, wind, QNH and traffic, but cannot clear you.",
+      "Ask for the airfield information, read back the runway and the QNH, then announce your taxi with the runway you taxi to."
+    ],
+    "whyItMatters": "Other traffic builds its picture from your announcements.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.1 Establishment and continuation of communication"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      },
+      {
+        "source": "AIP VFR Polska",
+        "section": "AD 4 EPPI 4-1 Visual approach chart",
+        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+      }
+    ]
   },
   "steps": [
     {

@@ -39,8 +39,22 @@
     "id": "take-off-clearance",
     "title": "Take-off clearance",
     "shortExplanation": "Read back the runway and \"cleared for take-off\". Wind does not need a readback.",
-    "example": "Runway 28, cleared for take-off, SP-TFA.",
-    "whyItMatters": "A take-off clearance readback without the runway is incomplete."
+    "overview": [
+      "Report ready only when you are at the holding point and ready to go. \"Line up and wait\" lets you enter the runway, but not take off.",
+      "The words \"take off\" are used only in a take-off clearance or to cancel one. Elsewhere ATC and pilots say \"departure\".",
+      "Every runway clearance is read back: line up, take off, land, cross, hold short, backtrack."
+    ],
+    "whyItMatters": "A take-off clearance readback without the runway is incomplete.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.5 Take-off procedures"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      }
+    ]
   },
   "steps": [
     {

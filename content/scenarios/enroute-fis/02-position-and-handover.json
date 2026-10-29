@@ -31,6 +31,26 @@
       "value": "2500 feet"
     }
   ],
+  "phraseologyNote": {
+    "id": "position-report",
+    "title": "Position reports and handover",
+    "shortExplanation": "Report your position when asked; read back a frequency change before you switch.",
+    "overview": [
+      "A position report starts with your callsign, then the position and the level. Doc 9432 also lists time and next position, which may be left out where prescribed.",
+      "When FIS hands you over, read back the station and the frequency. On the new frequency, call with full callsigns and your level."
+    ],
+    "whyItMatters": "Position reports are how FIS knows where to look for you if something goes wrong.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "3.4 Position reporting"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.2 Transfer of communications"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "position-report",

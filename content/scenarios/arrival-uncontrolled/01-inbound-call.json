@@ -39,6 +39,32 @@
       "value": "220° 8 kt"
     }
   ],
+  "phraseologyNote": {
+    "id": "ag-inbound",
+    "title": "Arriving at an A/G aerodrome",
+    "shortExplanation": "Piła Radio gives information, not clearances. Call inbound early and decide how you join.",
+    "overview": [
+      "Piła has an air/ground radio station, called \"Radio\". The operator passes the runway in use, the circuit direction, the QNH and known traffic, but does not control traffic. You decide how to join and announce what you do.",
+      "Make the inbound call well before the aerodrome: station, callsign, position, altitude, intention and the request for airfield information.",
+      "Read back the runway in use and the QNH: both are always read back. Then announce where you join the circuit so other pilots on the frequency know where you are."
+    ],
+    "whyItMatters": "With no controller, separation depends on every pilot hearing and reporting positions.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.1 Establishment and continuation of communication"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      },
+      {
+        "source": "AIP VFR Polska",
+        "section": "AD 4 EPPI 4-1 Visual approach chart",
+        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "inbound",

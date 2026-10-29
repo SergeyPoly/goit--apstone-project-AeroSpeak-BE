@@ -35,6 +35,32 @@
       "value": "Leave the circuit via Kilo"
     }
   ],
+  "phraseologyNote": {
+    "id": "ag-take-off",
+    "title": "Take-off at an A/G aerodrome",
+    "shortExplanation": "Nobody clears you for take-off. Announce lining up and taking off, with the runway.",
+    "overview": [
+      "At an A/G or uncontrolled aerodrome you check yourself that the runway and the approach are clear, then announce what you do.",
+      "Never say \"cleared\": only ATC can clear you. Use \"lining up\" and \"taking off\" with the runway.",
+      "Add how you will leave the circuit, so arriving traffic expects you at that point."
+    ],
+    "whyItMatters": "Other pilots only know that the runway is in use if you announce it.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.1 Establishment and continuation of communication"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.5 Take-off procedures"
+      },
+      {
+        "source": "AIP VFR Polska",
+        "section": "AD 4 EPPI 4-1 Visual approach chart",
+        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "lining-up",

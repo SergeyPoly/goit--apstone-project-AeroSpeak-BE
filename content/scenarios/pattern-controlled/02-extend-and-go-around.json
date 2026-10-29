@@ -35,6 +35,26 @@
       "value": "Full stop"
     }
   ],
+  "phraseologyNote": {
+    "id": "circuit-changes",
+    "title": "Extend, turn base, go around",
+    "shortExplanation": "Tower may stretch or shorten your circuit; a go-around is flown at once and answered briefly.",
+    "overview": [
+      "Extend downwind: keep flying downwind until Tower calls your base. Turn base now: turn at once.",
+      "Go around: fly the go-around first, then acknowledge briefly. Workload is high, so every transmission is kept to a minimum."
+    ],
+    "whyItMatters": "These instructions resolve conflicts in the circuit; a late reaction removes the margin.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.6 Aerodrome traffic circuit"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.8 Go around"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "extend-readback",

@@ -35,6 +35,35 @@
       "value": "VFR to Piła via Delta"
     }
   ],
+  "phraseologyNote": {
+    "id": "departure-instructions",
+    "title": "VFR departure instructions",
+    "shortExplanation": "Read back the turn, the exit point, the altitude limit and the new frequency.",
+    "overview": [
+      "Tower gives the VFR departure route: which way to turn after take-off, the exit point of the control zone and an altitude limit. Read back all of it; the altitude limit is a level instruction.",
+      "When you are handed over, read back the station and the frequency before you change. Without an instruction, tell the station before you leave its frequency."
+    ],
+    "whyItMatters": "VFR exit routes keep departures clear of arrivals and of IFR traffic.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "7.2 VFR departures"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.2 Transfer of communications"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      },
+      {
+        "source": "AIP Polska",
+        "section": "AD 2 EPPO 13-1 Visual approach chart",
+        "url": "https://ais.pansa.pl/publikacje/aip-polska/"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "route-readback",

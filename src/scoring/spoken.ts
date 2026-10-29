@@ -218,8 +218,17 @@ const contextWords = (tokens: WrittenToken[]) =>
 const REGISTRATION = /^[A-Z]{1,2}-[A-Z]{2,4}$/;
 const NUMBER = /^\d+(\.\d+)?$/;
 
+/** "[altitude] 2000 feet" may also be said "2000 feet altitude": both orders are correct. */
+const ALTITUDE_BEFORE_VALUE = /\[altitude\] (\d+) feet/i;
+
 /** All spoken forms of a written variant. */
 export function expandToSpoken(variant: string): SpokenWord[][] {
+  const forms = expandWritten(variant);
+  if (!ALTITUDE_BEFORE_VALUE.test(variant)) return forms;
+  return [...forms, ...expandWritten(variant.replace(ALTITUDE_BEFORE_VALUE, '$1 feet altitude'))];
+}
+
+function expandWritten(variant: string): SpokenWord[][] {
   const tokens = writtenTokens(variant);
   let alternatives: SpokenWord[][] = [[]];
   let groupId = 0;

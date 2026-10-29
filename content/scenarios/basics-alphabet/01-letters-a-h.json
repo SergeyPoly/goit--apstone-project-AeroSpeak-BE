@@ -9,8 +9,18 @@
     "id": "phonetic-alphabet",
     "title": "Phonetic alphabet",
     "shortExplanation": "Letters are spoken with ICAO code words: Alpha, Bravo, Charlie…",
-    "example": "B = Bravo, J = Juliett",
-    "whyItMatters": "Single letters sound alike on a noisy frequency; code words do not."
+    "overview": [
+      "On the radio each letter has one code word from the ICAO spelling alphabet, from Alpha to Zulu. The words were chosen to stay clear on a noisy channel and for speakers of different languages.",
+      "Use them for callsigns, taxiways, VFR points and ATIS letters. A bare letter (\"A\", \"B\") is easily misheard and is not standard.",
+      "Doc 9432 marks the stressed syllable of every code word: AL-fah, BRAH-voh, CHAR-lee, DELL-tah, ECK-oh, FOKS-trot, GOLF, hoh-TELL."
+    ],
+    "whyItMatters": "Single letters sound alike on a noisy frequency; code words do not.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.3 Transmission of letters"
+      }
+    ]
   },
   "steps": [
     {

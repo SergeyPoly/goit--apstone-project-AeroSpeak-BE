@@ -43,8 +43,26 @@
     "id": "initial-call",
     "title": "Initial call",
     "shortExplanation": "First contact: station, callsign, position, request, ATIS letter.",
-    "example": "Poznań Ground, SP-TFA, at general aviation apron, request start-up, information Kilo.",
-    "whyItMatters": "ATC gets everything it needs in one call and confirms you have the current ATIS."
+    "overview": [
+      "Your first call on a frequency uses the full callsign of the station and of your aircraft.",
+      "Give your position, your request and the ATIS letter. With the ATIS acknowledged, the controller does not need to read out the departure information.",
+      "Read back the QNH that comes with the start-up approval: altimeter settings are always read back."
+    ],
+    "whyItMatters": "ATC gets everything it needs in one call and confirms you have the current ATIS.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.1 Establishment and continuation of communication"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "4.2 Departure information and engine starting procedures"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.8.3 Issue of clearance and read-back requirements"
+      }
+    ]
   },
   "steps": [
     {

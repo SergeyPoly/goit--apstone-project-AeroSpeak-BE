@@ -5,6 +5,25 @@
   "difficulty": "easy",
   "estimatedDurationSec": 75,
   "objective": "Spell ICAO airport codes with the phonetic alphabet.",
+  "phraseologyNote": {
+    "id": "location-indicators",
+    "title": "ICAO location indicators",
+    "shortExplanation": "Four-letter ICAO aerodrome codes are spelled with the alphabet, letter by letter.",
+    "overview": [
+      "The first letter is the region (E for northern Europe), the second the country (P for Poland, D for Germany), the last two the aerodrome.",
+      "Codes appear in flight plans, NOTAMs, METARs and charts. When you say one on the radio, spell each letter with the alphabet."
+    ],
+    "whyItMatters": "Codes are short and similar; spelling them is the only way to avoid a wrong destination.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.3 Transmission of letters"
+      },
+      {
+        "source": "ICAO Doc 7910 Location Indicators"
+      }
+    ]
+  },
   "steps": [
     {
       "id": "code-eppo",

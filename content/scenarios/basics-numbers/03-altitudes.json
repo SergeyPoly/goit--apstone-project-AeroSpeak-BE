@@ -9,8 +9,27 @@
     "id": "altitudes",
     "title": "Altitudes",
     "shortExplanation": "Altitudes use thousands and hundreds; flight levels are read digit by digit.",
-    "example": "Two thousand fife hundred feet. Flight level six fife.",
-    "whyItMatters": "Mixing the two forms is a common source of level busts."
+    "overview": [
+      "Altitudes and heights are said in whole thousands and hundreds. Flight levels are said digit by digit after \"flight level\", without a leading zero.",
+      "In Poland \"altitude\" is said with an altitude value and \"to\" is never used before a number (AIP Polska GEN 1.7).",
+      "Below the transition altitude you fly altitudes on QNH; above it, flight levels on standard pressure."
+    ],
+    "whyItMatters": "Mixing the two forms is a common source of level busts.",
+    "references": [
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "2.4 Transmission of numbers"
+      },
+      {
+        "source": "ICAO Doc 9432 Manual of Radiotelephony",
+        "section": "3.3 Level instructions"
+      },
+      {
+        "source": "AIP Polska",
+        "section": "GEN 1.7 Differences from ICAO phraseology",
+        "url": "https://ais.pansa.pl/publikacje/aip-polska/"
+      }
+    ]
   },
   "steps": [
     {
