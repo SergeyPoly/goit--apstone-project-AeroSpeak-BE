@@ -24,7 +24,7 @@
     },
     {
       "label": "Position",
-      "value": "10 miles south"
+      "value": "Kilo"
     },
     {
       "label": "Altitude",
@@ -44,8 +44,8 @@
       "id": "inbound",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "You are 10 miles south at 2000 feet, inbound for landing. Call Piła Radio and ask for airfield information.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, 10 miles south, altitude 2000 feet, inbound for landing, request airfield information.",
+      "prompt": "You are over Kilo, south-west of Piła, at 2000 feet, inbound for landing. Call Piła Radio and ask for airfield information.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, overhead Kilo, altitude 2000 feet, inbound for landing, request airfield information.",
       "requiredElements": [
         {
           "id": "station",
@@ -67,9 +67,10 @@
         },
         {
           "id": "position",
-          "label": "10 miles south",
+          "label": "Overhead Kilo",
           "acceptedVariants": [
-            "10 miles south"
+            "overhead Kilo",
+            "over Kilo"
           ],
           "weight": 15
         },

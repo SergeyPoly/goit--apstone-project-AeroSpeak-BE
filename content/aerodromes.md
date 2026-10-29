@@ -4,7 +4,7 @@ Scenarios use only the facts below. Items marked **unverified** are placeholders
 be checked against the current Polish AIP (or provided by the team) before release.
 After a fact changes, update the scenarios that use it and run `npm test`.
 
-As of 2026-10-29.
+As of 2026-10-29 (VFR points and FIS frequencies from the AIP charts the team provided).
 
 ## Aircraft
 
@@ -29,7 +29,8 @@ As of 2026-10-29.
 | GA parking | "general aviation apron" | **unverified** name; the chart puts it on the south-east apron (by H1/H2), a guess |
 | Taxiways | Alpha (apron ↔ holding point runway 28, runway exit) | **conflict**, see below |
 | Taxiways in OSM | A, B, D1, D2, F, G, H1, H2, L, N1, N2, R, S, T, W, Y | [OSM](https://www.openstreetmap.org/copyright) (ODbL), not checked against the AIP |
-| CTR entry/exit points | November (north), Whiskey (west) | **unverified** |
+| VFR points (CTR) | see "EPPO VFR points" below | AIP AD 2 EPPO 13-1 (06 AUG 2026) |
+| Arrival from / departure to Piła in scenarios | via DELTA, report VICTOR | chart routes DELTA → VICTOR → HOTEL |
 | Pattern | right-hand circuit runway 28 | **unverified** |
 
 ## EPPI — Piła (uncontrolled, A/G radio)
@@ -44,6 +45,34 @@ As of 2026-10-29.
 | Taxiways | not named in scenarios ("apron", "holding point runway 21"); OSM has no taxiway refs | **unverified** |
 | Taxi route | OSM shows a parallel taxiway from the aprons to the runway 21 threshold | see conflicts below |
 | Pattern | right-hand circuit runway 21 | team (2026-10-29) |
+| VFR points | ZULU (north-west), DELTA (north-east), KILO (south-west) | AIP VFR AD 4 EPPI 4-1 (16 APR 2026) |
+| Arrival from / departure to Poznań in scenarios | via KILO | KILO is on the Poznań side |
+| FIS | north of the line through the airfield: Gdańsk Information 125.275; south: Poznań Information 126.300 | AIP VFR AD 4 EPPI 4-1 |
+
+## EPPO VFR points
+
+From AIP AD 2 EPPO 13-1 "VFR arrival and departure routes" (06 AUG 2026). VICTOR, HOTEL,
+GOLF, JULIETT, INDIA and FOXTROT are reported only when POZNAŃ TWR asks for it.
+
+| Point | Where | Description |
+| --- | --- | --- |
+| DELTA | north-west, CTR boundary | ring road flyover above the railway |
+| VICTOR | north-west, inside the CTR | NE end of Kierskie Lake |
+| HOTEL | north-west, near the aerodrome | hotel on the south end of Kierskie Lake |
+| QUEBEC | north-east | Owińska, spatial orientation park |
+| YANKEE | north | Narutowicz flyover |
+| TANGO | north-east | Koziegłowy sewage treatment plant |
+| GOLF | north-east of the aerodrome | pale green warehouse |
+| X-RAY | west | north end of Niepruszewskie Lake |
+| JULIETT | west | road junction Poznań-Ławica |
+| INDIA | west of the aerodrome | aviation radar |
+| FOXTROT | south-east of the aerodrome | football stadium |
+| UNIFORM | south | causeway by Nowakowskiego pond |
+| MIKE | south | Mosina |
+| ROMEO | south-east | roundabout near Żerniki |
+| KILO | south-east | Kleszczewo warehouses |
+| ECHO | south-east | Kijewo, flyover over railway crossing |
+| ZULU | south-east | Zaniemyśl |
 
 ## Charts
 
@@ -52,7 +81,7 @@ contributors, ODbL), fetched 2026-10-18, in `src/entities/aerodrome/model/charts
 OSM does not map EPPO's main apron as an area (only its stands as points), so the chart
 shows the apron fragments it does have. The aircraft spots for each "Position" value are
 placed by hand and are **unverified**. Positions outside the chart (for example "10 miles
-north" or "November") are shown as "off chart". The generator scripts are not in the repo;
+north" or "Delta") are shown as "off chart". The generator scripts are not in the repo;
 re-fetch from the OSM API (bbox `16.78,52.405,16.86,52.44` and `16.68,53.15,16.75,53.195`).
 
 ## Scenario text that conflicts with OSM
@@ -71,6 +100,6 @@ re-fetch from the OSM API (bbox `16.78,52.405,16.86,52.44` and `16.68,53.15,16.7
 
 | Item | Value | Status |
 | --- | --- | --- |
-| FIS | Poznań Information 126.300 | team (2026-10-29) |
+| FIS | Poznań Information 126.300 | AIP VFR AD 4 EPPI 4-1, AD 2 EPPO 13-1 |
 | Reporting point | Oborniki (town between Piła and Poznań) | **unverified** as a VFR point |
 | VFR squawk assigned by FIS | 5201 | example value |

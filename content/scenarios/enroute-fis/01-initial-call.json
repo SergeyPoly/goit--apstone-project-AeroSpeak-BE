@@ -24,7 +24,7 @@
     },
     {
       "label": "Position",
-      "value": "10 miles south of Piła"
+      "value": "Kilo (south-west of Piła)"
     },
     {
       "label": "Altitude",
@@ -39,7 +39,7 @@
     "id": "fis-initial-call",
     "title": "Initial call to FIS",
     "shortExplanation": "Station, callsign, flight rules and route, position, altitude. FIS knows what you need from the call itself.",
-    "example": "Poznań Information, SP-TFA, VFR from Piła to Poznań, 10 miles south of Piła, altitude 2500 feet.",
+    "example": "Poznań Information, SP-TFA, VFR from Piła to Poznań, overhead Kilo, altitude 2500 feet.",
     "whyItMatters": "FIS can only help (traffic, weather) if it knows who and where you are."
   },
   "steps": [
@@ -47,8 +47,8 @@
       "id": "initial-call",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "You are 10 miles south of Piła at 2500 feet, flying VFR to Poznań. Make the initial call to Poznań Information.",
-      "expectedPilotResponse": "Poznań Information, SP-TFA, VFR from Piła to Poznań, 10 miles south of Piła, altitude 2500 feet.",
+      "prompt": "You are over Kilo, south-west of Piła, at 2500 feet, flying VFR to Poznań. Make the initial call to Poznań Information.",
+      "expectedPilotResponse": "Poznań Information, SP-TFA, VFR from Piła to Poznań, overhead Kilo, altitude 2500 feet.",
       "requiredElements": [
         {
           "id": "station",
@@ -81,10 +81,10 @@
         },
         {
           "id": "position",
-          "label": "10 miles south of Piła",
+          "label": "Overhead Kilo",
           "acceptedVariants": [
-            "10 miles south of Piła",
-            "10 miles south of Pila"
+            "overhead Kilo",
+            "over Kilo"
           ],
           "weight": 20
         },

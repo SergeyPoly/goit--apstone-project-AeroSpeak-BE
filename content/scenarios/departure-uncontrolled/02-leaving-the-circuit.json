@@ -44,8 +44,8 @@
       "id": "leaving-circuit",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "You are airborne and climbing to 2000 feet. Report leaving the circuit to the south towards Poznań.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, leaving the circuit to the south, climbing altitude 2000 feet.",
+      "prompt": "You are airborne and climbing to 2000 feet. Report leaving the circuit via Kilo towards Poznań.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, leaving the circuit via Kilo, climbing altitude 2000 feet.",
       "requiredElements": [
         {
           "id": "station",
@@ -67,10 +67,10 @@
         },
         {
           "id": "leaving",
-          "label": "Leaving the circuit to the south",
+          "label": "Leaving the circuit via Kilo",
           "acceptedVariants": [
-            "leaving the circuit to the south",
-            "leaving the circuit south"
+            "leaving the circuit via Kilo",
+            "leaving circuit via Kilo"
           ],
           "weight": 40
         },

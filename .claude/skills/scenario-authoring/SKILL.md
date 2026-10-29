@@ -63,6 +63,8 @@ differences of its appendix 1 (AIP Polska GEN 1.7). UK CAA CAP 413 only for UK a
   does not change the meaning.
 - Initial calls: station, callsign, position, request, ATIS letter ("... request start-up,
   information Kilo"). No aircraft type. To FIS: no "request flight information service".
+- Positions over VFR reporting points from `content/aerodromes.md` ("overhead Kilo",
+  "approaching Delta"); a distance ("5 miles north") only where no point exists.
 - Changing frequency on your own: "changing to (unit) (frequency)".
 - A readback ends with the callsign (start or end is accepted by scoring).
 - Time drills: the minutes alone are standard (Doc 9432 2.5.1); accept the full time too.
