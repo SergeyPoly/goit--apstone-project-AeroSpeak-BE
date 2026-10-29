@@ -47,6 +47,22 @@ describe('scenario content', () => {
         expect(result.score).toBe(100);
       });
 
+      // Team rule: a flight level is written with three digits everywhere the user sees
+      // or says it ("FL 065", not "FL 65").
+      it(`${scenario.id} / ${step.id}: writes flight levels with three digits`, () => {
+        const texts = [
+          step.visual?.kind === 'text' ? step.visual.text : '',
+          step.prompt,
+          step.atcText ?? '',
+          step.expectedPilotResponse,
+          ...step.requiredElements.flatMap((e) => [e.label, ...e.acceptedVariants]),
+        ];
+        const shortLevels = texts.flatMap(
+          (t) => t.match(/\b(?:FL|flight level)\s*\d{1,2}\b/gi) ?? [],
+        );
+        expect(shortLevels).toEqual([]);
+      });
+
       if (step.atcAudio) {
         // The frontend serves ATC audio from public/audio/atc/<scenarioId>/<stepId>.mp3.
         it(`${scenario.id} / ${step.id}: atcAudio follows the path convention`, () => {

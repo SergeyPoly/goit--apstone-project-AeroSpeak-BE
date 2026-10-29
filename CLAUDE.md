@@ -49,14 +49,15 @@ Scoring grades ICAO phraseology word by word (like ArSim: each word is recognize
 
 - `expandToSpoken()` turns a written accepted variant into the words a pilot says:
   "QNH 998" -> "qnh niner niner eight", "SP-TFA" / "EPPO" / "information L" -> NATO words,
-  "2500 feet" -> "two thousand fife hundred feet", "FL 65" -> "flight level zero six fife".
+  "2500 feet" -> "two thousand fife hundred feet", "FL 065" -> "flight level zero six fife".
   Number rules follow UK CAA CAP 413 (Radiotelephony Manual, ed. 23) chapter 2, 2.11-2.15:
   every digit separately (headings, QNH, distances: 10 -> "one zero"); whole hundreds and
   thousands for altitude, height, visibility ("two thousand fife hundred"); FL100/200/300
   as "one hundred"; frequencies with all six figures, four when the last two are zeros
   (122.500 -> "one two two decimal fife"). Squawk and QNH in whole thousands accept both
-  "seven thousand" and "seven zero zero zero". Team rule: FL below 100 keeps the leading
-  zero. Content keeps written values.
+  "seven thousand" and "seven zero zero zero". Team rule: a flight level is always written
+  and said with three digits (FL 065, "zero six fife"); `content.spec.ts` checks it.
+  Content keeps written values.
 - `tokenizeTranscript()` keeps the STT words as heard (no digits, no letter groups), so
   "a" is not "alpha". It only joins bare letters into a known abbreviation
   ("q n h" -> "qnh", list in `vocabulary.ts`) and keeps digits written by STT as one

@@ -6,7 +6,7 @@
  *   "heading 300"        -> "heading tree zero zero"
  *   "10 miles"           -> "one zero miles"
  *   "flight level 100"   -> "flight level one hundred"  FL100, 200, 300 (2.13.1)
- *   "flight level 65"    -> "flight level zero six fife" (team rule: leading zero below 100)
+ *   "FL 065"             -> "flight level zero six fife" (team rule: written and said with three digits)
  *   "2500 feet"          -> "two thousand fife hundred feet"  whole hundreds/thousands (2.13.2)
  *   "QNH 1000"           -> "qnh one thousand" | "qnh one zero zero zero"
  *   "squawk 7000"        -> "squawk seven thousand" | "squawk seven zero zero zero"
@@ -128,7 +128,7 @@ function numberForms(value: string, prev: string[], next: string | undefined): s
   if (next && HUNDREDS_THOUSANDS_UNITS.has(next)) return [hundredsThousandsWords(value)];
   if (last === 'level') {
     // FL100, 200, 300... are "one hundred" (2.13.1). Team rule: below 100 the leading
-    // zero is said (FL 65 -> zero six fife).
+    // zero is said (FL 065 -> zero six fife).
     if (n > 0 && n % 100 === 0) return [[...digitWords(String(n / 100)), 'hundred']];
     return [digitWords(value.padStart(3, '0'))];
   }
@@ -163,7 +163,7 @@ function writtenTokens(variant: string): string[] {
     .filter(Boolean);
 }
 
-/** Written abbreviations that are said as words: "FL 65" -> "flight level zero six fife". */
+/** Written abbreviations that are said as words: "FL 065" -> "flight level zero six fife". */
 const WRITTEN_WORDS: Record<string, string[]> = {
   FL: ['flight', 'level'],
   HDG: ['heading'],
