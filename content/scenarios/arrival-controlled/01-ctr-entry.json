@@ -104,7 +104,12 @@
           ],
           "weight": 20
         }
-      ]
+      ],
+      "visual": {
+        "kind": "airspace",
+        "point": "Delta",
+        "direction": "inbound"
+      }
     },
     {
       "id": "entry-readback",
@@ -159,10 +164,15 @@
         "enter",
         "altitude",
         "callsign"
-      ]
+      ],
+      "visual": {
+        "kind": "airspace",
+        "point": "Delta",
+        "direction": "inbound"
+      }
     },
     {
-      "id": "report-november",
+      "id": "report-victor",
       "type": "self_announce",
       "speaker": "pilot",
       "prompt": "You are over Victor at 1500 feet. Report.",
@@ -195,7 +205,12 @@
           ],
           "weight": 30
         }
-      ]
+      ],
+      "visual": {
+        "kind": "airspace",
+        "point": "Victor",
+        "direction": "inbound"
+      }
     }
   ]
 }

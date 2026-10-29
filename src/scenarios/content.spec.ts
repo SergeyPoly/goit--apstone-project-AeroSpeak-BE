@@ -4,6 +4,30 @@ import { CALLSIGN_ID, expandToSpoken, orderRuleFor, scoreTransmission } from '..
 import { loadContent } from './content-loader';
 import { CONTENT_DIR } from './scenarios.service';
 
+// VFR reporting points per aerodrome (content/aerodromes.md). The frontend draws one chart per aerodrome.
+const VFR_POINTS: Record<string, string[]> = {
+  EPPO: [
+    'Delta',
+    'Echo',
+    'Foxtrot',
+    'Golf',
+    'Hotel',
+    'India',
+    'Juliett',
+    'Kilo',
+    'Mike',
+    'Quebec',
+    'Romeo',
+    'Tango',
+    'Uniform',
+    'Victor',
+    'X-ray',
+    'Yankee',
+    'Zulu',
+  ],
+  EPPI: ['Delta', 'Kilo', 'Zulu'],
+};
+
 /**
  * Validates the real /content folder in CI, and checks that every step's
  * expected response, said in ICAO phraseology, gets a perfect score from the
@@ -37,7 +61,15 @@ describe('scenario content', () => {
       expect(scenario.steps.map((s) => s.visual)).toEqual(raw.steps.map((s) => s.visual));
     });
 
+    const airport = scenario.briefing?.find((b) => b.label === 'Airport')?.value.slice(0, 4);
     for (const step of scenario.steps) {
+      if (step.visual?.kind === 'airspace') {
+        const { point } = step.visual;
+        it(`${scenario.id} / ${step.id}: airspace point is a VFR point of ${airport}`, () => {
+          expect(VFR_POINTS[airport ?? ''] ?? []).toContain(point);
+        });
+      }
+
       it(`${scenario.id} / ${step.id}: expected response scores 100`, () => {
         // What a pilot says: "SP-TFA" -> "sierra papa tango foxtrot alpha", "QNH 998" -> "qnh niner niner eight".
         const [spoken] = expandToSpoken(step.expectedPilotResponse);

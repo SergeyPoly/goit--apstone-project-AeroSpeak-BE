@@ -21,7 +21,7 @@ export const requiredElementSchema = z.object({
 
 /**
  * UI metadata: what the practice screen shows for a step. Does not affect scoring.
- * Without it the frontend shows the aerodrome chart.
+ * Without it the frontend shows the aerodrome ground chart (aircraft on the ground).
  */
 export const stepVisualSchema = z.discriminatedUnion('kind', [
   // Drills: the text to read out, e.g. a frequency or registration.
@@ -30,12 +30,19 @@ export const stepVisualSchema = z.discriminatedUnion('kind', [
     text: z.string().min(1),
     caption: z.string().min(1).optional(),
   }),
-  // Traffic pattern: circuit diagram with the aircraft position.
+  // Traffic pattern: circuit diagram with the aircraft position (in, joining or leaving the circuit).
   z.object({
     kind: z.literal('pattern'),
     side: z.enum(['left', 'right']),
-    position: z.enum(['upwind', 'crosswind', 'downwind', 'base', 'final']),
+    position: z.enum(['overhead', 'upwind', 'crosswind', 'downwind', 'base', 'final', 'leaving']),
     runway: z.string().min(1),
+  }),
+  // Aerodrome airspace (CTR / ATZ): VFR operations chart with the aircraft at a VFR reporting point.
+  z.object({
+    kind: z.literal('airspace'),
+    // VFR reporting point name as in the AIP, e.g. "Delta". The aerodrome comes from the briefing.
+    point: z.string().min(1),
+    direction: z.enum(['inbound', 'outbound']),
   }),
 ]);
 
