@@ -21,7 +21,7 @@ export class AttemptsService {
 
   /**
    * Full practice loop for one transmission:
-   * audio -> STT -> normalization and scoring -> save result -> feedback.
+   * audio -> STT -> word-by-word scoring -> save result -> feedback.
    * The audio buffer is only held in memory for the STT call and never stored.
    */
   async create(
@@ -53,7 +53,7 @@ export class AttemptsService {
 
     const result = scoreTransmission(step, {
       transcript: stt.transcript,
-      confidence: stt.confidence,
+      words: stt.words,
     });
     const feedbackProcessingMs = Date.now() - startedAt;
 

@@ -19,6 +19,14 @@ export class CreateAttemptDto {
   @ApiProperty() stepId: string;
 }
 
+export class WordResultDto {
+  @ApiProperty({ description: 'Expected word in ICAO form, e.g. "tree", "niner", "alpha"' })
+  expected: string;
+  @ApiPropertyOptional({ description: 'What STT heard in its place' }) heard?: string;
+  @ApiProperty({ enum: ['correct', 'almost', 'missing'] }) status: 'correct' | 'almost' | 'missing';
+  @ApiPropertyOptional({ description: 'STT was unsure about the heard word' }) unclear?: boolean;
+}
+
 export class ElementResultDto {
   @ApiProperty() id: string;
   @ApiProperty() label: string;
@@ -26,6 +34,8 @@ export class ElementResultDto {
   @ApiProperty() critical: boolean;
   @ApiProperty({ minimum: 0, maximum: 1 }) similarity: number;
   @ApiPropertyOptional() matchedText?: string;
+  @ApiProperty({ type: [WordResultDto], description: 'Word by word result in ICAO spoken form' })
+  words: WordResultDto[];
 }
 
 export class AttemptResultDto {

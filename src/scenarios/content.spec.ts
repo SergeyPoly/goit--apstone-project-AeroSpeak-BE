@@ -1,13 +1,14 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { scoreTransmission } from '../scoring';
+import { expandToSpoken, scoreTransmission } from '../scoring';
 import { loadContent } from './content-loader';
 import { CONTENT_DIR } from './scenarios.service';
 
 /**
  * Validates the real /content folder in CI, and checks that every step's
- * expected response gets a perfect score from the scoring engine. If the
- * expected phrase and the accepted variants disagree, this test catches it.
+ * expected response, said in ICAO phraseology, gets a perfect score from the
+ * scoring engine. If the expected phrase and the accepted variants disagree,
+ * this test catches it.
  */
 describe('scenario content', () => {
   const content = loadContent(CONTENT_DIR);
@@ -38,7 +39,9 @@ describe('scenario content', () => {
 
     for (const step of scenario.steps) {
       it(`${scenario.id} / ${step.id}: expected response scores 100`, () => {
-        const result = scoreTransmission(step, { transcript: step.expectedPilotResponse });
+        // What a pilot says: "SP-TFA" -> "sierra papa tango foxtrot alpha", "QNH 998" -> "qnh niner niner eight".
+        const [spoken] = expandToSpoken(step.expectedPilotResponse);
+        const result = scoreTransmission(step, { transcript: spoken.map((w) => w.word).join(' ') });
         expect(result.missedCritical).toEqual([]);
         expect(result.elements.filter((e) => e.status !== 'matched')).toEqual([]);
         expect(result.score).toBe(100);

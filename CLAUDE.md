@@ -32,7 +32,7 @@ src/
   health/      GET /health: SELECT 1, used for Render health check and warm-up
   prisma/      PrismaService (global)
   scenarios/   content loader + zod schemas, GET /packs, GET /scenarios/:id
-  scoring/     normalizer, matcher, scorer: PURE TypeScript, no Nest imports
+  scoring/     spoken-form expander, word aligner, scorer: PURE TypeScript, no Nest imports
   stt/         abstract SttProvider + DeepgramSttProvider (REST, keyterms)
   guests/      POST /guests: anonymous guest id (practice without signup)
   attempts/    POST /attempts (multipart audio): STT -> scoring -> save -> feedback
@@ -45,18 +45,32 @@ prisma/schema.prisma      Guest, User, Attempt
 
 ### Scoring engine (`src/scoring`)
 
-- `normalize()` brings transcript and accepted variants to one form:
-  spoken numbers to digits ("two one" -> "21", "one two one decimal niner" -> "121.9",
-  trailing zeros dropped), ICAO pronunciation (niner, tree, fife), NATO alphabet and
-  registrations to letter groups ("Sierra Papa Tango Foxtrot Alpha" / "SP-TFA" -> "sptfa").
-- `matchElement()` aligns each variant word to the transcript. Numbers must match exactly.
-  A typo-level difference gives `partial`, a different word gives `missed`.
-  Critical elements are never `partial` when a word is missing.
-- `scoreTransmission()` weights per spec 11.3 (elements 50 / critical 30 / order 10 /
-  confidence 10; drills 70 / 20 / 10). A missed critical element caps the score at 59
-  (display 3, not a success). Display mapping 0-100 -> 1-6 per spec 11.1.
+Scoring grades ICAO phraseology word by word (like ArSim: each word is recognized or not).
+
+- `expandToSpoken()` turns a written accepted variant into the words a pilot says:
+  "QNH 998" -> "qnh niner niner eight", "SP-TFA" / "EPPO" / "information L" -> NATO words,
+  "2500 feet" -> "two thousand fife hundred feet", "FL 65" -> "flight level zero six fife".
+  Some values have several forms: squawk 7000 ("seven zero zero zero" | "seven thousand"),
+  round headings and flight levels ("tree hundred"), frequencies with trailing zeros
+  dropped (122.500 -> "one two two decimal fife"). Content keeps written values.
+- `tokenizeTranscript()` keeps the STT words as heard (no digits, no letter groups), so
+  "a" is not "alpha". It only joins bare letters into a known abbreviation
+  ("q n h" -> "qnh", list in `vocabulary.ts`) and keeps digits written by STT as one
+  token that matches a whole number by value.
+- `compareWords()`: correct, almost or wrong. Forms STT can't tell apart are correct
+  ("three"/"tree", "five"/"fife", Deepgram experiment Oct 2026). Non-standard forms STT
+  does keep apart are almost ("nine" for "niner", "point" for "decimal"). One radio word
+  for another is wrong; regular words and accents get fuzzy matching.
+- `alignWords()` aligns each spoken form with the transcript in order. A wrong word
+  that STT itself was unsure about (word confidence < 0.5) is "unclear" (almost).
+- `scoreTransmission()`: 90% share of recognized words weighted by element, 10% order.
+  STT confidence is never part of the score. A critical element with a missing word is
+  missed and caps the score at 59 (display 3, not a success). Display mapping 0-100 -> 1-6
+  per spec 11.1.
 - Keep this module free of NestJS and third-party imports so it stays easy to test.
-  Add a test case for every new normalization rule.
+  Add a test case for every new expansion or comparison rule.
+- STT keyterms (`attempts/keyterms.ts`) never contain digits or written codes:
+  "118.505" or "QNH 1013" as a keyterm makes Deepgram write digits or cardinals.
 
 ## Conventions
 
@@ -91,6 +105,6 @@ npm run lint && npm run typecheck && npm run build
 
 ## Next steps (Trello board "AeroSpeak MVP")
 
-1. Record 10-15 real test phrases and check Deepgram output with and without keyterms.
+1. Frontend: show the word-by-word result (`elements[].words`) in the feedback dialog.
 2. Auth (email, Google, Apple) and moving guest progress to the account.
 3. PostHog analytics, Sentry.

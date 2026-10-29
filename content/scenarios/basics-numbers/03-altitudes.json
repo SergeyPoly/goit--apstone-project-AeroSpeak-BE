@@ -104,15 +104,15 @@
       "prompt": "Say the given flight level.",
       "visual": {
         "kind": "text",
-        "text": "FL 65"
+        "text": "FL 065"
       },
-      "expectedPilotResponse": "Flight level six fife.",
+      "expectedPilotResponse": "Flight level zero six fife.",
       "requiredElements": [
         {
           "id": "flight_level",
-          "label": "Flight level 65",
+          "label": "Flight level 065",
           "acceptedVariants": [
-            "flight level 65"
+            "flight level 065"
           ],
           "weight": 100
         }
