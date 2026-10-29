@@ -38,8 +38,8 @@
   "phraseologyNote": {
     "id": "fis-initial-call",
     "title": "Initial call to FIS",
-    "shortExplanation": "Station, callsign, flight rules and route, position, altitude, request.",
-    "example": "Poznań Information, SP-TFA, VFR from Piła to Poznań, 10 miles south of Piła, altitude 2500 feet, request flight information service.",
+    "shortExplanation": "Station, callsign, flight rules and route, position, altitude. FIS knows what you need from the call itself.",
+    "example": "Poznań Information, SP-TFA, VFR from Piła to Poznań, 10 miles south of Piła, altitude 2500 feet.",
     "whyItMatters": "FIS can only help (traffic, weather) if it knows who and where you are."
   },
   "steps": [
@@ -47,8 +47,8 @@
       "id": "initial-call",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "You are 10 miles south of Piła at 2500 feet, flying VFR to Poznań. Call Poznań Information and request flight information service.",
-      "expectedPilotResponse": "Poznań Information, SP-TFA, VFR from Piła to Poznań, 10 miles south of Piła, altitude 2500 feet, request flight information service.",
+      "prompt": "You are 10 miles south of Piła at 2500 feet, flying VFR to Poznań. Make the initial call to Poznań Information.",
+      "expectedPilotResponse": "Poznań Information, SP-TFA, VFR from Piła to Poznań, 10 miles south of Piła, altitude 2500 feet.",
       "requiredElements": [
         {
           "id": "station",
@@ -66,7 +66,7 @@
             "SP-TFA",
             "Sierra Papa Tango Foxtrot Alpha"
           ],
-          "weight": 20
+          "weight": 25
         },
         {
           "id": "route",
@@ -77,7 +77,7 @@
             "from Piła to Poznań",
             "from Pila to Poznan"
           ],
-          "weight": 20
+          "weight": 25
         },
         {
           "id": "position",
@@ -86,24 +86,13 @@
             "10 miles south of Piła",
             "10 miles south of Pila"
           ],
-          "weight": 15
+          "weight": 20
         },
         {
           "id": "altitude",
           "label": "Altitude 2500 feet",
           "acceptedVariants": [
-            "altitude 2500 feet",
-            "2500 feet"
-          ],
-          "weight": 15
-        },
-        {
-          "id": "request",
-          "label": "Request flight information service",
-          "acceptedVariants": [
-            "request flight information service",
-            "request flight information",
-            "request FIS"
+            "[altitude] 2500 feet"
           ],
           "weight": 20
         }

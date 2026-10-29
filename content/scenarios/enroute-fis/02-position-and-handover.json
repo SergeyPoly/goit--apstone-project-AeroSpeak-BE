@@ -64,8 +64,7 @@
           "id": "altitude",
           "label": "Altitude 2500 feet",
           "acceptedVariants": [
-            "altitude 2500 feet",
-            "2500 feet"
+            "[altitude] 2500 feet"
           ],
           "weight": 30
         }

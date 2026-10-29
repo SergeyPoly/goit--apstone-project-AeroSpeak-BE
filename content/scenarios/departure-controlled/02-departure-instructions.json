@@ -70,8 +70,7 @@
           "id": "altitude",
           "label": "Not above altitude 1500 feet",
           "acceptedVariants": [
-            "not above altitude 1500 feet",
-            "not above 1500 feet"
+            "not above [altitude] 1500 feet"
           ],
           "weight": 30,
           "critical": true

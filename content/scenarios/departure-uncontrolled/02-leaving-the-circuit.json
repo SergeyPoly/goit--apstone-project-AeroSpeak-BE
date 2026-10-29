@@ -78,8 +78,7 @@
           "id": "altitude",
           "label": "Climbing altitude 2000 feet",
           "acceptedVariants": [
-            "climbing altitude 2000 feet",
-            "climbing 2000 feet"
+            "climbing [altitude] 2000 feet"
           ],
           "weight": 30,
           "critical": true

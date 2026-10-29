@@ -77,8 +77,7 @@
           "id": "altitude",
           "label": "Altitude 2000 feet",
           "acceptedVariants": [
-            "altitude 2000 feet",
-            "2000 feet"
+            "[altitude] 2000 feet"
           ],
           "weight": 10
         },

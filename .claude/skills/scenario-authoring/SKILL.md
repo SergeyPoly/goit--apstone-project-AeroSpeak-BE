@@ -48,18 +48,24 @@ The `NN-` prefix (`01-`, `02-`, ...) is the order users see inside a pack.
 
 ## Phraseology rules
 
-ICAO Doc 9432 with the Polish differences (AIP Polska GEN 1.7, Doc 9432 appendix 1) and
-UK CAA CAP 413 chapter 2 for numbers:
+Source of truth for Polish aerodromes: ICAO Doc 9432 (Polish ULC edition) with the Polish
+differences of its appendix 1 (AIP Polska GEN 1.7). UK CAA CAP 413 only for UK aerodromes.
 
+- Numbers as in Doc 9432 2.4 (see `src/scoring/spoken.ts`): flight levels without a leading
+  zero (`FL 65`), squawk 7000 / QNH 1000 as "seven thousand" / "one thousand".
 - ATC: the first transmission of each unit in a scenario has the station after the
   callsign ("SP-TFA, Poznań Tower, ..."); later ones may omit it (Doc 9432 2.7.1.2).
 - Altitude: ALTITUDE before the value and no "to" before a number: "climb altitude
   4500 feet", "not above altitude 1500 feet", "altitude 2000 feet" in position reports.
-  Flight levels without "to": "descend FL 045". `content.spec.ts` rejects "to" + number.
-- No aircraft type in the pilot's calls (the briefing still shows the aircraft).
+  In variants write it as optional, `"not above [altitude] 1500 feet"`: leaving it out is
+  "almost", not a miss. `content.spec.ts` rejects "to" + number.
+- Words in `[brackets]` are standard but optional; use them only for words whose absence
+  does not change the meaning.
+- Initial calls: station, callsign, position, request, ATIS letter ("... request start-up,
+  information Kilo"). No aircraft type. To FIS: no "request flight information service".
 - Changing frequency on your own: "changing to (unit) (frequency)".
-- A readback ends with the callsign; a call the pilot starts goes station, callsign,
-  position, request, information (the order of `requiredElements`).
+- A readback ends with the callsign (start or end is accepted by scoring).
+- Time drills: the minutes alone are standard (Doc 9432 2.5.1); accept the full time too.
 - Briefing: add "Wind" matching the runway in use (and the ATC wind in the scenario).
 
 ## Per scenario

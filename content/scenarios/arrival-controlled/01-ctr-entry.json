@@ -84,8 +84,7 @@
           "id": "altitude",
           "label": "Altitude 2000 feet",
           "acceptedVariants": [
-            "altitude 2000 feet",
-            "2000 feet"
+            "[altitude] 2000 feet"
           ],
           "weight": 15
         },
@@ -130,8 +129,7 @@
           "id": "altitude",
           "label": "Not above altitude 1500 feet",
           "acceptedVariants": [
-            "not above altitude 1500 feet",
-            "not above 1500 feet"
+            "not above [altitude] 1500 feet"
           ],
           "weight": 30,
           "critical": true
@@ -192,8 +190,7 @@
           "id": "altitude",
           "label": "Altitude 1500 feet",
           "acceptedVariants": [
-            "altitude 1500 feet",
-            "1500 feet"
+            "[altitude] 1500 feet"
           ],
           "weight": 30
         }

@@ -21,7 +21,8 @@
           "id": "time",
           "label": "1435",
           "acceptedVariants": [
-            "1435"
+            "1435",
+            "35"
           ],
           "weight": 100
         }
@@ -42,7 +43,8 @@
           "id": "time",
           "label": "0905",
           "acceptedVariants": [
-            "0905"
+            "0905",
+            "05"
           ],
           "weight": 100
         }
@@ -63,7 +65,8 @@
           "id": "time",
           "label": "2120",
           "acceptedVariants": [
-            "2120"
+            "2120",
+            "20"
           ],
           "weight": 100
         }
