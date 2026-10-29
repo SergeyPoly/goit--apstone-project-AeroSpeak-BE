@@ -3,6 +3,10 @@
  * Semi-global alignment: the variant must be covered word by word, the transcript
  * may have anything before and after it. Every expected word ends up correct,
  * almost or missing, like in ArSim where each word is either recognized or not.
+ *
+ * Heard words that another element of the step recognized are `blocked`: they can't
+ * stand in for a missing word ("heard 'information'" for a skipped "apron" when
+ * "information" belongs to "information Kilo"), neither as wrong nor as unclear.
  */
 import { compareWords, sameNumber } from './compare';
 import type { SpokenWord } from './spoken';
@@ -29,6 +33,8 @@ export interface Alignment {
   start?: number;
   /** Heard words of the matched span. */
   heardText?: string;
+  /** Indices of heard words this variant recognized (correct or almost). */
+  claimed: number[];
 }
 
 type Move = 'start' | 'miss' | 'extra' | 'pair' | 'group';
@@ -36,15 +42,20 @@ type Move = 'start' | 'miss' | 'extra' | 'pair' | 'group';
 function pairResult(
   expected: SpokenWord,
   heard: HeardWord,
-): { result: WordResult; credit: number } {
+): { result: WordResult; credit: number; recognized: boolean } {
   const match = compareWords(expected.word, heard.word);
   if (match === 'correct') {
-    return { result: { expected: expected.word, heard: heard.word, status: 'correct' }, credit: 1 };
+    return {
+      result: { expected: expected.word, heard: heard.word, status: 'correct' },
+      credit: 1,
+      recognized: true,
+    };
   }
   if (match === 'almost') {
     return {
       result: { expected: expected.word, heard: heard.word, status: 'almost' },
       credit: ALMOST_CREDIT,
+      recognized: true,
     };
   }
   // A bare letter or another radio word is a clear answer, just a wrong one ("a" for "alpha").
@@ -53,15 +64,24 @@ function pairResult(
     return {
       result: { expected: expected.word, heard: heard.word, status: 'almost', unclear: true },
       credit: UNCLEAR_CREDIT,
+      recognized: false,
     };
   }
-  return { result: { expected: expected.word, heard: heard.word, status: 'missing' }, credit: 0 };
+  return {
+    result: { expected: expected.word, heard: heard.word, status: 'missing' },
+    credit: 0,
+    recognized: false,
+  };
 }
 
 const startsGroup = (words: SpokenWord[], i: number) =>
   words[i].group !== undefined && (i === 0 || words[i - 1].group?.id !== words[i].group?.id);
 
-export function alignWords(expected: SpokenWord[], heard: HeardWord[]): Alignment {
+export function alignWords(
+  expected: SpokenWord[],
+  heard: HeardWord[],
+  blocked: ReadonlySet<number> = new Set(),
+): Alignment {
   const n = expected.length;
   const m = heard.length;
   const score: number[][] = Array.from({ length: n + 1 }, () =>
@@ -95,11 +115,10 @@ export function alignWords(expected: SpokenWord[], heard: HeardWord[]): Alignmen
         if (group && numeral && startsGroup(expected, i) && sameNumber(group.value, numeral)) {
           relax(i + group.size, j + 1, v + group.size, { i, j, move: 'group' });
         }
-        relax(i + 1, j + 1, v + pairResult(expected[i], heard[j]).credit + PAIR_TIE_BREAK, {
-          i,
-          j,
-          move: 'pair',
-        });
+        const pair = pairResult(expected[i], heard[j]);
+        if (pair.recognized || !blocked.has(j)) {
+          relax(i + 1, j + 1, v + pair.credit + PAIR_TIE_BREAK, { i, j, move: 'pair' });
+        }
       }
       if (i < n) relax(i + 1, j, v, { i, j, move: 'miss' });
       if (i > 0 && i < n && j < m) relax(i, j + 1, v - EXTRA_WORD_PENALTY, { i, j, move: 'extra' });
@@ -112,20 +131,23 @@ export function alignWords(expected: SpokenWord[], heard: HeardWord[]): Alignmen
 
   const words = new Array<WordResult>(n);
   const used: number[] = [];
+  const claimed: number[] = [];
   let i = n;
   let j = endJ;
   while (i > 0) {
     const from = back[i][j];
     if (!from || from.move === 'start') break;
     if (from.move === 'pair') {
-      const { result, credit } = pairResult(expected[from.i], heard[from.j]);
+      const { result, credit, recognized } = pairResult(expected[from.i], heard[from.j]);
       words[from.i] = result;
       if (credit > 0) used.push(from.j);
+      if (recognized) claimed.push(from.j);
     } else if (from.move === 'group') {
       for (let k = from.i; k < i; k += 1) {
         words[k] = { expected: expected[k].word, heard: heard[from.j].word, status: 'correct' };
       }
       used.push(from.j);
+      claimed.push(from.j);
     } else if (from.move === 'miss') {
       words[from.i] = { expected: expected[from.i].word, status: 'missing' };
     }
@@ -135,13 +157,14 @@ export function alignWords(expected: SpokenWord[], heard: HeardWord[]): Alignmen
   for (let k = 0; k < n; k += 1) words[k] ??= { expected: expected[k].word, status: 'missing' };
 
   const credit = Math.max(0, Math.round(score[n][endJ] * 1000) / 1000);
-  if (used.length === 0) return { words, credit };
+  if (used.length === 0) return { words, credit, claimed };
   const start = Math.min(...used);
   const end = Math.max(...used);
   return {
     words,
     credit,
     start,
+    claimed,
     heardText: heard
       .slice(start, end + 1)
       .map((w) => w.word)

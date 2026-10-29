@@ -22,25 +22,36 @@ export function spokenForms(variant: string): SpokenWord[][] {
  * Finds the accepted variant (and spoken form) the pilot said best and grades it.
  * A critical element with any missing word is missed: "QNH 1013" with a wrong digit
  * is a wrong QNH. Non-standard forms ("nine" for "niner") only make it partial.
+ * `claimed` are the heard words this element recognized; see `alignWords` for `blocked`.
+ *
+ * When a step has several elements and none of this element's words was recognized,
+ * the pilot simply left it out: the words are missing, with no "heard instead" and no
+ * credit for unclear words (they would be random neighbours like "at"). A one-element
+ * drill keeps them: there "a" really is the answer given for "alpha".
  */
 export function matchElement(
   element: RequiredElement,
   heard: HeardWord[],
   critical: boolean,
-): ElementResult {
+  blocked: ReadonlySet<number> = new Set(),
+  soleElement = true,
+): { result: ElementResult; claimed: number[] } {
   let best: { alignment: Alignment; ratio: number } | null = null;
 
   for (const variant of element.acceptedVariants) {
     for (const form of spokenForms(variant)) {
-      const alignment = alignWords(form, heard);
+      const alignment = alignWords(form, heard, blocked);
       const ratio = alignment.credit / form.length;
       if (!best || ratio > best.ratio) best = { alignment, ratio };
     }
   }
 
   const alignment = best?.alignment;
-  const ratio = best?.ratio ?? 0;
-  const words = alignment?.words ?? [];
+  const leftOut = !soleElement && (alignment?.claimed.length ?? 0) === 0;
+  const ratio = leftOut ? 0 : (best?.ratio ?? 0);
+  const words = leftOut
+    ? (alignment?.words ?? []).map(({ expected }) => ({ expected, status: 'missing' as const }))
+    : (alignment?.words ?? []);
   const anyMissing = words.some((w) => w.status === 'missing');
 
   let status: ElementStatus;
@@ -48,7 +59,7 @@ export function matchElement(
   else if (ratio > 0 && (critical ? !anyMissing : ratio >= PARTIAL_RATIO)) status = 'partial';
   else status = 'missed';
 
-  return {
+  const result: ElementResult = {
     id: element.id,
     label: element.label,
     status,
@@ -59,4 +70,5 @@ export function matchElement(
       ? { matchedText: alignment.heardText, position: alignment.start }
       : {}),
   };
+  return { result, claimed: alignment?.claimed ?? [] };
 }

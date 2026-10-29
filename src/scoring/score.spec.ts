@@ -180,6 +180,70 @@ describe('scoreTransmission: taxi clearance readback', () => {
   });
 });
 
+/** Start-up request: several elements next to each other (ground-ctrl-start-up). */
+const startUpRequest: ScoringStep = {
+  type: 'pilot_request',
+  expectedPilotResponse:
+    'Poznań Ground, SP-TFA, Cessna 172 at the general aviation apron, information Kilo, request start-up.',
+  requiredElements: [
+    { id: 'station', label: 'Poznań Ground', acceptedVariants: ['Poznań Ground'], weight: 10 },
+    { id: 'callsign', label: 'SP-TFA', acceptedVariants: ['SP-TFA'], weight: 20, critical: true },
+    { id: 'type', label: 'Cessna 172', acceptedVariants: ['Cessna 172'], weight: 15 },
+    {
+      id: 'position',
+      label: 'General aviation apron',
+      acceptedVariants: ['general aviation apron', 'GA apron'],
+      weight: 15,
+    },
+    { id: 'atis', label: 'Information Kilo', acceptedVariants: ['information Kilo'], weight: 20 },
+    {
+      id: 'request',
+      label: 'Request start-up',
+      acceptedVariants: ['request start-up'],
+      weight: 20,
+    },
+  ],
+};
+
+describe('scoreTransmission: words of other elements', () => {
+  const result = scoreTransmission(startUpRequest, {
+    transcript:
+      'poznan ground sierra papa tango foxtrot alpha at general aviation information kilo request startup',
+  });
+  const element = (id: string) => result.elements.find((e) => e.id === id);
+
+  it('does not show a word of the next element as heard instead of a skipped word', () => {
+    expect(element('position')?.words).toEqual([
+      { expected: 'general', heard: 'general', status: 'correct' },
+      { expected: 'aviation', heard: 'aviation', status: 'correct' },
+      { expected: 'apron', status: 'missing' },
+    ]);
+    expect(element('atis')?.status).toBe('matched');
+  });
+
+  it('shows a left-out element as missing words, without random heard words', () => {
+    expect(element('type')?.status).toBe('missed');
+    expect(element('type')?.words.every((w) => w.status === 'missing' && !w.heard)).toBe(true);
+  });
+
+  it("does not give unclear credit to another element's word", () => {
+    const unsure = scoreTransmission(startUpRequest, {
+      transcript: '',
+      words: [
+        ...'poznan ground sierra papa tango foxtrot alpha at general aviation'
+          .split(' ')
+          .map((word) => ({ word, confidence: 0.9 })),
+        { word: 'information', confidence: 0.3 },
+        { word: 'kilo', confidence: 0.9 },
+        { word: 'request', confidence: 0.9 },
+        { word: 'startup', confidence: 0.9 },
+      ],
+    });
+    const apron = unsure.elements.find((e) => e.id === 'position')?.words[2];
+    expect(apron).toEqual({ expected: 'apron', status: 'missing' });
+  });
+});
+
 describe('scoreTransmission: drills', () => {
   it('gives 100 to a correct word, whatever the STT confidence', () => {
     const result = scoreTransmission(drill(['downwind']), {
