@@ -85,6 +85,7 @@ export class AttemptsService {
       elements: result.elements.map(({ position: _position, ...element }) => element),
       missedCritical: result.missedCritical,
       orderCorrect: result.orderCorrect,
+      ...(result.order ? { order: result.order } : {}),
       tip: result.tip,
       feedbackProcessingMs,
     };

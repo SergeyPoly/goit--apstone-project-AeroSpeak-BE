@@ -66,8 +66,28 @@ export interface ElementResult {
   matchedText?: string;
   /** Word by word result for the best matching accepted variant. */
   words: WordResult[];
+  /**
+   * Said in a non-standard way but understood: what to say instead
+   * ("Say \"altitude\" too.", "Say \"seven thousand\": that is the standard form.").
+   */
+  hint?: string;
   /** Token index where the match starts, used for the order check. */
   position?: number;
+}
+
+/** See `orderRuleFor` in order.ts. */
+export type OrderRule = 'call' | 'readback';
+
+export interface OrderFeedback {
+  rule: OrderRule;
+  /** The elements were said in an acceptable order. */
+  correct: boolean;
+  /** Ids of elements said in the wrong place. */
+  outOfOrder: string[];
+  /** What to fix, when the order is wrong. */
+  message?: string;
+  /** Score points lost for the order, 0..10. */
+  lostPoints: number;
 }
 
 export interface ScoreResult {
@@ -82,5 +102,7 @@ export interface ScoreResult {
   elements: ElementResult[];
   missedCritical: string[];
   orderCorrect: boolean;
+  /** Order check, or null when there is nothing to compare. */
+  order: OrderFeedback | null;
   tip: string;
 }

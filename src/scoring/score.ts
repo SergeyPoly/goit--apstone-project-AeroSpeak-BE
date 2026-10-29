@@ -1,11 +1,12 @@
 import { matchElement } from './match';
+import { checkOrder } from './order';
 import { tokenizeTranscript } from './transcript';
-import type { ElementResult, ScoreInput, ScoreResult, ScoringStep } from './types';
+import type { ElementResult, OrderFeedback, ScoreInput, ScoreResult, ScoringStep } from './types';
 import { NON_STANDARD_FORMS } from './vocabulary';
 
 /**
  * Score = share of recognized words, weighted by element (ArSim-like: each word is
- * recognized or not), plus a small part for keeping the standard order.
+ * recognized or not), plus a small part for keeping the standard order (order.ts).
  * STT confidence is not part of the score: it depends on the microphone and noise,
  * not on the pilot. It only marks unclear words.
  */
@@ -31,33 +32,15 @@ function weightedCredit(results: ElementResult[], weights: Map<string, number>):
   return earned / total;
 }
 
-/** Length of the longest increasing subsequence, O(n^2) is fine for a handful of elements. */
-function longestIncreasingRun(values: number[]): number {
-  const lengths = values.map(() => 1);
-  for (let i = 1; i < values.length; i += 1) {
-    for (let j = 0; j < i; j += 1) {
-      if (values[j] < values[i]) lengths[i] = Math.max(lengths[i], lengths[j] + 1);
-    }
-  }
-  return lengths.length ? Math.max(...lengths) : 0;
-}
-
-/** Share of found elements spoken in the expected order, or null if fewer than two were found. */
-function orderScore(results: ElementResult[]): number | null {
-  const positions = results
-    .filter((r) => r.position !== undefined)
-    .map((r) => r.position as number);
-  if (positions.length < 2) return null;
-  return longestIncreasingRun(positions) / positions.length;
-}
-
-function buildTip(results: ElementResult[], orderCorrect: boolean): string {
+function buildTip(results: ElementResult[], order: OrderFeedback | null): string {
   const criticalMiss = results.find((r) => r.critical && r.status === 'missed');
   if (criticalMiss) {
     return `You missed "${criticalMiss.label}". This is a safety-critical element and must be included.`;
   }
   const miss = results.find((r) => r.status === 'missed');
   if (miss) return `Include "${miss.label}" in your transmission.`;
+  const hinted = results.find((r) => r.hint);
+  if (hinted?.hint) return `${hinted.label}: ${hinted.hint}`;
 
   const words = results.flatMap((r) => r.words.map((w) => ({ ...w, label: r.label })));
   const nonStandard = words.find(
@@ -76,7 +59,7 @@ function buildTip(results: ElementResult[], orderCorrect: boolean): string {
   const unclear = words.find((w) => w.unclear);
   if (unclear)
     return `We could not hear "${unclear.expected}" clearly. Speak a little slower and closer to the mic.`;
-  if (!orderCorrect) return 'All elements are there. Try to keep the standard order.';
+  if (order && !order.correct) return order.message ?? 'Keep the standard order.';
   return 'Good transmission. All required elements are present.';
 }
 
@@ -100,10 +83,10 @@ export function scoreTransmission(step: ScoringStep, input: ScoreInput): ScoreRe
   });
 
   const weights = new Map(step.requiredElements.map((e) => [e.id, e.weight]));
-  const order = orderScore(elements);
+  const orderCheck = checkOrder(step, elements);
   const components = [
     { value: weightedCredit(elements, weights), weight: WEIGHTS.words },
-    { value: order, weight: WEIGHTS.order },
+    { value: orderCheck?.value ?? null, weight: WEIGHTS.order },
   ].filter((c): c is { value: number; weight: number } => c.value !== null);
 
   const totalWeight = components.reduce((sum, c) => sum + c.weight, 0);
@@ -117,9 +100,17 @@ export function scoreTransmission(step: ScoringStep, input: ScoreInput): ScoreRe
     .map((r) => r.id);
   if (missedCritical.length > 0) score = Math.min(score, CRITICAL_MISS_CAP);
 
+  const order: OrderFeedback | null = orderCheck && {
+    rule: orderCheck.rule,
+    correct: orderCheck.outOfOrder.length === 0,
+    outOfOrder: orderCheck.outOfOrder,
+    ...(orderCheck.message ? { message: orderCheck.message } : {}),
+    lostPoints: Math.round(((1 - orderCheck.value) * WEIGHTS.order * 100) / totalWeight),
+  };
+
   score = Math.round(score);
   const displayScore = toDisplayScore(score);
-  const orderCorrect = order === null || order === 1;
+  const orderCorrect = order === null || order.correct;
 
   return {
     score,
@@ -129,6 +120,7 @@ export function scoreTransmission(step: ScoringStep, input: ScoreInput): ScoreRe
     elements,
     missedCritical,
     orderCorrect,
-    tip: buildTip(elements, orderCorrect),
+    order,
+    tip: buildTip(elements, order),
   };
 }

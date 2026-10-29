@@ -51,7 +51,9 @@ export class AttemptsController {
 
     const parsed = createAttemptSchema.safeParse(body);
     if (!parsed.success) {
-      throw new BadRequestException(parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`));
+      throw new BadRequestException(
+        parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`),
+      );
     }
 
     return this.attempts.create(parsed.data, { buffer: audio.buffer, mimeType: audio.mimetype });
