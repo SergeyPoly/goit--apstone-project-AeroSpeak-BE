@@ -50,7 +50,7 @@ Scoring grades ICAO phraseology word by word (like ArSim: each word is recognize
 - `expandToSpoken()` turns a written accepted variant into the words a pilot says:
   "QNH 998" -> "qnh niner niner eight", "SP-TFA" / "EPPO" / "information L" -> NATO words,
   "2500 feet" -> "two thousand fife hundred feet", "FL 65" -> "flight level zero six fife".
-  Number rules follow CAP 413 chapter 2, 2.11-2.15 (`RTF_handbook.pdf`, PDF pages 35-39):
+  Number rules follow UK CAA CAP 413 (Radiotelephony Manual, ed. 23) chapter 2, 2.11-2.15:
   every digit separately (headings, QNH, distances: 10 -> "one zero"); whole hundreds and
   thousands for altitude, height, visibility ("two thousand fife hundred"); FL100/200/300
   as "one hundred"; frequencies with all six figures, four when the last two are zeros
