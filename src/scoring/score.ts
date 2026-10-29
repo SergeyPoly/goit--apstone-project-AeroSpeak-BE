@@ -39,6 +39,8 @@ function buildTip(results: ElementResult[], order: OrderFeedback | null): string
   }
   const miss = results.find((r) => r.status === 'missed');
   if (miss) return `Include "${miss.label}" in your transmission.`;
+  const hinted = results.find((r) => r.hint);
+  if (hinted?.hint) return `${hinted.label}: ${hinted.hint}`;
 
   const words = results.flatMap((r) => r.words.map((w) => ({ ...w, label: r.label })));
   const nonStandard = words.find(

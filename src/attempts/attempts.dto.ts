@@ -23,7 +23,11 @@ export class WordResultDto {
   @ApiProperty({ description: 'Expected word in ICAO form, e.g. "tree", "niner", "alpha"' })
   expected: string;
   @ApiPropertyOptional({ description: 'What STT heard in its place' }) heard?: string;
-  @ApiProperty({ enum: ['correct', 'almost', 'missing'] }) status: 'correct' | 'almost' | 'missing';
+  @ApiProperty({
+    enum: ['correct', 'almost', 'missing'],
+    description: 'almost without `heard`: an optional standard word was left out ("altitude")',
+  })
+  status: 'correct' | 'almost' | 'missing';
   @ApiPropertyOptional({ description: 'STT was unsure about the heard word' }) unclear?: boolean;
 }
 
@@ -36,6 +40,11 @@ export class ElementResultDto {
   @ApiPropertyOptional() matchedText?: string;
   @ApiProperty({ type: [WordResultDto], description: 'Word by word result in ICAO spoken form' })
   words: WordResultDto[];
+  @ApiPropertyOptional({
+    description:
+      'Understood but not standard: what to say instead, e.g. \'Say "seven thousand": that is the standard form.\'',
+  })
+  hint?: string;
 }
 
 export class OrderFeedbackDto {

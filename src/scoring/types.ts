@@ -66,6 +66,11 @@ export interface ElementResult {
   matchedText?: string;
   /** Word by word result for the best matching accepted variant. */
   words: WordResult[];
+  /**
+   * Said in a non-standard way but understood: what to say instead
+   * ("Say \"altitude\" too.", "Say \"seven thousand\": that is the standard form.").
+   */
+  hint?: string;
   /** Token index where the match starts, used for the order check. */
   position?: number;
 }

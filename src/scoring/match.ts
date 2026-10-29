@@ -1,4 +1,4 @@
-import { alignWords, type Alignment } from './align';
+import { alignWords, type Alignment, type AlignmentIssues } from './align';
 import { expandToSpoken, type SpokenWord } from './spoken';
 import type { HeardWord } from './transcript';
 import type { ElementResult, ElementStatus, RequiredElement } from './types';
@@ -16,6 +16,16 @@ export function spokenForms(variant: string): SpokenWord[][] {
     spokenCache.set(variant, forms);
   }
   return forms;
+}
+
+/** What to say instead, when the element was understood but not said the standard way. */
+function hintFor({ nonStandard, omitted, unexpected }: AlignmentIssues): string | undefined {
+  const hints = [
+    ...nonStandard.map((form) => `Say "${form}": that is the standard form.`),
+    ...omitted.map((word) => `Say "${word}" too.`),
+    ...(unexpected.includes('to') ? ['Don\'t say "to" before a number.'] : []),
+  ];
+  return hints.length ? hints.join(' ') : undefined;
 }
 
 /**
@@ -53,9 +63,11 @@ export function matchElement(
     ? (alignment?.words ?? []).map(({ expected }) => ({ expected, status: 'missing' as const }))
     : (alignment?.words ?? []);
   const anyMissing = words.some((w) => w.status === 'missing');
+  const issues = leftOut ? undefined : alignment?.issues;
+  const hint = issues && hintFor(issues);
 
   let status: ElementStatus;
-  if (words.length > 0 && words.every((w) => w.status === 'correct')) status = 'matched';
+  if (words.length > 0 && words.every((w) => w.status === 'correct') && !hint) status = 'matched';
   else if (ratio > 0 && (critical ? !anyMissing : ratio >= PARTIAL_RATIO)) status = 'partial';
   else status = 'missed';
 
@@ -66,6 +78,7 @@ export function matchElement(
     critical,
     similarity: Math.round(Math.min(1, ratio) * 100) / 100,
     words,
+    ...(hint && status !== 'missed' ? { hint } : {}),
     ...(status !== 'missed' && alignment?.heardText !== undefined
       ? { matchedText: alignment.heardText, position: alignment.start }
       : {}),
