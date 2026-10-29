@@ -12,7 +12,7 @@
     },
     {
       "label": "Station",
-      "value": "Poznań Information"
+      "value": "Poznań Information 126.300"
     },
     {
       "label": "Callsign",
@@ -24,7 +24,7 @@
     },
     {
       "label": "Position",
-      "value": "10 miles south of Piła"
+      "value": "Kilo (south-west of Piła)"
     },
     {
       "label": "Altitude",
@@ -38,8 +38,8 @@
   "phraseologyNote": {
     "id": "fis-initial-call",
     "title": "Initial call to FIS",
-    "shortExplanation": "Callsign, aircraft type, flight rules and route, position, altitude, request.",
-    "example": "Poznań Information, SP-TFA, Cessna 172, VFR from Piła to Poznań, 10 miles south of Piła, 2500 feet, request flight information service.",
+    "shortExplanation": "Station, callsign, flight rules and route, position, altitude. FIS knows what you need from the call itself.",
+    "example": "Poznań Information, SP-TFA, VFR from Piła to Poznań, overhead Kilo, altitude 2500 feet.",
     "whyItMatters": "FIS can only help (traffic, weather) if it knows who and where you are."
   },
   "steps": [
@@ -47,8 +47,8 @@
       "id": "initial-call",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "You are 10 miles south of Piła at 2500 feet, flying VFR to Poznań. Call Poznań Information and request flight information service.",
-      "expectedPilotResponse": "Poznań Information, SP-TFA, Cessna 172, VFR from Piła to Poznań, 10 miles south of Piła, 2500 feet, request flight information service.",
+      "prompt": "You are over Kilo, south-west of Piła, at 2500 feet, flying VFR to Poznań. Make the initial call to Poznań Information.",
+      "expectedPilotResponse": "Poznań Information, SP-TFA, VFR from Piła to Poznań, overhead Kilo, altitude 2500 feet.",
       "requiredElements": [
         {
           "id": "station",
@@ -66,15 +66,7 @@
             "SP-TFA",
             "Sierra Papa Tango Foxtrot Alpha"
           ],
-          "weight": 20
-        },
-        {
-          "id": "type",
-          "label": "Cessna 172",
-          "acceptedVariants": [
-            "Cessna 172"
-          ],
-          "weight": 5
+          "weight": 25
         },
         {
           "id": "route",
@@ -85,32 +77,22 @@
             "from Piła to Poznań",
             "from Pila to Poznan"
           ],
-          "weight": 15
+          "weight": 25
         },
         {
           "id": "position",
-          "label": "10 miles south of Piła",
+          "label": "Overhead Kilo",
           "acceptedVariants": [
-            "10 miles south of Piła",
-            "10 miles south of Pila"
+            "overhead Kilo",
+            "over Kilo"
           ],
-          "weight": 15
+          "weight": 20
         },
         {
           "id": "altitude",
-          "label": "2500 feet",
+          "label": "Altitude 2500 feet",
           "acceptedVariants": [
-            "2500 feet"
-          ],
-          "weight": 15
-        },
-        {
-          "id": "request",
-          "label": "Request flight information service",
-          "acceptedVariants": [
-            "request flight information service",
-            "request flight information",
-            "request FIS"
+            "[altitude] 2500 feet"
           ],
           "weight": 20
         }

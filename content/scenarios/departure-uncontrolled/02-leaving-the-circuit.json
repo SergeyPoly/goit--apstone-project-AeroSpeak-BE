@@ -15,6 +15,10 @@
       "value": "Piła Radio 122.405"
     },
     {
+      "label": "Frequency",
+      "value": "Poznań Information 126.300"
+    },
+    {
       "label": "Callsign",
       "value": "SP-TFA"
     },
@@ -27,6 +31,10 @@
       "value": "21"
     },
     {
+      "label": "Wind",
+      "value": "220° 8 kt"
+    },
+    {
       "label": "Intention",
       "value": "VFR to Poznań"
     }
@@ -36,8 +44,8 @@
       "id": "leaving-circuit",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "You are airborne and climbing to 2000 feet. Report leaving the circuit to the south towards Poznań.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, leaving the circuit to the south, climbing to 2000 feet.",
+      "prompt": "You are airborne and climbing to 2000 feet. Report leaving the circuit via Kilo towards Poznań.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, leaving the circuit via Kilo, climbing altitude 2000 feet.",
       "requiredElements": [
         {
           "id": "station",
@@ -59,19 +67,18 @@
         },
         {
           "id": "leaving",
-          "label": "Leaving the circuit to the south",
+          "label": "Leaving the circuit via Kilo",
           "acceptedVariants": [
-            "leaving the circuit to the south",
-            "leaving the circuit south"
+            "leaving the circuit via Kilo",
+            "leaving circuit via Kilo"
           ],
           "weight": 40
         },
         {
           "id": "altitude",
-          "label": "Climbing to 2000 feet",
+          "label": "Climbing altitude 2000 feet",
           "acceptedVariants": [
-            "climbing to 2000 feet",
-            "climbing 2000 feet"
+            "climbing [altitude] 2000 feet"
           ],
           "weight": 30,
           "critical": true
@@ -85,8 +92,8 @@
       "id": "leaving-frequency",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "Tell Piła Radio you are leaving the frequency to contact Poznań Information.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, leaving your frequency, changing to Poznań Information.",
+      "prompt": "Tell Piła Radio you are changing to Poznań Information on 126.300.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, changing to Poznań Information 126.300.",
       "requiredElements": [
         {
           "id": "station",
@@ -107,23 +114,28 @@
           "weight": 20
         },
         {
-          "id": "leaving_frequency",
-          "label": "Leaving your frequency",
-          "acceptedVariants": [
-            "leaving your frequency",
-            "leaving frequency"
-          ],
-          "weight": 35
-        },
-        {
           "id": "changing",
           "label": "Changing to Poznań Information",
           "acceptedVariants": [
             "changing to Poznań Information",
-            "changing to Poznan Information"
+            "changing to Poznan Information",
+            "switching to Poznań Information",
+            "switching to Poznan Information"
           ],
           "weight": 35
+        },
+        {
+          "id": "frequency",
+          "label": "126.300",
+          "acceptedVariants": [
+            "126.300"
+          ],
+          "weight": 35,
+          "critical": true
         }
+      ],
+      "criticalElements": [
+        "frequency"
       ]
     }
   ]

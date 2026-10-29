@@ -29,6 +29,10 @@
     {
       "label": "Intention",
       "value": "VFR flight to Poznań"
+    },
+    {
+      "label": "Wind",
+      "value": "220° 8 kt"
     }
   ],
   "phraseologyNote": {
@@ -44,7 +48,7 @@
       "type": "pilot_request",
       "speaker": "pilot",
       "prompt": "You are on the apron at Piła. Call Piła Radio: who you are, where you are, your flight, and ask for airfield information.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, Cessna 172 on the apron, VFR flight to Poznań, request airfield information.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, on the apron, VFR flight to Poznań, request airfield information.",
       "requiredElements": [
         {
           "id": "station",
@@ -101,7 +105,7 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Piła Radio gives you the runway in use and QNH. Read back runway and QNH.",
-      "atcText": "SP-TFA, Piła Radio, runway 21 in use, wind 220 degrees 8 knots, QNH 1013.",
+      "atcText": "SP-TFA, Piła Radio, runway 21 in use, right-hand circuit, wind 220 degrees 8 knots, QNH 1013.",
       "atcAudio": "/audio/atc/ground-unc-information-taxi/information-readback.mp3",
       "expectedPilotResponse": "Runway 21, QNH 1013, SP-TFA.",
       "requiredElements": [

@@ -29,6 +29,10 @@
     {
       "label": "Runway",
       "value": "21"
+    },
+    {
+      "label": "Wind",
+      "value": "220° 8 kt"
     }
   ],
   "steps": [
@@ -37,7 +41,7 @@
       "type": "self_announce",
       "speaker": "pilot",
       "prompt": "You are overhead the airfield at 2000 feet. Announce joining the circuit for runway 21.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, overhead at 2000 feet, joining the circuit runway 21.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, overhead, altitude 2000 feet, joining the circuit runway 21.",
       "requiredElements": [
         {
           "id": "station",
@@ -59,10 +63,10 @@
         },
         {
           "id": "overhead",
-          "label": "Overhead at 2000 feet",
+          "label": "Overhead, altitude 2000 feet",
           "acceptedVariants": [
-            "overhead at 2000 feet",
-            "overhead 2000 feet"
+            "overhead [altitude] 2000 feet",
+            "overhead at [altitude] 2000 feet"
           ],
           "weight": 25
         },
@@ -94,7 +98,7 @@
       "type": "self_announce",
       "speaker": "pilot",
       "prompt": "You are on downwind. Report with full-stop intention.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, downwind runway 21, full stop.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, right downwind runway 21, full stop.",
       "requiredElements": [
         {
           "id": "station",
@@ -116,8 +120,9 @@
         },
         {
           "id": "downwind",
-          "label": "Downwind",
+          "label": "Right downwind",
           "acceptedVariants": [
+            "right downwind",
             "downwind"
           ],
           "weight": 25

@@ -24,11 +24,15 @@
     },
     {
       "label": "Position",
-      "value": "November"
+      "value": "Victor"
     },
     {
       "label": "Runway",
       "value": "28"
+    },
+    {
+      "label": "Wind",
+      "value": "270° 10 kt"
     }
   ],
   "steps": [
@@ -37,7 +41,7 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Tower gives you joining instructions. Read back.",
-      "atcText": "SP-TFA, join right downwind runway 28, report downwind.",
+      "atcText": "SP-TFA, Poznań Tower, join right downwind runway 28, report downwind.",
       "atcAudio": "/audio/atc/arr-ctrl-joining/join-readback.mp3",
       "expectedPilotResponse": "Join right downwind runway 28, report downwind, SP-TFA.",
       "requiredElements": [

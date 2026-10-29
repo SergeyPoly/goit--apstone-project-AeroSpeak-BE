@@ -24,7 +24,7 @@
     },
     {
       "label": "Position",
-      "value": "10 miles south"
+      "value": "Kilo"
     },
     {
       "label": "Altitude",
@@ -33,6 +33,10 @@
     {
       "label": "Intention",
       "value": "Full-stop landing"
+    },
+    {
+      "label": "Wind",
+      "value": "220° 8 kt"
     }
   ],
   "steps": [
@@ -40,8 +44,8 @@
       "id": "inbound",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "You are 10 miles south at 2000 feet, inbound for landing. Call Piła Radio and ask for airfield information.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, 10 miles south, 2000 feet, inbound for landing, request airfield information.",
+      "prompt": "You are over Kilo, south-west of Piła, at 2000 feet, inbound for landing. Call Piła Radio and ask for airfield information.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, overhead Kilo, altitude 2000 feet, inbound for landing, request airfield information.",
       "requiredElements": [
         {
           "id": "station",
@@ -63,17 +67,18 @@
         },
         {
           "id": "position",
-          "label": "10 miles south",
+          "label": "Overhead Kilo",
           "acceptedVariants": [
-            "10 miles south"
+            "overhead Kilo",
+            "over Kilo"
           ],
           "weight": 15
         },
         {
           "id": "altitude",
-          "label": "2000 feet",
+          "label": "Altitude 2000 feet",
           "acceptedVariants": [
-            "2000 feet"
+            "[altitude] 2000 feet"
           ],
           "weight": 10
         },
@@ -102,7 +107,7 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Read back runway and QNH.",
-      "atcText": "SP-TFA, Piła Radio, runway 21 in use, QNH 1012, one Cessna in the circuit.",
+      "atcText": "SP-TFA, Piła Radio, runway 21 in use, right-hand circuit, QNH 1012, one Cessna in the circuit.",
       "atcAudio": "/audio/atc/arr-unc-inbound/information-readback.mp3",
       "expectedPilotResponse": "Runway 21, QNH 1012, SP-TFA.",
       "requiredElements": [
@@ -145,8 +150,8 @@
       "id": "joining",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "Announce joining downwind for runway 21.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, joining downwind runway 21.",
+      "prompt": "Announce joining right downwind for runway 21.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, joining right downwind runway 21.",
       "requiredElements": [
         {
           "id": "station",
@@ -168,9 +173,11 @@
         },
         {
           "id": "joining",
-          "label": "Joining downwind",
+          "label": "Joining right downwind",
           "acceptedVariants": [
+            "joining right downwind",
             "joining downwind",
+            "join right downwind",
             "join downwind"
           ],
           "weight": 40

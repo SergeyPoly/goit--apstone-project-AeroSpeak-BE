@@ -24,7 +24,7 @@
     },
     {
       "label": "Position",
-      "value": "10 miles north"
+      "value": "Approaching Delta"
     },
     {
       "label": "Altitude",
@@ -33,13 +33,17 @@
     {
       "label": "ATIS",
       "value": "Information Lima"
+    },
+    {
+      "label": "Wind",
+      "value": "270° 10 kt"
     }
   ],
   "phraseologyNote": {
     "id": "ctr-entry",
     "title": "Entering a control zone",
     "shortExplanation": "You need a clearance to enter a CTR. Read back the entry point, altitude limits and reporting instructions.",
-    "example": "Enter control zone via November, not above 1500 feet, report November, SP-TFA.",
+    "example": "Enter control zone via Delta, not above altitude 1500 feet, report Victor, SP-TFA.",
     "whyItMatters": "Altitude limits keep VFR traffic clear of IFR arrivals."
   },
   "steps": [
@@ -47,8 +51,8 @@
       "id": "initial-call",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "You are 10 miles north at 2000 feet with ATIS Lima. Call Tower: inbound for landing.",
-      "expectedPilotResponse": "Poznań Tower, SP-TFA, Cessna 172, 10 miles north, 2000 feet, information Lima, inbound for landing.",
+      "prompt": "You are approaching Delta, north-west of the control zone, at 2000 feet with ATIS Lima. Call Tower: inbound for landing.",
+      "expectedPilotResponse": "Poznań Tower, SP-TFA, approaching Delta, altitude 2000 feet, information Lima, inbound for landing.",
       "requiredElements": [
         {
           "id": "station",
@@ -69,26 +73,18 @@
           "weight": 20
         },
         {
-          "id": "type",
-          "label": "Cessna 172",
-          "acceptedVariants": [
-            "Cessna 172"
-          ],
-          "weight": 5
-        },
-        {
           "id": "position",
-          "label": "10 miles north",
+          "label": "Approaching Delta",
           "acceptedVariants": [
-            "10 miles north"
+            "approaching Delta"
           ],
-          "weight": 15
+          "weight": 20
         },
         {
           "id": "altitude",
-          "label": "2000 feet",
+          "label": "Altitude 2000 feet",
           "acceptedVariants": [
-            "2000 feet"
+            "[altitude] 2000 feet"
           ],
           "weight": 15
         },
@@ -115,35 +111,35 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Read back the CTR entry clearance.",
-      "atcText": "SP-TFA, Poznań Tower, enter control zone via November, not above 1500 feet, report November.",
+      "atcText": "SP-TFA, Poznań Tower, enter control zone via Delta, not above altitude 1500 feet, report Victor.",
       "atcAudio": "/audio/atc/arr-ctrl-ctr-entry/entry-readback.mp3",
-      "expectedPilotResponse": "Enter control zone via November, not above 1500 feet, report November, SP-TFA.",
+      "expectedPilotResponse": "Enter control zone via Delta, not above altitude 1500 feet, report Victor, SP-TFA.",
       "requiredElements": [
         {
           "id": "enter",
-          "label": "Enter control zone via November",
+          "label": "Enter control zone via Delta",
           "acceptedVariants": [
-            "enter control zone via November",
-            "entering control zone via November"
+            "enter control zone via Delta",
+            "entering control zone via Delta"
           ],
           "weight": 30,
           "critical": true
         },
         {
           "id": "altitude",
-          "label": "Not above 1500 feet",
+          "label": "Not above altitude 1500 feet",
           "acceptedVariants": [
-            "not above 1500 feet"
+            "not above [altitude] 1500 feet"
           ],
           "weight": 30,
           "critical": true
         },
         {
           "id": "report",
-          "label": "Report November",
+          "label": "Report Victor",
           "acceptedVariants": [
-            "report November",
-            "will report November",
+            "report Victor",
+            "will report Victor",
             "wilco"
           ],
           "weight": 20
@@ -169,8 +165,8 @@
       "id": "report-november",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "You are over November at 1500 feet. Report.",
-      "expectedPilotResponse": "SP-TFA, November, 1500 feet.",
+      "prompt": "You are over Victor at 1500 feet. Report.",
+      "expectedPilotResponse": "SP-TFA, Victor, altitude 1500 feet.",
       "requiredElements": [
         {
           "id": "callsign",
@@ -183,18 +179,19 @@
         },
         {
           "id": "november",
-          "label": "November",
+          "label": "Victor",
           "acceptedVariants": [
-            "November",
-            "over November"
+            "Victor",
+            "over Victor",
+            "overhead Victor"
           ],
           "weight": 40
         },
         {
           "id": "altitude",
-          "label": "1500 feet",
+          "label": "Altitude 1500 feet",
           "acceptedVariants": [
-            "1500 feet"
+            "[altitude] 1500 feet"
           ],
           "weight": 30
         }

@@ -25,6 +25,10 @@
     {
       "label": "Runway",
       "value": "21"
+    },
+    {
+      "label": "Wind",
+      "value": "220° 8 kt"
     }
   ],
   "steps": [

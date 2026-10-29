@@ -92,7 +92,7 @@
       "type": "basic_drill",
       "speaker": "atc",
       "prompt": "You fly VFR under a cloud base at 3500 feet. ATC asks you to climb into cloud. You cannot comply.",
-      "atcText": "SP-TFA, climb to 4500 feet.",
+      "atcText": "SP-TFA, climb altitude 4500 feet.",
       "atcAudio": "/audio/atc/basic-more-standard-words/unable.mp3",
       "expectedPilotResponse": "Unable, SP-TFA.",
       "requiredElements": [

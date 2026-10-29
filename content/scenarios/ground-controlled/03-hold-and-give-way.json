@@ -29,6 +29,10 @@
     {
       "label": "Runway",
       "value": "28"
+    },
+    {
+      "label": "Wind",
+      "value": "270° 10 kt"
     }
   ],
   "phraseologyNote": {
@@ -44,7 +48,7 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Ground stops you because of crossing traffic. Read back.",
-      "atcText": "SP-TFA, hold position.",
+      "atcText": "SP-TFA, Poznań Ground, hold position.",
       "atcAudio": "/audio/atc/ground-ctrl-hold-give-way/hold-readback.mp3",
       "expectedPilotResponse": "Holding position, SP-TFA.",
       "requiredElements": [

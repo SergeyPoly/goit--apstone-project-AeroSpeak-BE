@@ -9,7 +9,7 @@
     "id": "altitudes",
     "title": "Altitudes",
     "shortExplanation": "Altitudes use thousands and hundreds; flight levels are read digit by digit.",
-    "example": "Two thousand five hundred feet. Flight level six five.",
+    "example": "Two thousand fife hundred feet. Flight level six fife.",
     "whyItMatters": "Mixing the two forms is a common source of level busts."
   },
   "steps": [

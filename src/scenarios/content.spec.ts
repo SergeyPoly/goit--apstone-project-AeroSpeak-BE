@@ -68,6 +68,13 @@ describe('scenario content', () => {
         });
       }
 
+      // AIP Polska GEN 1.7: no "to" right before a number ("to" sounds like "two").
+      it(`${scenario.id} / ${step.id}: no "to" before a number`, () => {
+        const texts = [step.atcText ?? '', step.expectedPilotResponse];
+        const toBeforeNumber = texts.flatMap((t) => t.match(/\bto \d/gi) ?? []);
+        expect(toBeforeNumber).toEqual([]);
+      });
+
       if (step.atcAudio) {
         // The frontend serves ATC audio from public/audio/atc/<scenarioId>/<stepId>.mp3.
         it(`${scenario.id} / ${step.id}: atcAudio follows the path convention`, () => {

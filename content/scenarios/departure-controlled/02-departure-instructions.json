@@ -27,8 +27,12 @@
       "value": "28"
     },
     {
+      "label": "Wind",
+      "value": "270° 10 kt"
+    },
+    {
       "label": "Intention",
-      "value": "VFR to Piła via Whiskey"
+      "value": "VFR to Piła via Delta"
     }
   ],
   "steps": [
@@ -37,9 +41,9 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Tower gives you the departure route. Read it back.",
-      "atcText": "SP-TFA, after departure turn right, leave control zone via Whiskey, not above 1500 feet.",
+      "atcText": "SP-TFA, Poznań Tower, after departure turn right, leave control zone via Delta, not above altitude 1500 feet.",
       "atcAudio": "/audio/atc/dep-ctrl-departure-instructions/route-readback.mp3",
-      "expectedPilotResponse": "After departure turn right, leave control zone via Whiskey, not above 1500 feet, SP-TFA.",
+      "expectedPilotResponse": "After departure turn right, leave control zone via Delta, not above altitude 1500 feet, SP-TFA.",
       "requiredElements": [
         {
           "id": "turn",
@@ -53,20 +57,20 @@
         },
         {
           "id": "exit",
-          "label": "Leave control zone via Whiskey",
+          "label": "Leave control zone via Delta",
           "acceptedVariants": [
-            "leave control zone via Whiskey",
-            "leaving control zone via Whiskey",
-            "via Whiskey"
+            "leave control zone via Delta",
+            "leaving control zone via Delta",
+            "via Delta"
           ],
           "weight": 30,
           "critical": true
         },
         {
           "id": "altitude",
-          "label": "Not above 1500 feet",
+          "label": "Not above altitude 1500 feet",
           "acceptedVariants": [
-            "not above 1500 feet"
+            "not above [altitude] 1500 feet"
           ],
           "weight": 30,
           "critical": true
@@ -93,7 +97,7 @@
       "id": "frequency-readback",
       "type": "pilot_readback",
       "speaker": "atc",
-      "prompt": "Approaching Whiskey, Tower hands you over. Read back.",
+      "prompt": "Approaching Delta, Tower hands you over. Read back.",
       "atcText": "SP-TFA, contact Poznań Approach 128.925.",
       "atcAudio": "/audio/atc/dep-ctrl-departure-instructions/frequency-readback.mp3",
       "expectedPilotResponse": "Contact Poznań Approach 128.925, SP-TFA.",

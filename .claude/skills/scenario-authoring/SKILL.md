@@ -46,6 +46,30 @@ The `NN-` prefix (`01-`, `02-`, ...) is the order users see inside a pack.
    `{ "kind": "pattern", "side": "left|right", "position": "upwind|crosswind|downwind|base|final", "runway": "21" }`.
    Steps without `visual` show the aerodrome chart from the "Airport" briefing value.
 
+## Phraseology rules
+
+Source of truth for Polish aerodromes: ICAO Doc 9432 (Polish ULC edition) with the Polish
+differences of its appendix 1 (AIP Polska GEN 1.7). UK CAA CAP 413 only for UK aerodromes.
+
+- Numbers as in Doc 9432 2.4 (see `src/scoring/spoken.ts`): flight levels without a leading
+  zero (`FL 65`), squawk 7000 / QNH 1000 as "seven thousand" / "one thousand".
+- ATC: the first transmission of each unit in a scenario has the station after the
+  callsign ("SP-TFA, Poznań Tower, ..."); later ones may omit it (Doc 9432 2.7.1.2).
+- Altitude: ALTITUDE before the value and no "to" before a number: "climb altitude
+  4500 feet", "not above altitude 1500 feet", "altitude 2000 feet" in position reports.
+  In variants write it as optional, `"not above [altitude] 1500 feet"`: leaving it out is
+  "almost", not a miss. `content.spec.ts` rejects "to" + number.
+- Words in `[brackets]` are standard but optional; use them only for words whose absence
+  does not change the meaning.
+- Initial calls: station, callsign, position, request, ATIS letter ("... request start-up,
+  information Kilo"). No aircraft type. To FIS: no "request flight information service".
+- Positions over VFR reporting points from `content/aerodromes.md` ("overhead Kilo",
+  "approaching Delta"); a distance ("5 miles north") only where no point exists.
+- Changing frequency on your own: "changing to (unit) (frequency)".
+- A readback ends with the callsign (start or end is accepted by scoring).
+- Time drills: the minutes alone are standard (Doc 9432 2.5.1); accept the full time too.
+- Briefing: add "Wind" matching the runway in use (and the ATC wind in the scenario).
+
 ## Per scenario
 
 - `briefing`: Airport, ATC unit / frequency, Callsign, Aircraft, Position, ATIS/QNH,

@@ -27,8 +27,12 @@
       "value": "21"
     },
     {
+      "label": "Wind",
+      "value": "220° 8 kt"
+    },
+    {
       "label": "Intention",
-      "value": "Leave the circuit to the south"
+      "value": "Leave the circuit via Kilo"
     }
   ],
   "steps": [
@@ -83,8 +87,8 @@
       "id": "taking-off",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "Announce that you are taking off and will leave the circuit to the south.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, taking off runway 21, departing to the south.",
+      "prompt": "Announce that you are taking off and will leave the circuit via Kilo.",
+      "expectedPilotResponse": "Piła Radio, SP-TFA, taking off runway 21, departing via Kilo.",
       "requiredElements": [
         {
           "id": "station",
@@ -122,11 +126,10 @@
         },
         {
           "id": "direction",
-          "label": "Departing to the south",
+          "label": "Departing via Kilo",
           "acceptedVariants": [
-            "departing to the south",
-            "departing south",
-            "to the south"
+            "departing via Kilo",
+            "via Kilo"
           ],
           "weight": 20
         }
