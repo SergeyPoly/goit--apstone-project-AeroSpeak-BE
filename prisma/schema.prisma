@@ -1,6 +1,6 @@
 // AeroSpeak database schema.
 // Scenarios are NOT stored here: they live as JSON files in /content and are
-// validated at startup. The database holds only user data: guests, users and attempts.
+// validated at startup. The database holds only user data: users and their attempts.
 // Pilot audio is never stored, only the transcript and the scoring result.
 
 generator client {
@@ -15,17 +15,6 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Guest {
-  id        String    @id @default(uuid()) @db.Uuid
-  createdAt DateTime  @default(now())
-  // Set when the guest signs up and their progress is moved to the account.
-  userId    String?   @db.Uuid
-  user      User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
-  attempts  Attempt[]
-
-  @@index([userId])
-}
-
 // Identity lives in Firebase Authentication; this row holds our own profile data.
 model User {
   id              String    @id @default(uuid()) @db.Uuid
@@ -37,10 +26,8 @@ model User {
   emailVerified   Boolean   @default(false)
   termsAcceptedAt DateTime?
   voiceConsentAt  DateTime?
-  passwordHash    String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
-  guests          Guest[]
   attempts        Attempt[]
 
   @@index([email])
@@ -50,10 +37,8 @@ model Attempt {
   id                String   @id @default(uuid()) @db.Uuid
   createdAt         DateTime @default(now())
 
-  guestId           String?  @db.Uuid
-  guest             Guest?   @relation(fields: [guestId], references: [id], onDelete: Cascade)
-  userId            String?  @db.Uuid
-  user              User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String   @db.Uuid
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   packId            String
   scenarioId        String
@@ -69,7 +54,6 @@ model Attempt {
   elements          Json
   processingMs      Int
 
-  @@index([guestId, createdAt])
   @@index([userId, createdAt])
   @@index([scenarioId])
 }
