@@ -30,6 +30,8 @@ async function bootstrap() {
       .setTitle('AeroSpeak API')
       .setDescription('VFR radio phraseology training: scenarios, attempts and scoring.')
       .setVersion('0.1.0')
+      // Firebase ID token; in development get one with `npm run dev:token`.
+      .addBearerAuth()
       .build(),
   );
   SwaggerModule.setup('docs', app, document, { jsonDocumentUrl: 'api-json' });

@@ -26,13 +26,24 @@ model Guest {
   @@index([userId])
 }
 
+// Identity lives in Firebase Authentication; this row holds our own profile data.
 model User {
-  id           String    @id @default(uuid()) @db.Uuid
-  email        String    @unique
-  passwordHash String?
-  createdAt    DateTime  @default(now())
-  guests       Guest[]
-  attempts     Attempt[]
+  id              String    @id @default(uuid()) @db.Uuid
+  firebaseUid     String    @unique
+  // Copied from the Firebase ID token. Not unique: after deleting the Firebase account
+  // the same email can sign up again and gets a new uid.
+  email           String?
+  name            String?
+  emailVerified   Boolean   @default(false)
+  termsAcceptedAt DateTime?
+  voiceConsentAt  DateTime?
+  passwordHash    String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  guests          Guest[]
+  attempts        Attempt[]
+
+  @@index([email])
 }
 
 model Attempt {

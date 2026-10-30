@@ -1,6 +1,7 @@
 import { Controller, Post } from '@nestjs/common';
 import { ApiCreatedResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
+import { Public } from '../auth/auth.decorators';
 import { GuestsService } from './guests.service';
 
 class GuestDto {
@@ -8,6 +9,8 @@ class GuestDto {
   guestId: string;
 }
 
+// Guest mode is removed once the frontend signs in with Firebase (auth PR 2).
+@Public()
 @ApiTags('guests')
 @Controller('guests')
 export class GuestsController {
