@@ -1,6 +1,12 @@
 import { Controller, Get, ServiceUnavailableException } from '@nestjs/common';
-import { ApiOkResponse, ApiProperty, ApiServiceUnavailableResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOkResponse,
+  ApiProperty,
+  ApiServiceUnavailableResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { SkipThrottle } from '@nestjs/throttler';
+import { Public } from '../auth/auth.decorators';
 import { PrismaService } from '../prisma/prisma.service';
 
 class HealthDto {
@@ -15,6 +21,7 @@ class HealthDto {
  * Liveness + database check. Used as the Render health check and to warm up
  * the free Render instance and the Neon database before a demo.
  */
+@Public()
 @ApiTags('health')
 @SkipThrottle()
 @Controller('health')

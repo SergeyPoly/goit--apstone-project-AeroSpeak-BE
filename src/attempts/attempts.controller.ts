@@ -17,6 +17,7 @@ import {
   ApiTooManyRequestsResponse,
 } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
+import { Public } from '../auth/auth.decorators';
 import { AttemptResultDto, CreateAttemptDto, createAttemptSchema } from './attempts.dto';
 import { AttemptsService } from './attempts.service';
 
@@ -25,6 +26,8 @@ const MAX_AUDIO_BYTES = 2 * 1024 * 1024;
 /** Chrome records webm/opus, Safari records mp4/aac. */
 const ALLOWED_AUDIO_TYPES = /^audio\/(webm|mp4|x-m4a|aac|mpeg|ogg|wav|x-wav)(;.*)?$/;
 
+// Public until attempts belong to users (auth PR 2); today they are keyed by guestId.
+@Public()
 @ApiTags('attempts')
 @Controller('attempts')
 export class AttemptsController {

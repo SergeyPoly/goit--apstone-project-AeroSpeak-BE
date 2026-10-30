@@ -1,8 +1,10 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { Public } from '../auth/auth.decorators';
 import { PracticePackDto, ScenarioDto } from './scenarios.dto';
 import { ScenariosService } from './scenarios.service';
 
+@Public()
 @ApiTags('scenarios')
 @Controller()
 export class ScenariosController {

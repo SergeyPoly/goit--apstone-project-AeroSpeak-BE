@@ -21,6 +21,9 @@ export const envSchema = z.object({
   DEEPGRAM_API_KEY: z.string().min(1),
   DEEPGRAM_MODEL: z.string().default('nova-3'),
 
+  // Firebase Authentication: ID tokens are verified against this project. Not a secret.
+  FIREBASE_PROJECT_ID: z.string().min(1),
+
   // Kept as raw strings on purpose: parsed by buildCorsOrigin() in config/cors.ts.
   CORS_ORIGINS: z.string().default('http://localhost:5173'),
   CORS_ORIGIN_REGEX: z
