@@ -1,6 +1,11 @@
-import { Injectable, Logger, ServiceUnavailableException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  Logger,
+  ServiceUnavailableException,
+} from '@nestjs/common';
 import type { Prisma } from '@prisma/client';
-import { GuestsService } from '../guests/guests.service';
+import type { AuthUser } from '../auth/token-verifier';
 import { PrismaService } from '../prisma/prisma.service';
 import { ScenariosService } from '../scenarios/scenarios.service';
 import { scoreTransmission } from '../scoring';
@@ -15,7 +20,6 @@ export class AttemptsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly scenarios: ScenariosService,
-    private readonly guests: GuestsService,
     private readonly stt: SttProvider,
   ) {}
 
@@ -25,11 +29,12 @@ export class AttemptsService {
    * The audio buffer is only held in memory for the STT call and never stored.
    */
   async create(
+    authUser: AuthUser,
     input: CreateAttemptInput,
     audio: { buffer: Buffer; mimeType: string },
   ): Promise<AttemptResultDto> {
     const startedAt = Date.now();
-    await this.guests.assertExists(input.guestId);
+    const userId = await this.practiceUserId(authUser);
     const { scenario, step } = this.scenarios.getStep(input.scenarioId, input.stepId);
 
     let stt: SttResult;
@@ -59,7 +64,7 @@ export class AttemptsService {
 
     const attempt = await this.prisma.attempt.create({
       data: {
-        guestId: input.guestId,
+        userId,
         packId: scenario.packId,
         scenarioId: scenario.id,
         stepId: step.id,
@@ -91,5 +96,26 @@ export class AttemptsService {
       tip: result.tip,
       feedbackProcessingMs,
     };
+  }
+
+  /** Practice needs a finished registration: a profile with accepted terms. */
+  private async practiceUserId(authUser: AuthUser): Promise<string> {
+    const user = await this.prisma.user.findUnique({
+      where: { firebaseUid: authUser.uid },
+      select: { id: true, termsAcceptedAt: true },
+    });
+    if (!user) {
+      throw new ForbiddenException({
+        code: 'profile_not_found',
+        message: 'Registration is not finished: call POST /me first',
+      });
+    }
+    if (!user.termsAcceptedAt) {
+      throw new ForbiddenException({
+        code: 'terms_not_accepted',
+        message: 'Accept the terms with POST /me first',
+      });
+    }
+    return user.id;
   }
 }

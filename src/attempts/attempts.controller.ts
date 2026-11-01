@@ -9,16 +9,26 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiBody,
   ApiConsumes,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiServiceUnavailableResponse,
   ApiTags,
   ApiTooManyRequestsResponse,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
-import { Public } from '../auth/auth.decorators';
-import { AttemptResultDto, CreateAttemptDto, createAttemptSchema } from './attempts.dto';
+import { CurrentUser } from '../auth/auth.decorators';
+import { AuthErrorDto } from '../auth/auth.dto';
+import type { AuthUser } from '../auth/token-verifier';
+import {
+  AttemptForbiddenDto,
+  AttemptResultDto,
+  CreateAttemptDto,
+  createAttemptSchema,
+} from './attempts.dto';
 import { AttemptsService } from './attempts.service';
 
 /** Radio calls are short; 2 MB is far more than a 30-second compressed recording. */
@@ -26,9 +36,8 @@ const MAX_AUDIO_BYTES = 2 * 1024 * 1024;
 /** Chrome records webm/opus, Safari records mp4/aac. */
 const ALLOWED_AUDIO_TYPES = /^audio\/(webm|mp4|x-m4a|aac|mpeg|ogg|wav|x-wav)(;.*)?$/;
 
-// Public until attempts belong to users (auth PR 2); today they are keyed by guestId.
-@Public()
 @ApiTags('attempts')
+@ApiBearerAuth()
 @Controller('attempts')
 export class AttemptsController {
   constructor(private readonly attempts: AttemptsService) {}
@@ -41,9 +50,12 @@ export class AttemptsController {
   @ApiBody({ type: CreateAttemptDto })
   @ApiCreatedResponse({ type: AttemptResultDto })
   @ApiBadRequestResponse({ description: 'Missing or invalid audio or fields' })
+  @ApiUnauthorizedResponse({ type: AuthErrorDto, description: 'Missing, invalid or expired token' })
+  @ApiForbiddenResponse({ type: AttemptForbiddenDto })
   @ApiServiceUnavailableResponse({ description: 'STT provider failed; retry without penalty' })
   @ApiTooManyRequestsResponse()
   create(
+    @CurrentUser() user: AuthUser,
     @UploadedFile() audio: Express.Multer.File | undefined,
     @Body() body: unknown,
   ): Promise<AttemptResultDto> {
@@ -59,6 +71,9 @@ export class AttemptsController {
       );
     }
 
-    return this.attempts.create(parsed.data, { buffer: audio.buffer, mimeType: audio.mimetype });
+    return this.attempts.create(user, parsed.data, {
+      buffer: audio.buffer,
+      mimeType: audio.mimetype,
+    });
   }
 }

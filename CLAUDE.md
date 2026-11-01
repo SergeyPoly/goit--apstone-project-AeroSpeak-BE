@@ -12,6 +12,9 @@ This repo is the NestJS backend. The React frontend lives in a separate repo.
 - **Two repositories.** The API contract is shared via OpenAPI:
   Swagger UI at `/docs`, JSON schema at `/api-json`. The frontend generates its
   types from it, so every response needs decorated DTO classes (`@ApiProperty`).
+- **Registration is mandatory, identity is Firebase Authentication.** There is no guest
+  mode. The backend only verifies Firebase ID tokens: no passwords, no own JWTs, no
+  Passport, no service-account key. Attempts and progress live in our database.
 - **Scoring lives only on the backend.** The frontend just displays the result.
 - **Pilot audio is never stored** (GDPR). It is held in memory for the STT call,
   then dropped. Only transcript and scoring result go to the database.
@@ -28,20 +31,36 @@ This repo is the NestJS backend. The React frontend lives in a separate repo.
 
 ```
 src/
+  auth/        global AuthGuard (Firebase ID token), @Public(), @CurrentUser(), TokenVerifier
   config/      env validation (zod); app does not start with missing variables
   health/      GET /health: SELECT 1, used for Render health check and warm-up
+  me/          profile: POST /me (register, accept terms), GET, voice consent, DELETE
   prisma/      PrismaService (global)
   scenarios/   content loader + zod schemas, GET /packs, GET /scenarios/:id
   scoring/     spoken-form expander, word aligner, scorer: PURE TypeScript, no Nest imports
   stt/         abstract SttProvider + DeepgramSttProvider (REST, keyterms)
-  guests/      POST /guests: anonymous guest id (practice without signup)
   attempts/    POST /attempts (multipart audio): STT -> scoring -> save -> feedback
 content/
   packs.json              practice packs
   scenarios/<pack>/*.json one file per scenario, named 01-..., 02-... (= display order)
   aerodromes.md           aerodrome facts used in scenarios, with open questions
-prisma/schema.prisma      Guest, User, Attempt
+prisma/schema.prisma      User, Attempt
+scripts/dev-token.ts      prints a Firebase ID token for Swagger "Authorize"
 ```
+
+### Auth (`src/auth`, `src/me`)
+
+- The frontend signs in with the Firebase JS SDK and sends
+  `Authorization: Bearer <ID token>`. `FirebaseTokenVerifier` checks it with only
+  `FIREBASE_PROJECT_ID`; the SDK fetches Google's public keys itself.
+- `AuthGuard` is global (after the rate limiter). Mark open routes with `@Public()`:
+  today `/health`, `/packs`, `/scenarios/:id` (`/docs` and `/api-json` are not Nest routes).
+- `User` is keyed by `firebaseUid`; `email` is a copy from the token and not unique.
+  `POST /me` creates the profile and records the terms; practice needs both.
+- Error codes: 401 `unauthorized` / `token_expired` (frontend refreshes the token and
+  retries once), 403 `profile_not_found` / `terms_not_accepted` on `POST /attempts`,
+  404 `profile_not_found` on `GET /me`.
+- Tests use `FakeTokenVerifier` (`src/auth/testing.ts`), never the network.
 
 ### Scoring engine (`src/scoring`)
 
@@ -122,10 +141,11 @@ npx prisma migrate dev --name x   # create a migration (needs DIRECT_URL)
 npm run start:dev                 # http://localhost:3000/docs
 npm test                          # unit tests (scoring, content)
 npm run lint && npm run typecheck && npm run build
+npm run dev:token -- <email> <password>   # ID token for /docs (needs FIREBASE_WEB_API_KEY)
 ```
 
 ## Next steps (Trello board "AeroSpeak MVP")
 
 1. Frontend: show the word-by-word result (`elements[].words`) in the feedback dialog.
-2. Auth (email, Google, Apple) and moving guest progress to the account.
+2. Progress endpoint for the signed-in user (`GET /progress` from saved attempts).
 3. PostHog analytics, Sentry.

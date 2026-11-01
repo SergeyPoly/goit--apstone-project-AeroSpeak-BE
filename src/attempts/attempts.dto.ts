@@ -2,7 +2,6 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { z } from 'zod';
 
 export const createAttemptSchema = z.object({
-  guestId: z.string().uuid(),
   scenarioId: z.string().min(1),
   stepId: z.string().min(1),
 });
@@ -14,7 +13,6 @@ export class CreateAttemptDto {
   @ApiProperty({ type: 'string', format: 'binary', description: 'Recorded pilot transmission' })
   audio: unknown;
 
-  @ApiProperty({ format: 'uuid' }) guestId: string;
   @ApiProperty() scenarioId: string;
   @ApiProperty() stepId: string;
 }
@@ -81,4 +79,13 @@ export class AttemptResultDto {
   @ApiProperty() tip: string;
   @ApiProperty({ description: 'Time from receiving the audio to the result' })
   feedbackProcessingMs: number;
+}
+
+export class AttemptForbiddenDto {
+  @ApiProperty({
+    enum: ['profile_not_found', 'terms_not_accepted'],
+    description: 'Registration is not finished: show the terms step and call POST /me',
+  })
+  code: 'profile_not_found' | 'terms_not_accepted';
+  @ApiProperty() message: string;
 }

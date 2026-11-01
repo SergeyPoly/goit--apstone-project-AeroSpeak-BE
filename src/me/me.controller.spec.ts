@@ -40,7 +40,6 @@ function fakePrisma() {
           emailVerified: false,
           termsAcceptedAt: null,
           voiceConsentAt: null,
-          passwordHash: null,
           createdAt: new Date(),
           updatedAt: new Date(),
           ...create,

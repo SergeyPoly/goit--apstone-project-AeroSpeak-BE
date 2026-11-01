@@ -6,7 +6,6 @@ import { AttemptsModule } from './attempts/attempts.module';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { validateEnv } from './config/env';
-import { GuestsModule } from './guests/guests.module';
 import { HealthModule } from './health/health.module';
 import { MeModule } from './me/me.module';
 import { PrismaModule } from './prisma/prisma.module';
@@ -23,7 +22,6 @@ import { SttModule } from './stt/stt.module';
     HealthModule,
     ScenariosModule,
     SttModule,
-    GuestsModule,
     AttemptsModule,
     MeModule,
   ],
