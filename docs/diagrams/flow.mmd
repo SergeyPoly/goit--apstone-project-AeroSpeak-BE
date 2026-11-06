@@ -1,0 +1,19 @@
+sequenceDiagram
+  autonumber
+  actor P as Пілот
+  participant F as Фронтенд
+  participant B as Бекенд (attempts)
+  participant D as Deepgram
+  participant S as Рушій оцінювання
+  participant DB as PostgreSQL
+  P->>F: слухає диспетчера, натискає PTT, відповідає
+  F->>B: POST /attempts (аудіо, scenarioId, stepId, ID-токен)
+  B->>B: ліміт запитів, перевірка токена й профілю
+  B->>D: аудіо + ключові терміни кроку
+  D-->>B: транскрипт і впевненість слів
+  Note over B: аудіо видаляється з пам'яті
+  B->>S: транскрипт + еталон кроку
+  S-->>B: бал, елементи, порядок, підказка
+  B->>DB: зберегти транскрипт і результат
+  B-->>F: AttemptResult
+  F-->>P: фідбек: бал, слова, підказка, повтор
