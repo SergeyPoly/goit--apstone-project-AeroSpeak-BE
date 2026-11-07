@@ -40,6 +40,7 @@ src/
   scoring/     spoken-form expander, word aligner, scorer: PURE TypeScript, no Nest imports
   stt/         abstract SttProvider + DeepgramSttProvider (REST, keyterms)
   attempts/    POST /attempts (multipart audio): STT -> scoring -> save -> feedback
+  progress/    GET /me/progress, /me/progress/daily, /me/attempts: pure calculation + endpoints
 content/
   packs.json              practice packs
   scenarios/<pack>/*.json one file per scenario, named 01-..., 02-... (= display order)
@@ -59,7 +60,7 @@ scripts/dev-token.ts      prints a Firebase ID token for Swagger "Authorize"
   `POST /me` creates the profile and records the terms; practice needs both.
 - Error codes: 401 `unauthorized` / `token_expired` (frontend refreshes the token and
   retries once), 403 `profile_not_found` / `terms_not_accepted` on `POST /attempts`,
-  404 `profile_not_found` on `GET /me`.
+  404 `profile_not_found` on `GET /me`, 403 `profile_not_found` on the progress endpoints.
 - Tests use `FakeTokenVerifier` (`src/auth/testing.ts`), never the network.
 
 ### Scoring engine (`src/scoring`)
@@ -112,6 +113,20 @@ UK CAA CAP 413 applies only to UK aerodromes if we add them. The PDFs are not co
 - STT keyterms (`attempts/keyterms.ts`) never contain digits or written codes:
   "118.505" or "QNH 1013" as a keyterm makes Deepgram write digits or cardinals.
 
+### Progress (`src/progress`)
+
+- A run is one pass through a scenario: the attempts with the same `sessionId`, which the
+  frontend generates when a run starts. Attempts without it count only in the totals.
+- Run score = mean over all steps of the best score per step, as in the frontend summary.
+  A run counts only when every step has an attempt: `runs`, `bestScore`, `lastScore`, `scores`.
+- `progress.ts` is pure (no Nest or Prisma imports), like `src/scoring`. Sections stay on the
+  frontend: the API returns scenarios and the frontend groups them.
+- Nothing is stored per run, so progress follows the content: renaming a step id or adding a
+  step leaves earlier runs incomplete and their scores disappear. Do not do that to a published
+  scenario without need. Attempts of removed content stay in the history and the daily chart.
+- `GET /me/attempts/:id` returns the feedback as saved. Attempts from before the `tip`, `order`
+  and `expectedPilotResponse` columns have none of them.
+
 ## Conventions
 
 - TypeScript strict, ESLint + Prettier (`npm run lint`, `npm run format`).
@@ -148,5 +163,5 @@ npm run dev:token -- <email> <password>   # ID token for /docs (needs FIREBASE_W
 ## Next steps (Trello board "AeroSpeak MVP")
 
 1. Frontend: show the word-by-word result (`elements[].words`) in the feedback dialog.
-2. Progress endpoint for the signed-in user (`GET /progress` from saved attempts).
+2. Frontend: read progress from the API and add the history screen with the score chart.
 3. PostHog analytics, Sentry.

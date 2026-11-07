@@ -9,6 +9,7 @@ import { validateEnv } from './config/env';
 import { HealthModule } from './health/health.module';
 import { MeModule } from './me/me.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { ProgressModule } from './progress/progress.module';
 import { ScenariosModule } from './scenarios/scenarios.module';
 import { SttModule } from './stt/stt.module';
 
@@ -24,6 +25,7 @@ import { SttModule } from './stt/stt.module';
     SttModule,
     AttemptsModule,
     MeModule,
+    ProgressModule,
   ],
   // Guards run in this order: the rate limit first, so floods never reach token checks.
   providers: [
