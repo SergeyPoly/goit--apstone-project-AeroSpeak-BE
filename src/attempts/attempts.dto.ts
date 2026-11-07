@@ -1,9 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { z } from 'zod';
+import type { ElementResult } from '../scoring';
 
 export const createAttemptSchema = z.object({
   scenarioId: z.string().min(1),
   stepId: z.string().min(1),
+  sessionId: z.string().uuid().optional(),
 });
 
 export type CreateAttemptInput = z.infer<typeof createAttemptSchema>;
@@ -15,6 +17,11 @@ export class CreateAttemptDto {
 
   @ApiProperty() scenarioId: string;
   @ApiProperty() stepId: string;
+  @ApiPropertyOptional({
+    format: 'uuid',
+    description: 'One pass through a scenario: the same id for every attempt of that run',
+  })
+  sessionId?: string;
 }
 
 export class WordResultDto {
@@ -43,6 +50,11 @@ export class ElementResultDto {
       'Understood but not standard: what to say instead, e.g. \'Say "seven thousand": that is the standard form.\'',
   })
   hint?: string;
+}
+
+/** Drops the fields that are internal to the scoring engine. */
+export function toElementDtos(elements: ElementResult[]): ElementResultDto[] {
+  return elements.map(({ position: _position, issues: _issues, ...element }) => element);
 }
 
 export class OrderFeedbackDto {

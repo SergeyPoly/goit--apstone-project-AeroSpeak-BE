@@ -119,6 +119,7 @@ UK CAA CAP 413 applies only to UK aerodromes if we add them. The PDFs are not co
   Swagger DTO classes next to it in `*.dto.ts`.
 - Errors that are not the user's fault (STT down) return 503 with `code: 'stt_failed'`;
   the frontend shows "try again" without a score.
+  An empty transcript gets the same answer and is not saved, so it never counts in progress.
 - English in code and API messages; team docs are in Ukrainian.
 
 ## Infrastructure

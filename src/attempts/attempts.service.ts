@@ -10,7 +10,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { ScenariosService } from '../scenarios/scenarios.service';
 import { scoreTransmission } from '../scoring';
 import { SttProvider, SttUnavailableError, type SttResult } from '../stt/stt.provider';
-import type { AttemptResultDto, CreateAttemptInput } from './attempts.dto';
+import { toElementDtos, type AttemptResultDto, type CreateAttemptInput } from './attempts.dto';
 import { keytermsForStep } from './keyterms';
 
 @Injectable()
@@ -47,14 +47,12 @@ export class AttemptsService {
     } catch (error) {
       if (error instanceof SttUnavailableError) {
         this.logger.warn(`STT failed: ${error.message}`);
-        // Not the user's fault: the frontend shows "try again" without a score.
-        throw new ServiceUnavailableException({
-          code: 'stt_failed',
-          message: 'Speech recognition is unavailable, please try again',
-        });
+        throw this.sttFailed();
       }
       throw error;
     }
+    // Nothing was heard: no result to show, and it must not count as a try at the step.
+    if (!stt.transcript.trim()) throw this.sttFailed();
 
     const result = scoreTransmission(step, {
       transcript: stt.transcript,
@@ -68,6 +66,7 @@ export class AttemptsService {
         packId: scenario.packId,
         scenarioId: scenario.id,
         stepId: step.id,
+        sessionId: input.sessionId ?? null,
         transcript: stt.transcript,
         sttConfidence: stt.confidence ?? null,
         score: result.score,
@@ -75,6 +74,9 @@ export class AttemptsService {
         success: result.success,
         missedCritical: result.missedCritical,
         elements: result.elements as unknown as Prisma.InputJsonValue,
+        expectedPilotResponse: step.expectedPilotResponse,
+        tip: result.tip,
+        order: (result.order ?? undefined) as unknown as Prisma.InputJsonValue | undefined,
         processingMs: feedbackProcessingMs,
       },
       select: { id: true },
@@ -87,15 +89,21 @@ export class AttemptsService {
       score: result.score,
       displayScore: result.displayScore,
       success: result.success,
-      elements: result.elements.map(
-        ({ position: _position, issues: _issues, ...element }) => element,
-      ),
+      elements: toElementDtos(result.elements),
       missedCritical: result.missedCritical,
       orderCorrect: result.orderCorrect,
       ...(result.order ? { order: result.order } : {}),
       tip: result.tip,
       feedbackProcessingMs,
     };
+  }
+
+  /** Not the user's fault: the frontend shows "try again" without a score. */
+  private sttFailed(): ServiceUnavailableException {
+    return new ServiceUnavailableException({
+      code: 'stt_failed',
+      message: 'Speech recognition is unavailable, please try again',
+    });
   }
 
   /** Practice needs a finished registration: a profile with accepted terms. */

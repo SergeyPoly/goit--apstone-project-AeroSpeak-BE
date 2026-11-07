@@ -20,9 +20,10 @@ const user = (uid: string): AuthUser => ({ uid, email: null, emailVerified: fals
 class FakeStt extends SttProvider {
   readonly name = 'fake';
   calls = 0;
+  transcript = step.expectedPilotResponse;
   transcribe(_request: SttRequest): Promise<SttResult> {
     this.calls++;
-    return Promise.resolve({ transcript: step.expectedPilotResponse, provider: this.name });
+    return Promise.resolve({ transcript: this.transcript, provider: this.name });
   }
 }
 
@@ -30,7 +31,7 @@ describe('POST /attempts', () => {
   let app: INestApplication;
   let url: string;
   let stt: FakeStt;
-  const saved: Array<{ userId: string; scenarioId: string; stepId: string }> = [];
+  const saved: Array<Record<string, unknown>> = [];
 
   const profiles: Record<string, { id: string; termsAcceptedAt: Date | null }> = {
     'uid-registered': { id: 'user-1', termsAcceptedAt: new Date() },
@@ -49,11 +50,12 @@ describe('POST /attempts', () => {
     },
   };
 
-  const post = async (token?: string) => {
+  const post = async (token?: string, sessionId?: string) => {
     const form = new FormData();
     form.append('audio', new Blob([new Uint8Array(16)], { type: 'audio/webm' }), 'a.webm');
     form.append('scenarioId', scenario.id);
     form.append('stepId', step.id);
+    if (sessionId) form.append('sessionId', sessionId);
     const response = await fetch(`${url}/attempts`, {
       method: 'POST',
       headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -120,5 +122,36 @@ describe('POST /attempts', () => {
     expect(saved).toEqual([
       expect.objectContaining({ userId: 'user-1', scenarioId: scenario.id, stepId: step.id }),
     ]);
+  });
+
+  it('saves the run id and the feedback for the history', async () => {
+    const sessionId = '6f1c2a54-3b1e-4e0a-9d57-0c6a1f3e2b11';
+    const { status, body } = await post('token-registered', sessionId);
+    expect(status).toBe(201);
+    expect(saved[0]).toMatchObject({
+      sessionId,
+      expectedPilotResponse: step.expectedPilotResponse,
+      tip: body.tip,
+    });
+  });
+
+  it('saves attempts without a run id', async () => {
+    expect((await post('token-registered')).status).toBe(201);
+    expect(saved[0].sessionId).toBeNull();
+  });
+
+  it('rejects a run id that is not a uuid', async () => {
+    expect((await post('token-registered', 'not-a-uuid')).status).toBe(400);
+    expect(stt.calls).toBe(0);
+    expect(saved).toEqual([]);
+  });
+
+  it('does not save an attempt when nothing was heard', async () => {
+    stt.transcript = '  ';
+    expect(await post('token-registered')).toMatchObject({
+      status: 503,
+      body: { code: 'stt_failed' },
+    });
+    expect(saved).toEqual([]);
   });
 });
