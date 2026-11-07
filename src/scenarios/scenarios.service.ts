@@ -26,6 +26,11 @@ export class ScenariosService implements OnModuleInit {
     }));
   }
 
+  /** All scenarios in content order. */
+  listScenarios(): Scenario[] {
+    return [...this.scenarios.values()];
+  }
+
   getScenario(id: string): Scenario {
     const scenario = this.scenarios.get(id);
     if (!scenario) throw new NotFoundException(`Scenario "${id}" not found`);
