@@ -1,0 +1,32 @@
+erDiagram
+  direction LR
+  User ||--o{ Attempt : "має"
+  User {
+    uuid id PK
+    string firebaseUid UK
+    string email
+    string name
+    bool emailVerified
+    datetime termsAcceptedAt
+    datetime voiceConsentAt
+    datetime createdAt
+  }
+  Attempt {
+    uuid id PK
+    uuid userId FK
+    string packId
+    string scenarioId
+    string stepId
+    uuid sessionId "проходження, nullable"
+    string transcript
+    int score
+    int displayScore
+    bool success
+    string_array missedCritical
+    json elements
+    string expectedPilotResponse "nullable"
+    string tip "nullable"
+    json order "nullable"
+    int processingMs
+    datetime createdAt
+  }

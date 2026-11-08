@@ -1,0 +1,31 @@
+flowchart LR
+  subgraph Client["Браузер користувача"]
+    MR["MediaRecorder<br/>запис відповіді"] --> UI["Вебзастосунок React<br/>(Vite, TanStack Query)"]
+    FBSDK["Firebase JS SDK<br/>вхід, ID-токен"]
+  end
+  STATIC["Vercel<br/>статичні файли,<br/>аудіо диспетчера"]
+  subgraph Render["Бекенд NestJS на Render (Франкфурт)"]
+    G["Глобальні guard-и<br/>ліміт запитів, AuthGuard"]
+    SC["scenarios<br/>JSON-сценарії, zod"]
+    ME["me<br/>профіль, згода"]
+    AT["attempts<br/>обробка спроби"]
+    PR["progress<br/>прогрес, історія спроб"]
+    STT["stt<br/>SttProvider"]
+    SCORE["scoring<br/>рушій оцінювання"]
+    G --> SC & ME & AT & PR
+    PR --> SC
+    AT --> STT
+    AT --> SCORE
+    AT --> SC
+  end
+  DB[("Neon PostgreSQL<br/>User, Attempt<br/>(через Prisma)")]
+  DG["Deepgram Nova-3"]
+  FB["Firebase<br/>Authentication"]
+  UI -- "HTML, JS, MP3" --> STATIC
+  FBSDK <--> FB
+  UI -- "REST, Bearer ID-токен" --> G
+  G -. "перевірка підпису" .-> FB
+  STT -- "аудіо, keyterms" --> DG
+  AT --> DB
+  ME --> DB
+  PR --> DB
