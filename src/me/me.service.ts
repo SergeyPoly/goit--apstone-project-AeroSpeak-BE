@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import type { User } from '@prisma/client';
 import type { AuthUser } from '../auth/token-verifier';
 import { PrismaService } from '../prisma/prisma.service';
-import type { MeDto, RegisterInput } from './me.dto';
+import type { MeDto, RegisterInput, UpdateProfileInput } from './me.dto';
 
 function toDto(user: User): MeDto {
   return {
@@ -53,6 +53,12 @@ export class MeService {
       });
     }
     return toDto(user);
+  }
+
+  /** Changes the profile fields the user may edit: today only the display name. */
+  async update(authUser: AuthUser, input: UpdateProfileInput): Promise<MeDto> {
+    const user = await this.findOrThrow(authUser);
+    return toDto(await this.prisma.user.update({ where: { id: user.id }, data: input }));
   }
 
   /** Records consent to voice processing; keeps the first consent time. */

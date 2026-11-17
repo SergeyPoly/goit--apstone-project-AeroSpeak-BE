@@ -1,4 +1,13 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -14,7 +23,14 @@ import { Throttle } from '@nestjs/throttler';
 import { CurrentUser } from '../auth/auth.decorators';
 import { AuthErrorDto } from '../auth/auth.dto';
 import type { AuthUser } from '../auth/token-verifier';
-import { MeDto, ProfileNotFoundDto, RegisterDto, registerSchema } from './me.dto';
+import {
+  MeDto,
+  ProfileNotFoundDto,
+  RegisterDto,
+  registerSchema,
+  UpdateProfileDto,
+  updateProfileSchema,
+} from './me.dto';
 import { MeService } from './me.service';
 
 @ApiTags('me')
@@ -47,6 +63,27 @@ export class MeController {
   @ApiNotFoundResponse({ type: ProfileNotFoundDto, description: 'POST /me was never called' })
   get(@CurrentUser() user: AuthUser): Promise<MeDto> {
     return this.me.get(user);
+  }
+
+  /**
+   * Profile page: changes the display name. Email and password are changed in Firebase
+   * on the frontend; GET /me then copies the new email from the token.
+   */
+  @Patch()
+  @Throttle({ default: { ttl: 60_000, limit: 10 } })
+  @ApiBody({ type: UpdateProfileDto })
+  @ApiOkResponse({ type: MeDto })
+  @ApiBadRequestResponse({ description: 'name is missing or invalid, or another field is sent' })
+  @ApiNotFoundResponse({ type: ProfileNotFoundDto, description: 'POST /me was never called' })
+  @ApiTooManyRequestsResponse()
+  update(@CurrentUser() user: AuthUser, @Body() body: unknown): Promise<MeDto> {
+    const parsed = updateProfileSchema.safeParse(body);
+    if (!parsed.success) {
+      throw new BadRequestException(
+        parsed.error.issues.map((i) => `${i.path.join('.') || 'body'}: ${i.message}`),
+      );
+    }
+    return this.me.update(user, parsed.data);
   }
 
   /** Called by the consent dialog shown before the first recording. */

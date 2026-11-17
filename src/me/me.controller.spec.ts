@@ -173,6 +173,43 @@ describe('/me', () => {
     });
   });
 
+  describe('PATCH /me', () => {
+    it('needs a profile', async () => {
+      expect(await call('PATCH', '/me', { name: 'Alice' })).toMatchObject({
+        status: 404,
+        body: { code: 'profile_not_found' },
+      });
+    });
+
+    it('changes the name', async () => {
+      await call('POST', '/me', { acceptTerms: true });
+      const { status, body } = await call('PATCH', '/me', { name: '  Captain Alice ' });
+      expect(status).toBe(200);
+      expect(body).toMatchObject({ name: 'Captain Alice', email: 'alice@example.com' });
+      expect(prisma.users[0].name).toBe('Captain Alice');
+    });
+
+    it.each([
+      undefined,
+      {},
+      { name: '' },
+      { name: '   ' },
+      { name: 'x'.repeat(81) },
+      { name: 42 },
+      { name: null },
+      { name: 'Alice', email: 'eve@example.com' },
+      { name: 'Alice', termsAcceptedAt: null },
+    ])('rejects body %j', async (body) => {
+      await call('POST', '/me', { acceptTerms: true });
+      expect((await call('PATCH', '/me', body)).status).toBe(400);
+      expect(prisma.users[0]).toMatchObject({
+        name: 'Alice from Google',
+        email: 'alice@example.com',
+      });
+      expect(prisma.users[0].termsAcceptedAt).not.toBeNull();
+    });
+  });
+
   it('records voice consent once', async () => {
     expect((await call('POST', '/me/voice-consent')).status).toBe(404);
     await call('POST', '/me', { acceptTerms: true });
