@@ -34,7 +34,7 @@ src/
   auth/        global AuthGuard (Firebase ID token), @Public(), @CurrentUser(), TokenVerifier
   config/      env validation (zod); app does not start with missing variables
   health/      GET /health: SELECT 1, used for Render health check and warm-up
-  me/          profile: POST /me (register, accept terms), GET, voice consent, DELETE
+  me/          profile: POST /me (register, accept terms), GET, PATCH (name), voice consent, DELETE
   prisma/      PrismaService (global)
   scenarios/   content loader + zod schemas, GET /packs, GET /scenarios/:id
   scoring/     spoken-form expander, word aligner, scorer: PURE TypeScript, no Nest imports

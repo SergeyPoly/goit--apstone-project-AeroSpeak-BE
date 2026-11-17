@@ -1,12 +1,19 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { z } from 'zod';
 
+const nameSchema = z.string().trim().min(1).max(80);
+
 export const registerSchema = z.object({
-  name: z.string().trim().min(1).max(80).optional(),
+  name: nameSchema.optional(),
   acceptTerms: z.literal(true),
 });
 
 export type RegisterInput = z.infer<typeof registerSchema>;
+
+// Strict: email and password belong to Firebase, consent and terms have their own routes.
+export const updateProfileSchema = z.object({ name: nameSchema }).strict();
+
+export type UpdateProfileInput = z.infer<typeof updateProfileSchema>;
 
 export class RegisterDto {
   @ApiPropertyOptional({
@@ -17,6 +24,11 @@ export class RegisterDto {
   name?: string;
   @ApiProperty({ enum: [true], description: 'Must be true: the user accepted the terms' })
   acceptTerms: true;
+}
+
+export class UpdateProfileDto {
+  @ApiProperty({ minLength: 1, maxLength: 80, description: 'Display name, trimmed' })
+  name: string;
 }
 
 export class MeDto {
