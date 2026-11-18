@@ -2,17 +2,20 @@
   "id": "basic-more-standard-words",
   "title": "Roger, negative, unable, standby",
   "packId": "basics-standard-words",
+  "variants": {
+    "aircraft": true
+  },
   "difficulty": "easy",
   "estimatedDurationSec": 120,
   "objective": "Answer ATC with roger, negative, unable and standby.",
   "briefing": [
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     }
   ],
   "phraseologyNote": {
@@ -42,9 +45,8 @@
       "type": "basic_drill",
       "speaker": "atc",
       "prompt": "ATC gives you wind information. Acknowledge it.",
-      "atcText": "SP-TFA, wind 270 degrees 10 knots.",
-      "atcAudio": "/audio/atc/basic-more-standard-words/roger.mp3",
-      "expectedPilotResponse": "Roger, SP-TFA.",
+      "atcText": "{{callsign}}, wind 270 degrees 10 knots.",
+      "expectedPilotResponse": "Roger, {{callsign}}.",
       "requiredElements": [
         {
           "id": "roger",
@@ -56,10 +58,9 @@
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 40
         }
@@ -70,9 +71,8 @@
       "type": "basic_drill",
       "speaker": "atc",
       "prompt": "ATC asks if you are IFR. You are VFR: answer no.",
-      "atcText": "SP-TFA, confirm you are IFR.",
-      "atcAudio": "/audio/atc/basic-more-standard-words/negative.mp3",
-      "expectedPilotResponse": "Negative, VFR, SP-TFA.",
+      "atcText": "{{callsign}}, confirm you are IFR.",
+      "expectedPilotResponse": "Negative, VFR, {{callsign}}.",
       "requiredElements": [
         {
           "id": "negative",
@@ -92,10 +92,9 @@
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30
         }
@@ -106,9 +105,8 @@
       "type": "basic_drill",
       "speaker": "atc",
       "prompt": "You fly VFR under a cloud base at 3500 feet. ATC asks you to climb into cloud. You cannot comply.",
-      "atcText": "SP-TFA, climb altitude 4500 feet.",
-      "atcAudio": "/audio/atc/basic-more-standard-words/unable.mp3",
-      "expectedPilotResponse": "Unable, SP-TFA.",
+      "atcText": "{{callsign}}, climb altitude 4500 feet.",
+      "expectedPilotResponse": "Unable, {{callsign}}.",
       "requiredElements": [
         {
           "id": "unable",
@@ -120,10 +118,9 @@
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 40
         }
@@ -134,9 +131,8 @@
       "type": "basic_drill",
       "speaker": "atc",
       "prompt": "ATC asks for your fuel endurance. You need a moment to check.",
-      "atcText": "SP-TFA, say fuel endurance.",
-      "atcAudio": "/audio/atc/basic-more-standard-words/standby.mp3",
-      "expectedPilotResponse": "Standby, SP-TFA.",
+      "atcText": "{{callsign}}, say fuel endurance.",
+      "expectedPilotResponse": "Standby, {{callsign}}.",
       "requiredElements": [
         {
           "id": "standby",
@@ -149,10 +145,9 @@
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 40
         }

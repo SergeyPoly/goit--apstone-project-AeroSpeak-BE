@@ -2,33 +2,40 @@
   "id": "lnd-unc-touch-and-go",
   "title": "Touch-and-go, then full stop",
   "packId": "landing-uncontrolled",
+  "variants": {
+    "aerodromes": [
+      "EPPI"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "medium",
   "estimatedDurationSec": 120,
   "objective": "Report a touch-and-go, the next circuit and the final full stop.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPI Piła"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Piła Radio 122.405"
+      "value": "{{radio}} {{radio.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Runway",
-      "value": "21"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "220° 8 kt"
+      "value": "{{wind.brief}}"
     }
   ],
   "phraseologyNote": {
@@ -57,23 +64,21 @@
       "type": "self_announce",
       "speaker": "pilot",
       "prompt": "Final, you plan a touch-and-go. Report.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, final runway 21, touch-and-go.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, final runway {{runway}}, touch-and-go.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -87,9 +92,9 @@
         },
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 20,
           "critical": true
@@ -113,23 +118,21 @@
       "type": "self_announce",
       "speaker": "pilot",
       "prompt": "Next circuit, final again. This time it is a full stop.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, final runway 21, full stop.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, final runway {{runway}}, full stop.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -143,9 +146,9 @@
         },
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 20,
           "critical": true
@@ -168,31 +171,29 @@
       "type": "self_announce",
       "speaker": "pilot",
       "prompt": "Report the runway vacated.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, runway 21 vacated.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, runway {{runway}} vacated.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
         {
           "id": "vacated",
-          "label": "Runway 21 vacated",
+          "label": "Runway {{runway}} vacated",
           "acceptedVariants": [
-            "runway 21 vacated",
+            "runway {{runway}} vacated",
             "runway vacated"
           ],
           "weight": 70,

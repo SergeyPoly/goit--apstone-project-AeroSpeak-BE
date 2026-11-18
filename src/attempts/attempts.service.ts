@@ -35,7 +35,11 @@ export class AttemptsService {
   ): Promise<AttemptResultDto> {
     const startedAt = Date.now();
     const userId = await this.practiceUserId(authUser);
-    const { scenario, step } = this.scenarios.getStep(input.scenarioId, input.stepId);
+    const { scenario, step } = this.scenarios.getStep(
+      input.scenarioId,
+      input.stepId,
+      input.variant || undefined,
+    );
 
     let stt: SttResult;
     try {

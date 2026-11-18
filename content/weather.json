@@ -1,0 +1,38 @@
+[
+  {
+    "id": "w1",
+    "wind": {
+      "direction": 270,
+      "speed": 10
+    },
+    "qnh": 1013,
+    "atis": "Kilo"
+  },
+  {
+    "id": "w2",
+    "wind": {
+      "direction": 250,
+      "speed": 12
+    },
+    "qnh": 1008,
+    "atis": "Lima"
+  },
+  {
+    "id": "w3",
+    "wind": {
+      "direction": 90,
+      "speed": 8
+    },
+    "qnh": 1021,
+    "atis": "Mike"
+  },
+  {
+    "id": "w4",
+    "wind": {
+      "direction": 60,
+      "speed": 14
+    },
+    "qnh": 1016,
+    "atis": "November"
+  }
+]

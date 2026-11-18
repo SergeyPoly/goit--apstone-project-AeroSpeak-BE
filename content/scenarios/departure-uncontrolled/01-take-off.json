@@ -2,37 +2,47 @@
   "id": "dep-unc-take-off",
   "title": "Take-off call",
   "packId": "departure-uncontrolled",
+  "variants": {
+    "aerodromes": [
+      "EPPI"
+    ],
+    "to": [
+      "EPPO"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "easy",
   "estimatedDurationSec": 60,
   "objective": "Announce lining up and taking off at an uncontrolled airfield.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPI Piła"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Piła Radio 122.405"
+      "value": "{{radio}} {{radio.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Runway",
-      "value": "21"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "220° 8 kt"
+      "value": "{{wind.brief}}"
     },
     {
       "label": "Intention",
-      "value": "Leave the circuit via Kilo"
+      "value": "Leave the circuit via {{departure.exit}}"
     }
   ],
   "phraseologyNote": {
@@ -55,9 +65,9 @@
         "section": "4.5 Take-off procedures"
       },
       {
-        "source": "AIP VFR Polska",
-        "section": "AD 4 EPPI 4-1 Visual approach chart",
-        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+        "source": "{{chart.source}}",
+        "section": "{{chart.section}}",
+        "url": "{{chart.url}}"
       }
     ]
   },
@@ -66,24 +76,22 @@
       "id": "lining-up",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "You are at the holding point and final is clear. Announce lining up runway 21.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, lining up runway 21.",
+      "prompt": "You are at the holding point and final is clear. Announce lining up runway {{runway}}.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, lining up runway {{runway}}.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -97,9 +105,9 @@
         },
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 35,
           "critical": true
@@ -113,24 +121,22 @@
       "id": "taking-off",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "Announce that you are taking off and will leave the circuit via Kilo.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, taking off runway 21, departing via Kilo.",
+      "prompt": "Announce that you are taking off and will leave the circuit via {{departure.exit}}.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, taking off runway {{runway}}, departing via {{departure.exit}}.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -144,18 +150,18 @@
         },
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 25
         },
         {
           "id": "direction",
-          "label": "Departing via Kilo",
+          "label": "Departing via {{departure.exit}}",
           "acceptedVariants": [
-            "departing via Kilo",
-            "via Kilo"
+            "departing via {{departure.exit}}",
+            "via {{departure.exit}}"
           ],
           "weight": 20
         }

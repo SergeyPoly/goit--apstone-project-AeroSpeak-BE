@@ -2,29 +2,39 @@
   "id": "fis-position-handover",
   "title": "Position report and handover",
   "packId": "enroute-fis",
+  "variants": {
+    "aerodromes": [
+      "EPPO"
+    ],
+    "from": [
+      "EPPI"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "medium",
   "estimatedDurationSec": 90,
   "objective": "Give a position report and read back the frequency change to Approach.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPO Poznań-Ławica"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Poznań Information 126.300"
+      "value": "{{information}} {{information.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Position",
-      "value": "Over Oborniki"
+      "value": "Over {{arrival.waypoint}}"
     },
     {
       "label": "Altitude",
@@ -56,27 +66,25 @@
       "id": "position-report",
       "type": "atc_instruction",
       "speaker": "atc",
-      "prompt": "FIS asked you to report over Oborniki. You are overhead now at 2500 feet.",
-      "atcText": "SP-TFA, Poznań Information, report over Oborniki.",
-      "atcAudio": "/audio/atc/fis-position-handover/position-report.mp3",
-      "expectedPilotResponse": "SP-TFA, over Oborniki, altitude 2500 feet.",
+      "prompt": "FIS asked you to report over {{arrival.waypoint}}. You are overhead now at 2500 feet.",
+      "atcText": "{{callsign}}, {{information}}, report over {{arrival.waypoint}}.",
+      "expectedPilotResponse": "{{callsign}}, over {{arrival.waypoint}}, altitude 2500 feet.",
       "requiredElements": [
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30
         },
         {
           "id": "position",
-          "label": "Over Oborniki",
+          "label": "Over {{arrival.waypoint}}",
           "acceptedVariants": [
-            "over Oborniki",
-            "overhead Oborniki",
-            "Oborniki"
+            "over {{arrival.waypoint}}",
+            "overhead {{arrival.waypoint}}",
+            "{{arrival.waypoint}}"
           ],
           "weight": 40
         },
@@ -94,36 +102,33 @@
       "id": "handover-readback",
       "type": "pilot_readback",
       "speaker": "atc",
-      "prompt": "FIS hands you over to Poznań Approach. Read back.",
-      "atcText": "SP-TFA, contact Poznań Approach 128.925.",
-      "atcAudio": "/audio/atc/fis-position-handover/handover-readback.mp3",
-      "expectedPilotResponse": "Contact Poznań Approach 128.925, SP-TFA.",
+      "prompt": "FIS hands you over to {{approach}}. Read back.",
+      "atcText": "{{callsign}}, contact {{approach}} {{approach.freq}}.",
+      "expectedPilotResponse": "Contact {{approach}} {{approach.freq}}, {{callsign}}.",
       "requiredElements": [
         {
           "id": "contact",
-          "label": "Contact Poznań Approach",
+          "label": "Contact {{approach}}",
           "acceptedVariants": [
-            "contact Poznań Approach",
-            "contact Poznan Approach",
+            "contact {{approach}}",
             "contact Approach"
           ],
           "weight": 30
         },
         {
           "id": "frequency",
-          "label": "128.925",
+          "label": "{{approach.freq}}",
           "acceptedVariants": [
-            "128.925"
+            "{{approach.freq}}"
           ],
           "weight": 45,
           "critical": true
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 25,
           "critical": true

@@ -1,0 +1,158 @@
+{
+  "icao": "EPPO",
+  "name": "Poznań-Ławica",
+  "city": ["Poznań", "Poznan"],
+  "controlled": true,
+  "position": {
+    "lat": 52.4211,
+    "lon": 16.8261
+  },
+  "chart": {
+    "source": "AIP Polska",
+    "section": "AD 2 EPPO 13-1 Visual approach chart",
+    "url": "https://ais.pansa.pl/publikacje/aip-polska/"
+  },
+  "stations": {
+    "delivery": {
+      "name": ["Poznań Delivery", "Poznan Delivery"],
+      "frequency": "121.805"
+    },
+    "ground": {
+      "name": ["Poznań Ground", "Poznan Ground"],
+      "frequency": "124.140"
+    },
+    "tower": {
+      "name": ["Poznań Tower", "Poznan Tower"],
+      "frequency": "119.980"
+    },
+    "approach": {
+      "name": ["Poznań Approach", "Poznan Approach"],
+      "frequency": "128.925"
+    },
+    "information": {
+      "name": ["Poznań Information", "Poznan Information"],
+      "frequency": "126.300"
+    }
+  },
+  "runways": [
+    {
+      "designator": "28",
+      "heading": 280,
+      "circuit": "right",
+      "taxiRoute": "Alpha",
+      "vacateSide": "left",
+      "vacateVia": "Bravo",
+      "taxiInRoute": "Bravo",
+      "departureTurn": {
+        "north": "right",
+        "west": "left"
+      }
+    },
+    {
+      "designator": "10",
+      "heading": 100,
+      "circuit": "left",
+      "taxiRoute": "Delta 2",
+      "vacateSide": "right",
+      "vacateVia": "Bravo",
+      "taxiInRoute": "Bravo",
+      "departureTurn": {
+        "north": "left",
+        "west": "right"
+      }
+    }
+  ],
+  "vfrPoints": [
+    {
+      "name": "Delta",
+      "location": "north-west"
+    },
+    {
+      "name": "Victor",
+      "location": "north-west"
+    },
+    {
+      "name": "Hotel",
+      "location": "north-west"
+    },
+    {
+      "name": "Quebec",
+      "location": "north-east"
+    },
+    {
+      "name": "Yankee",
+      "location": "north"
+    },
+    {
+      "name": "Tango",
+      "location": "north-east"
+    },
+    {
+      "name": "Golf",
+      "location": "north-east"
+    },
+    {
+      "name": "X-ray",
+      "location": "west"
+    },
+    {
+      "name": "Juliett",
+      "location": "west"
+    },
+    {
+      "name": "India",
+      "location": "west"
+    },
+    {
+      "name": "Foxtrot",
+      "location": "south-east"
+    },
+    {
+      "name": "Uniform",
+      "location": "south"
+    },
+    {
+      "name": "Mike",
+      "location": "south"
+    },
+    {
+      "name": "Romeo",
+      "location": "south-east"
+    },
+    {
+      "name": "Kilo",
+      "location": "south-east"
+    },
+    {
+      "name": "Echo",
+      "location": "south-east"
+    },
+    {
+      "name": "Zulu",
+      "location": "south-east"
+    }
+  ],
+  "arrivals": {
+    "north": {
+      "entry": "Delta",
+      "report": "Victor",
+      "altitude": 1500,
+      "waypoint": "Oborniki"
+    },
+    "west": {
+      "entry": "X-ray",
+      "report": "Juliett",
+      "altitude": 1500
+    }
+  },
+  "departures": {
+    "north": {
+      "exit": "Delta",
+      "altitude": 1500
+    },
+    "west": {
+      "exit": "X-ray",
+      "altitude": 1500
+    }
+  }
+}

@@ -2,37 +2,44 @@
   "id": "ground-unc-run-up-line-up",
   "title": "Run-up and line-up",
   "packId": "ground-uncontrolled",
+  "variants": {
+    "aerodromes": [
+      "EPPI"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "easy",
   "estimatedDurationSec": 90,
   "objective": "Announce engine run-up at the holding point and lining up on the runway.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPI Piła"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Piła Radio 122.405"
+      "value": "{{radio}} {{radio.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Position",
-      "value": "Holding point runway 21"
+      "value": "Holding point runway {{runway}}"
     },
     {
       "label": "Runway",
-      "value": "21"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "220° 8 kt"
+      "value": "{{wind.brief}}"
     }
   ],
   "phraseologyNote": {
@@ -50,9 +57,9 @@
         "section": "4.5 Take-off procedures"
       },
       {
-        "source": "AIP VFR Polska",
-        "section": "AD 4 EPPI 4-1 Visual approach chart",
-        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+        "source": "{{chart.source}}",
+        "section": "{{chart.section}}",
+        "url": "{{chart.url}}"
       }
     ]
   },
@@ -61,32 +68,30 @@
       "id": "run-up",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "You stop at the holding point of runway 21 for engine checks. Announce it.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, holding point runway 21, performing engine run-up.",
+      "prompt": "You stop at the holding point of runway {{runway}} for engine checks. Announce it.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, holding point runway {{runway}}, performing engine run-up.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
         {
           "id": "holding_point",
-          "label": "Holding point runway 21",
+          "label": "Holding point runway {{runway}}",
           "acceptedVariants": [
-            "holding point runway 21"
+            "holding point runway {{runway}}"
           ],
           "weight": 35
         },
@@ -108,23 +113,21 @@
       "type": "self_announce",
       "speaker": "pilot",
       "prompt": "Checks complete, final approach is clear. Announce lining up for departure.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, lining up runway 21 for departure.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, lining up runway {{runway}} for departure.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -139,9 +142,9 @@
         },
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 30,
           "critical": true

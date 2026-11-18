@@ -2,29 +2,39 @@
   "id": "arr-unc-inbound",
   "title": "Inbound call",
   "packId": "arrival-uncontrolled",
+  "variants": {
+    "aerodromes": [
+      "EPPI"
+    ],
+    "from": [
+      "EPPO"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "easy",
   "estimatedDurationSec": 120,
-  "objective": "Call Piła Radio inbound, read back the airfield information and announce joining.",
+  "objective": "Call the A/G radio station inbound, read back the airfield information and announce joining.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPI Piła"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Piła Radio 122.405"
+      "value": "{{radio}} {{radio.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Position",
-      "value": "Kilo"
+      "value": "{{arrival.entry}}"
     },
     {
       "label": "Altitude",
@@ -36,15 +46,15 @@
     },
     {
       "label": "Wind",
-      "value": "220° 8 kt"
+      "value": "{{wind.brief}}"
     }
   ],
   "phraseologyNote": {
     "id": "ag-inbound",
     "title": "Arriving at an A/G aerodrome",
-    "shortExplanation": "Piła Radio gives information, not clearances. Call inbound early and decide how you join.",
+    "shortExplanation": "{{radio}} gives information, not clearances. Call inbound early and decide how you join.",
     "overview": [
-      "Piła has an air/ground radio station, called \"Radio\". The operator passes the runway in use, the circuit direction, the QNH and known traffic, but does not control traffic. You decide how to join and announce what you do.",
+      "{{city}} has an air/ground radio station, called \"Radio\". The operator passes the runway in use, the circuit direction, the QNH and known traffic, but does not control traffic. You decide how to join and announce what you do.",
       "Make the inbound call well before the aerodrome: station, callsign, position, altitude, intention and the request for airfield information.",
       "Read back the runway in use and the QNH: both are always read back. Then announce where you join the circuit so other pilots on the frequency know where you are."
     ],
@@ -59,9 +69,9 @@
         "section": "2.8.3 Issue of clearance and read-back requirements"
       },
       {
-        "source": "AIP VFR Polska",
-        "section": "AD 4 EPPI 4-1 Visual approach chart",
-        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+        "source": "{{chart.source}}",
+        "section": "{{chart.section}}",
+        "url": "{{chart.url}}"
       }
     ]
   },
@@ -70,33 +80,31 @@
       "id": "inbound",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "You are over Kilo, south-west of Piła, at 2000 feet, inbound for landing. Call Piła Radio and ask for airfield information.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, overhead Kilo, altitude 2000 feet, inbound for landing, request airfield information.",
+      "prompt": "You are over {{arrival.entry}}, {{arrival.entry.location}} of {{city}}, at 2000 feet, inbound for landing. Call {{radio}} and ask for airfield information.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, overhead {{arrival.entry}}, altitude 2000 feet, inbound for landing, request airfield information.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
         {
           "id": "position",
-          "label": "Overhead Kilo",
+          "label": "Overhead {{arrival.entry}}",
           "acceptedVariants": [
-            "overhead Kilo",
-            "over Kilo"
+            "overhead {{arrival.entry}}",
+            "over {{arrival.entry}}"
           ],
           "weight": 15
         },
@@ -129,7 +137,7 @@
       ],
       "visual": {
         "kind": "airspace",
-        "point": "Kilo",
+        "point": "{{arrival.entry}}",
         "direction": "inbound"
       }
     },
@@ -138,34 +146,32 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Read back runway and QNH.",
-      "atcText": "SP-TFA, Piła Radio, runway 21 in use, right-hand circuit, QNH 1012, one Cessna in the circuit.",
-      "atcAudio": "/audio/atc/arr-unc-inbound/information-readback.mp3",
-      "expectedPilotResponse": "Runway 21, QNH 1012, SP-TFA.",
+      "atcText": "{{callsign}}, {{radio}}, runway {{runway}} in use, {{runway.circuit}}-hand circuit, QNH {{qnh}}, one Cessna in the circuit, wind {{wind}}.",
+      "expectedPilotResponse": "Runway {{runway}}, QNH {{qnh}}, {{callsign}}.",
       "requiredElements": [
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 30,
           "critical": true
         },
         {
           "id": "qnh",
-          "label": "QNH 1012",
+          "label": "QNH {{qnh}}",
           "acceptedVariants": [
-            "QNH 1012"
+            "QNH {{qnh}}"
           ],
           "weight": 40,
           "critical": true
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30,
           "critical": true
@@ -178,7 +184,7 @@
       ],
       "visual": {
         "kind": "airspace",
-        "point": "Kilo",
+        "point": "{{arrival.entry}}",
         "direction": "inbound"
       }
     },
@@ -186,43 +192,41 @@
       "id": "joining",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "Announce joining right downwind for runway 21.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, joining right downwind runway 21.",
+      "prompt": "Announce joining {{runway.circuit}} downwind for runway {{runway}}.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, joining {{runway.circuit}} downwind runway {{runway}}.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
         {
           "id": "joining",
-          "label": "Joining right downwind",
+          "label": "Joining {{runway.circuit}} downwind",
           "acceptedVariants": [
-            "joining right downwind",
+            "joining {{runway.circuit}} downwind",
             "joining downwind",
-            "join right downwind",
+            "join {{runway.circuit}} downwind",
             "join downwind"
           ],
           "weight": 40
         },
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 30,
           "critical": true
@@ -233,9 +237,9 @@
       ],
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "downwind",
-        "runway": "21"
+        "runway": "{{runway}}"
       }
     }
   ]

@@ -2,16 +2,31 @@
 
 Scenarios use only the facts below. Items marked **unverified** are placeholders that must
 be checked against the current Polish AIP (or provided by the team) before release.
-After a fact changes, update the scenarios that use it and run `npm test`.
+The values scenarios are rendered with live in `aircraft.json`, `weather.json` and
+`aerodromes/<ICAO>.json`; this file records where they come from. After a fact changes,
+update the JSON file and run `npm test` (every variant of every scenario is checked).
 
 As of 2026-10-29 (VFR points and FIS frequencies from the AIP charts the team provided).
 
 ## Aircraft
 
-| Item | Value |
+The fleet in `aircraft.json`. Registrations are examples for training, not checked against
+the Polish or German register.
+
+| Registration | Type |
 | --- | --- |
-| Registration | SP-TFA (Sierra Papa Tango Foxtrot Alpha) |
-| Type | Cessna 172 |
+| SP-TFA (default) | Cessna 172 |
+| SP-KTN | Tecnam P2008 |
+| D-EPCH | Piper PA-28 Cherokee |
+| D-EMOY | Mooney M20 |
+
+## Weather presets
+
+Four presets (wind, QNH, ATIS letter) in `weather.json`, shared by all aerodromes; every
+preset is a variant of each scenario with `"weather": true`. The runway in use is the one
+most into the wind: 270° 10 kt QNH 1013 Kilo and 250° 12 kt QNH 1008 Lima give EPPO 28 /
+EPPI 21; 090° 8 kt QNH 1021 Mike and 060° 14 kt QNH 1016 November give EPPO 10 / EPPI 03. Tower gives the wind with take-off,
+landing and touch-and-go clearances; Piła Radio gives it with the airfield information.
 
 ## EPPO — Poznań-Ławica (controlled)
 
@@ -19,7 +34,7 @@ As of 2026-10-29 (VFR points and FIS frequencies from the AIP charts the team pr
 | --- | --- | --- |
 | Runway | 10/28, 2504 × 50 m | [learn-atc](https://www.learn-atc.com/tools/aerodrome/EPPO) |
 | Runway in use in scenarios | 28 | assumption (westerly wind) |
-| Wind in scenarios | 270° 10 kt (landing scenario: 260° 8 kt) | example, matches runway 28 |
+| Weather | presets from `weather.json` | examples, all favour runway 28 |
 | Poznań Delivery | 121.805 | [learn-atc](https://www.learn-atc.com/tools/aerodrome/EPPO), [PLVACC](https://plvacc.pl/pilots/airports/EPPO) |
 | Poznań Ground | 124.140 | [PLVACC](https://plvacc.pl/pilots/airports/EPPO) |
 | Poznań Tower | 119.980 | [learn-atc](https://www.learn-atc.com/tools/aerodrome/EPPO), [PLVACC](https://plvacc.pl/pilots/airports/EPPO) |
@@ -40,7 +55,7 @@ As of 2026-10-29 (VFR points and FIS frequencies from the AIP charts the team pr
 | Station | Piła Radio, 122.405 | [dlapilota.pl](https://dlapilota.pl/wiadomosci/aeroklub-ziemi-pilskiej/od-nowego-roku-nowa-czestotliwosc-operacyjna-na-ladowisku-pila-ep) |
 | Runway | 03/21 concrete, 2400 × 60 m | [Aeroklub Ziemi Pilskiej](https://www.azp.pila.pl/lotnisko/) |
 | Runway in use in scenarios | 21 | assumption |
-| Wind in scenarios | 220° 8 kt | example, matches runway 21 |
+| Weather | presets from `weather.json` | examples, all favour runway 21 |
 | Runway in OSM | tagged `21R/03L`, which hints at a parallel strip (03R/21L, likely grass) that OSM does not map | **check**; scenarios say plain 03/21 |
 | Taxiways | not named in scenarios ("apron", "holding point runway 21"); OSM has no taxiway refs | **unverified** |
 | Taxi route | OSM shows a parallel taxiway from the aprons to the runway 21 threshold | see conflicts below |
@@ -48,6 +63,43 @@ As of 2026-10-29 (VFR points and FIS frequencies from the AIP charts the team pr
 | VFR points | ZULU (north-west), DELTA (north-east), KILO (south-west) | AIP VFR AD 4 EPPI 4-1 (16 APR 2026) |
 | Arrival from / departure to Poznań in scenarios | via KILO | KILO is on the Poznań side |
 | FIS | north of the line through the airfield: Gdańsk Information 125.275; south: Poznań Information 126.300 | AIP VFR AD 4 EPPI 4-1 |
+
+## Routes by direction
+
+Each aerodrome JSON has `arrivals` and `departures` keyed by north, east, south, west. A
+scenario names the other aerodrome (`from` / `to`), and the direction comes from the
+aerodrome positions: Piła is north of Poznań. Only the directions of the planned network
+are filled in:
+
+```
+EDAH - - - EPPI
+ |          |
+EDAV ----- EPPO
+```
+
+EPPO: north (EPPI) and west (EDAV); EPPI: south (EPPO) and west (EDAH).
+
+| Aerodrome | Direction | Arrival: entry, report | Departure: exit | Source |
+| --- | --- | --- | --- | --- |
+| EPPO | north | DELTA, VICTOR | DELTA | AIP AD 2 EPPO 13-1 route DELTA → VICTOR → HOTEL |
+| EPPO | west | X-RAY, JULIETT | X-RAY | route X-RAY → JULIETT → INDIA |
+| EPPI | south | KILO | KILO | AIP VFR AD 4 EPPI 4-1 |
+| EPPI | west | ZULU | ZULU | |
+
+The CTR entry altitude (1500 feet) is **unverified** for every EPPO route but north. The turn
+after take-off towards each exit point is set per runway (`departureTurn`) from the chart
+geometry; check it against the AIP.
+
+## Runways 10 (EPPO) and 03 (EPPI)
+
+Added 2026-11-17 for easterly wind. **All unverified**, taken from the OSM chart in the
+frontend, not from the AIP:
+
+- EPPO 10: left-hand circuit (keeps the circuit north of the runway, like right-hand 28), taxi
+  to holding point via Delta 2 (taxiway at the runway 10 threshold in OSM), vacate right via
+  Bravo, taxi in via Bravo.
+- EPPI 03: left-hand circuit (keeps the circuit north-west of the runway, away from the town,
+  like right-hand 21).
 
 ## EPPO VFR points
 

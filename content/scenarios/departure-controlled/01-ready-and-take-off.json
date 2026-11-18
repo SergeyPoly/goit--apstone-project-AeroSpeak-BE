@@ -2,37 +2,44 @@
   "id": "dep-ctrl-ready-take-off",
   "title": "Ready for departure and take-off",
   "packId": "departure-controlled",
+  "variants": {
+    "aerodromes": [
+      "EPPO"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "medium",
   "estimatedDurationSec": 120,
   "objective": "Report ready, read back line-up and the take-off clearance.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPO Poznań-Ławica"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Poznań Tower 119.980"
+      "value": "{{tower}} {{tower.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Position",
-      "value": "Holding point runway 28"
+      "value": "Holding point runway {{runway}}"
     },
     {
       "label": "Runway",
-      "value": "28"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "270° 10 kt"
+      "value": "{{wind.brief}}"
     }
   ],
   "phraseologyNote": {
@@ -61,32 +68,30 @@
       "id": "ready",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "You are at the holding point of runway 28, checks complete. Tell Tower you are ready.",
-      "expectedPilotResponse": "Poznań Tower, SP-TFA, holding point runway 28, ready for departure.",
+      "prompt": "You are at the holding point of runway {{runway}}, checks complete. Tell Tower you are ready.",
+      "expectedPilotResponse": "{{tower}}, {{callsign}}, holding point runway {{runway}}, ready for departure.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Poznań Tower",
+          "label": "{{tower}}",
           "acceptedVariants": [
-            "Poznań Tower",
-            "Poznan Tower"
+            "{{tower}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
         {
           "id": "holding_point",
-          "label": "Holding point runway 28",
+          "label": "Holding point runway {{runway}}",
           "acceptedVariants": [
-            "holding point runway 28"
+            "holding point runway {{runway}}"
           ],
           "weight": 30
         },
@@ -106,9 +111,8 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Read back the line-up instruction.",
-      "atcText": "SP-TFA, Poznań Tower, line up and wait runway 28.",
-      "atcAudio": "/audio/atc/dep-ctrl-ready-take-off/line-up-readback.mp3",
-      "expectedPilotResponse": "Line up and wait runway 28, SP-TFA.",
+      "atcText": "{{callsign}}, {{tower}}, line up and wait runway {{runway}}.",
+      "expectedPilotResponse": "Line up and wait runway {{runway}}, {{callsign}}.",
       "requiredElements": [
         {
           "id": "line_up_wait",
@@ -123,19 +127,18 @@
         },
         {
           "id": "runway",
-          "label": "Runway 28",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 28"
+            "runway {{runway}}"
           ],
           "weight": 30,
           "critical": true
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30,
           "critical": true
@@ -152,15 +155,14 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Read back the take-off clearance.",
-      "atcText": "SP-TFA, wind 270 degrees 10 knots, runway 28, cleared for take-off.",
-      "atcAudio": "/audio/atc/dep-ctrl-ready-take-off/take-off-readback.mp3",
-      "expectedPilotResponse": "Runway 28, cleared for take-off, SP-TFA.",
+      "atcText": "{{callsign}}, runway {{runway}}, cleared for take-off, wind {{wind}}.",
+      "expectedPilotResponse": "Runway {{runway}}, cleared for take-off, {{callsign}}.",
       "requiredElements": [
         {
           "id": "runway",
-          "label": "Runway 28",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 28"
+            "runway {{runway}}"
           ],
           "weight": 30,
           "critical": true
@@ -178,10 +180,9 @@
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30,
           "critical": true

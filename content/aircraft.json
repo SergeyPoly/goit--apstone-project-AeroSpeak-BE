@@ -1,0 +1,6 @@
+[
+  { "id": "sp-tfa", "registration": "SP-TFA", "type": "Cessna 172" },
+  { "id": "sp-ktn", "registration": "SP-KTN", "type": "Tecnam P2008" },
+  { "id": "d-epch", "registration": "D-EPCH", "type": "Piper PA-28 Cherokee" },
+  { "id": "d-emoy", "registration": "D-EMOY", "type": "Mooney M20" }
+]

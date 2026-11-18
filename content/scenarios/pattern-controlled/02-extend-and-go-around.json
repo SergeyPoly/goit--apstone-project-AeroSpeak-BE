@@ -2,33 +2,40 @@
   "id": "pattern-ctrl-extend-go-around",
   "title": "Extend downwind and go-around",
   "packId": "pattern-controlled",
+  "variants": {
+    "aerodromes": [
+      "EPPO"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "hard",
   "estimatedDurationSec": 120,
   "objective": "Follow Tower instructions that change your circuit: extend downwind, turn base, go around.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPO Poznań-Ławica"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Poznań Tower 119.980"
+      "value": "{{tower}} {{tower.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Runway",
-      "value": "28"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "270° 10 kt"
+      "value": "{{wind.brief}}"
     },
     {
       "label": "Intention",
@@ -63,13 +70,12 @@
       "prompt": "Tower needs more spacing. Read back.",
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "downwind",
-        "runway": "28"
+        "runway": "{{runway}}"
       },
-      "atcText": "SP-TFA, Poznań Tower, extend downwind, I will call your base.",
-      "atcAudio": "/audio/atc/pattern-ctrl-extend-go-around/extend-readback.mp3",
-      "expectedPilotResponse": "Extending downwind, SP-TFA.",
+      "atcText": "{{callsign}}, {{tower}}, extend downwind, I will call your base.",
+      "expectedPilotResponse": "Extending downwind, {{callsign}}.",
       "requiredElements": [
         {
           "id": "extend",
@@ -83,10 +89,9 @@
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30,
           "critical": true
@@ -104,13 +109,12 @@
       "prompt": "Tower calls your base. Read back.",
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "base",
-        "runway": "28"
+        "runway": "{{runway}}"
       },
-      "atcText": "SP-TFA, turn base now.",
-      "atcAudio": "/audio/atc/pattern-ctrl-extend-go-around/base-readback.mp3",
-      "expectedPilotResponse": "Turning base, SP-TFA.",
+      "atcText": "{{callsign}}, turn base now.",
+      "expectedPilotResponse": "Turning base, {{callsign}}.",
       "requiredElements": [
         {
           "id": "base",
@@ -124,10 +128,9 @@
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30,
           "critical": true
@@ -145,13 +148,12 @@
       "prompt": "On short final, Tower sends you around. Read back.",
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "final",
-        "runway": "28"
+        "runway": "{{runway}}"
       },
-      "atcText": "SP-TFA, go around, I say again, go around, vehicle on the runway.",
-      "atcAudio": "/audio/atc/pattern-ctrl-extend-go-around/go-around-readback.mp3",
-      "expectedPilotResponse": "Going around, SP-TFA.",
+      "atcText": "{{callsign}}, go around, I say again, go around, vehicle on the runway.",
+      "expectedPilotResponse": "Going around, {{callsign}}.",
       "requiredElements": [
         {
           "id": "going_around",
@@ -166,10 +168,9 @@
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30,
           "critical": true

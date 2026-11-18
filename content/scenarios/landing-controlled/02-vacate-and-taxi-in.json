@@ -2,37 +2,44 @@
   "id": "lnd-ctrl-vacate-taxi",
   "title": "Vacate and taxi in",
   "packId": "landing-controlled",
+  "variants": {
+    "aerodromes": [
+      "EPPO"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "medium",
   "estimatedDurationSec": 150,
   "objective": "Read back vacating instructions, call Ground and read back the taxi-in route.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPO Poznań-Ławica"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Poznań Tower 119.980"
+      "value": "{{tower}} {{tower.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Runway",
-      "value": "28"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "270° 10 kt"
+      "value": "{{wind.brief}}"
     },
     {
       "label": "Position",
-      "value": "Landing roll runway 28"
+      "value": "Landing roll runway {{runway}}"
     }
   ],
   "phraseologyNote": {
@@ -66,16 +73,15 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "After landing, Tower tells you how to vacate. Read back.",
-      "atcText": "SP-TFA, Poznań Tower, vacate left via Bravo, contact Ground 124.140.",
-      "atcAudio": "/audio/atc/lnd-ctrl-vacate-taxi/vacate-readback.mp3",
-      "expectedPilotResponse": "Vacate left via Bravo, contact Ground 124.140, SP-TFA.",
+      "atcText": "{{callsign}}, {{tower}}, vacate {{runway.vacateSide}} via {{runway.vacateVia}}, contact Ground {{ground.freq}}.",
+      "expectedPilotResponse": "Vacate {{runway.vacateSide}} via {{runway.vacateVia}}, contact Ground {{ground.freq}}, {{callsign}}.",
       "requiredElements": [
         {
           "id": "vacate",
-          "label": "Vacate left via Bravo",
+          "label": "Vacate {{runway.vacateSide}} via {{runway.vacateVia}}",
           "acceptedVariants": [
-            "vacate left via Bravo",
-            "vacating left via Bravo"
+            "vacate {{runway.vacateSide}} via {{runway.vacateVia}}",
+            "vacating {{runway.vacateSide}} via {{runway.vacateVia}}"
           ],
           "weight": 30,
           "critical": true
@@ -90,19 +96,18 @@
         },
         {
           "id": "frequency",
-          "label": "124.140",
+          "label": "{{ground.freq}}",
           "acceptedVariants": [
-            "124.140"
+            "{{ground.freq}}"
           ],
           "weight": 35,
           "critical": true
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20,
           "critical": true
@@ -118,33 +123,31 @@
       "id": "call-ground",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "You have vacated via Bravo. Call Ground and request taxi to the general aviation apron.",
-      "expectedPilotResponse": "Poznań Ground, SP-TFA, runway vacated via Bravo, request taxi to general aviation apron.",
+      "prompt": "You have vacated via {{runway.vacateVia}}. Call Ground and request taxi to the general aviation apron.",
+      "expectedPilotResponse": "{{ground}}, {{callsign}}, runway vacated via {{runway.vacateVia}}, request taxi to general aviation apron.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Poznań Ground",
+          "label": "{{ground}}",
           "acceptedVariants": [
-            "Poznań Ground",
-            "Poznan Ground"
+            "{{ground}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
         {
           "id": "vacated",
-          "label": "Runway vacated via Bravo",
+          "label": "Runway vacated via {{runway.vacateVia}}",
           "acceptedVariants": [
-            "runway vacated via Bravo",
-            "vacated via Bravo"
+            "runway vacated via {{runway.vacateVia}}",
+            "vacated via {{runway.vacateVia}}"
           ],
           "weight": 30
         },
@@ -165,9 +168,8 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Read back the taxi-in route.",
-      "atcText": "SP-TFA, Poznań Ground, taxi to general aviation apron via Bravo.",
-      "atcAudio": "/audio/atc/lnd-ctrl-vacate-taxi/taxi-readback.mp3",
-      "expectedPilotResponse": "Taxi to general aviation apron via Bravo, SP-TFA.",
+      "atcText": "{{callsign}}, {{ground}}, taxi to general aviation apron via {{runway.taxiInRoute}}.",
+      "expectedPilotResponse": "Taxi to general aviation apron via {{runway.taxiInRoute}}, {{callsign}}.",
       "requiredElements": [
         {
           "id": "taxi",
@@ -181,18 +183,17 @@
         },
         {
           "id": "route",
-          "label": "Via Bravo",
+          "label": "Via {{runway.taxiInRoute}}",
           "acceptedVariants": [
-            "via Bravo"
+            "via {{runway.taxiInRoute}}"
           ],
           "weight": 35
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20,
           "critical": true
