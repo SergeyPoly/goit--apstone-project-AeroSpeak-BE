@@ -144,13 +144,14 @@ function renderScenario(raw: unknown, name: string, data: VariantData, errors: s
     const scenario = result.data;
     const stations = Object.values(context.aerodrome?.stations ?? {}).flatMap((s) => s.name);
     for (const step of scenario.steps) {
-      if (
-        step.type === 'pilot_readback' &&
-        step.atcText &&
-        !step.atcCorrection &&
-        context.aircraft
-      ) {
-        step.atcCorrection = correctionText(step.atcText, context.aircraft.registration, stations);
+      if (step.type === 'pilot_readback' && step.atcText && !step.atcCorrection) {
+        const callsign = context.aircraft?.registration;
+        step.atcCorrection = callsign && correctionText(step.atcText, callsign, stations);
+        if (!step.atcCorrection) {
+          errors.push(
+            `${label} ${step.id}: no ATC correction, start atcText with {{callsign}} or write atcCorrection`,
+          );
+        }
       }
       for (const [textKey, audioKey] of DERIVED_AUDIO) {
         if (step[audioKey])
