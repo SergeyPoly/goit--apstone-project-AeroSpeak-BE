@@ -2,25 +2,32 @@
   "id": "ground-ctrl-start-up",
   "title": "Start-up request",
   "packId": "ground-controlled",
+  "variants": {
+    "aerodromes": [
+      "EPPO"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "easy",
   "estimatedDurationSec": 90,
-  "objective": "Request start-up from Poznań Ground with full identification and read back the approval.",
+  "objective": "Request start-up from Ground with full identification and read back the approval.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPO Poznań-Ławica"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Poznań Ground 124.140"
+      "value": "{{ground}} {{ground.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Position",
@@ -28,15 +35,15 @@
     },
     {
       "label": "ATIS",
-      "value": "Information Kilo"
+      "value": "Information {{atis}}"
     },
     {
       "label": "QNH",
-      "value": "1013"
+      "value": "{{qnh}}"
     },
     {
       "label": "Wind",
-      "value": "270° 10 kt"
+      "value": "{{wind.brief}}"
     }
   ],
   "phraseologyNote": {
@@ -69,24 +76,22 @@
       "id": "request-start-up",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "You are parked at the general aviation apron with ATIS Kilo. Request start-up from Ground.",
-      "expectedPilotResponse": "Poznań Ground, SP-TFA, at general aviation apron, request start-up, information Kilo.",
+      "prompt": "You are parked at the general aviation apron with ATIS {{atis}}. Request start-up from Ground.",
+      "expectedPilotResponse": "{{ground}}, {{callsign}}, at general aviation apron, request start-up, information {{atis}}.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Poznań Ground",
+          "label": "{{ground}}",
           "acceptedVariants": [
-            "Poznań Ground",
-            "Poznan Ground"
+            "{{ground}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -112,9 +117,9 @@
         },
         {
           "id": "atis",
-          "label": "Information Kilo",
+          "label": "Information {{atis}}",
           "acceptedVariants": [
-            "information Kilo"
+            "information {{atis}}"
           ],
           "weight": 20
         }
@@ -125,9 +130,8 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Ground approves the start-up. Read it back.",
-      "atcText": "SP-TFA, Poznań Ground, start-up approved, QNH 1013.",
-      "atcAudio": "/audio/atc/ground-ctrl-start-up/start-up-readback.mp3",
-      "expectedPilotResponse": "Start-up approved, QNH 1013, SP-TFA.",
+      "atcText": "{{callsign}}, {{ground}}, start-up approved, QNH {{qnh}}.",
+      "expectedPilotResponse": "Start-up approved, QNH {{qnh}}, {{callsign}}.",
       "requiredElements": [
         {
           "id": "approved",
@@ -141,19 +145,18 @@
         },
         {
           "id": "qnh",
-          "label": "QNH 1013",
+          "label": "QNH {{qnh}}",
           "acceptedVariants": [
-            "QNH 1013"
+            "QNH {{qnh}}"
           ],
           "weight": 40,
           "critical": true
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30,
           "critical": true

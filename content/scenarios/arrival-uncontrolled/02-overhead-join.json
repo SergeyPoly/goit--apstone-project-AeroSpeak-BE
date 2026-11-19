@@ -2,25 +2,32 @@
   "id": "arr-unc-overhead-join",
   "title": "Overhead join",
   "packId": "arrival-uncontrolled",
+  "variants": {
+    "aerodromes": [
+      "EPPI"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "medium",
   "estimatedDurationSec": 90,
   "objective": "Announce an overhead join and the first circuit position report.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPI Piła"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Piła Radio 122.405"
+      "value": "{{radio}} {{radio.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Altitude",
@@ -28,11 +35,11 @@
     },
     {
       "label": "Runway",
-      "value": "21"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "220° 8 kt"
+      "value": "{{wind.brief}}"
     }
   ],
   "phraseologyNote": {
@@ -50,9 +57,9 @@
         "section": "4.6 Aerodrome traffic circuit"
       },
       {
-        "source": "AIP VFR Polska",
-        "section": "AD 4 EPPI 4-1 Visual approach chart",
-        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+        "source": "{{chart.source}}",
+        "section": "{{chart.section}}",
+        "url": "{{chart.url}}"
       }
     ]
   },
@@ -61,24 +68,22 @@
       "id": "overhead",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "You are overhead the airfield at 2000 feet. Announce joining the circuit for runway 21.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, overhead, altitude 2000 feet, joining the circuit runway 21.",
+      "prompt": "You are overhead the airfield at 2000 feet. Announce joining the circuit for runway {{runway}}.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, overhead, altitude 2000 feet, joining the circuit runway {{runway}}.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -102,9 +107,9 @@
         },
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 20,
           "critical": true
@@ -115,9 +120,9 @@
       ],
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "overhead",
-        "runway": "21"
+        "runway": "{{runway}}"
       }
     },
     {
@@ -125,23 +130,21 @@
       "type": "self_announce",
       "speaker": "pilot",
       "prompt": "You are on downwind. Report with full-stop intention.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, right downwind runway 21, full stop.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, {{runway.circuit}} downwind runway {{runway}}, full stop.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -149,16 +152,16 @@
           "id": "downwind",
           "label": "Right downwind",
           "acceptedVariants": [
-            "right downwind",
+            "{{runway.circuit}} downwind",
             "downwind"
           ],
           "weight": 25
         },
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 20,
           "critical": true
@@ -177,9 +180,9 @@
       ],
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "downwind",
-        "runway": "21"
+        "runway": "{{runway}}"
       }
     }
   ]

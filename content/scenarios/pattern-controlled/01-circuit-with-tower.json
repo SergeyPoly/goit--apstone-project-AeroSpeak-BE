@@ -2,33 +2,40 @@
   "id": "pattern-ctrl-circuit",
   "title": "Circuit with Tower",
   "packId": "pattern-controlled",
+  "variants": {
+    "aerodromes": [
+      "EPPO"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "medium",
   "estimatedDurationSec": 150,
-  "objective": "Fly a right-hand circuit at Poznań: take-off clearance, downwind report, sequencing and touch-and-go clearance.",
+  "objective": "Fly a circuit with Tower: take-off clearance, downwind report, sequencing and touch-and-go clearance.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPO Poznań-Ławica"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Poznań Tower 119.980"
+      "value": "{{tower}} {{tower.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Runway",
-      "value": "28"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "270° 10 kt"
+      "value": "{{wind.brief}}"
     },
     {
       "label": "Intention",
@@ -65,22 +72,21 @@
       "id": "take-off-readback",
       "type": "pilot_readback",
       "speaker": "atc",
-      "prompt": "You are lined up on runway 28 for circuits. Read back the clearance.",
+      "prompt": "You are lined up on runway {{runway}} for circuits. Read back the clearance.",
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "upwind",
-        "runway": "28"
+        "runway": "{{runway}}"
       },
-      "atcText": "SP-TFA, Poznań Tower, runway 28, cleared for take-off, right-hand circuit, report downwind.",
-      "atcAudio": "/audio/atc/pattern-ctrl-circuit/take-off-readback.mp3",
-      "expectedPilotResponse": "Runway 28, cleared for take-off, right-hand circuit, wilco, SP-TFA.",
+      "atcText": "{{callsign}}, {{tower}}, runway {{runway}}, cleared for take-off, {{runway.circuit}}-hand circuit, report downwind, wind {{wind}}.",
+      "expectedPilotResponse": "Runway {{runway}}, cleared for take-off, {{runway.circuit}}-hand circuit, wilco, {{callsign}}.",
       "requiredElements": [
         {
           "id": "runway",
-          "label": "Runway 28",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 28"
+            "runway {{runway}}"
           ],
           "weight": 20,
           "critical": true
@@ -99,8 +105,8 @@
           "id": "circuit",
           "label": "Right-hand circuit",
           "acceptedVariants": [
-            "right-hand circuit",
-            "right hand circuit"
+            "{{runway.circuit}}-hand circuit",
+            "{{runway.circuit}} hand circuit"
           ],
           "weight": 20
         },
@@ -115,10 +121,9 @@
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20,
           "critical": true
@@ -134,21 +139,20 @@
       "id": "downwind",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "You are on right downwind. Report with your intention: touch-and-go.",
+      "prompt": "You are on {{runway.circuit}} downwind. Report with your intention: touch-and-go.",
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "downwind",
-        "runway": "28"
+        "runway": "{{runway}}"
       },
-      "expectedPilotResponse": "SP-TFA, right downwind runway 28, touch-and-go.",
+      "expectedPilotResponse": "{{callsign}}, {{runway.circuit}} downwind runway {{runway}}, touch-and-go.",
       "requiredElements": [
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 25
         },
@@ -156,16 +160,16 @@
           "id": "downwind",
           "label": "Right downwind",
           "acceptedVariants": [
-            "right downwind",
+            "{{runway.circuit}} downwind",
             "downwind"
           ],
           "weight": 30
         },
         {
           "id": "runway",
-          "label": "Runway 28",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 28"
+            "runway {{runway}}"
           ],
           "weight": 20,
           "critical": true
@@ -191,13 +195,12 @@
       "prompt": "Tower gives you your sequence. You can see the Cessna. Read back.",
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "downwind",
-        "runway": "28"
+        "runway": "{{runway}}"
       },
-      "atcText": "SP-TFA, number two, follow the Cessna on base.",
-      "atcAudio": "/audio/atc/pattern-ctrl-circuit/sequence-readback.mp3",
-      "expectedPilotResponse": "Number two, traffic in sight, SP-TFA.",
+      "atcText": "{{callsign}}, number two, follow the Cessna on base.",
+      "expectedPilotResponse": "Number two, traffic in sight, {{callsign}}.",
       "requiredElements": [
         {
           "id": "number_two",
@@ -220,10 +223,9 @@
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30,
           "critical": true
@@ -241,19 +243,18 @@
       "prompt": "On final, Tower clears you. Read back.",
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "final",
-        "runway": "28"
+        "runway": "{{runway}}"
       },
-      "atcText": "SP-TFA, runway 28, cleared touch-and-go.",
-      "atcAudio": "/audio/atc/pattern-ctrl-circuit/touch-and-go-readback.mp3",
-      "expectedPilotResponse": "Runway 28, cleared touch-and-go, SP-TFA.",
+      "atcText": "{{callsign}}, runway {{runway}}, cleared touch-and-go, wind {{wind}}.",
+      "expectedPilotResponse": "Runway {{runway}}, cleared touch-and-go, {{callsign}}.",
       "requiredElements": [
         {
           "id": "runway",
-          "label": "Runway 28",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 28"
+            "runway {{runway}}"
           ],
           "weight": 30,
           "critical": true
@@ -270,10 +271,9 @@
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30,
           "critical": true

@@ -67,7 +67,10 @@ export class ScenarioStepDto {
   @ApiProperty({ enum: ['pilot', 'atc'] }) speaker: 'pilot' | 'atc';
   @ApiProperty() prompt: string;
   @ApiPropertyOptional() atcText?: string;
-  @ApiPropertyOptional({ description: 'Path of the ATC audio file in the frontend public folder' })
+  @ApiPropertyOptional({
+    description:
+      'ATC audio in the frontend public folder: /audio/atc/<hash of atcText>.mp3, so every variant has its own file',
+  })
   atcAudio?: string;
   @ApiProperty() expectedPilotResponse: string;
   @ApiProperty({ type: [RequiredElementDto] }) requiredElements: RequiredElementDto[];
@@ -101,6 +104,8 @@ export class ScenarioSummaryDto {
   @ApiProperty() estimatedDurationSec: number;
   @ApiProperty() objective: string;
   @ApiProperty() stepCount: number;
+  @ApiProperty({ description: 'How many variants (aerodrome, weather, aircraft) the scenario has' })
+  variantCount: number;
 }
 
 export class ScenarioDto {
@@ -113,6 +118,17 @@ export class ScenarioDto {
   @ApiPropertyOptional({ type: [BriefingItemDto] }) briefing?: BriefingItemDto[];
   @ApiProperty({ type: PhraseologyNoteDto }) phraseologyNote: PhraseologyNoteDto;
   @ApiProperty({ type: [ScenarioStepDto] }) steps: ScenarioStepDto[];
+  @ApiProperty({
+    description:
+      'Key of the variant this scenario was rendered for (aerodrome, weather, aircraft); send it with every attempt. Empty for a scenario without variants.',
+    example: 'EPPO.w1.sp-tfa',
+  })
+  variant: string;
+  @ApiProperty({
+    type: [String],
+    description: 'Keys of all variants of the scenario, the first one is the default',
+  })
+  variants: string[];
 }
 
 export class PracticePackDto {

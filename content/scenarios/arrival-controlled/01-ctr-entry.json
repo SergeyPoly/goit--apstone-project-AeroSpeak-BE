@@ -2,29 +2,39 @@
   "id": "arr-ctrl-ctr-entry",
   "title": "Control zone entry",
   "packId": "arrival-controlled",
+  "variants": {
+    "aerodromes": [
+      "EPPO"
+    ],
+    "from": [
+      "EPPI"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "medium",
   "estimatedDurationSec": 150,
   "objective": "Make the initial call to Tower, read back the CTR entry clearance and report the entry point.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPO Poznań-Ławica"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Poznań Tower 119.980"
+      "value": "{{tower}} {{tower.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Position",
-      "value": "Approaching Delta"
+      "value": "Approaching {{arrival.entry}}"
     },
     {
       "label": "Altitude",
@@ -32,11 +42,11 @@
     },
     {
       "label": "ATIS",
-      "value": "Information Lima"
+      "value": "Information {{atis}}"
     },
     {
       "label": "Wind",
-      "value": "270° 10 kt"
+      "value": "{{wind.brief}}"
     }
   ],
   "phraseologyNote": {
@@ -68,9 +78,9 @@
         "url": "https://ais.pansa.pl/publikacje/aip-polska/"
       },
       {
-        "source": "AIP Polska",
-        "section": "AD 2 EPPO 13-1 Visual approach chart",
-        "url": "https://ais.pansa.pl/publikacje/aip-polska/"
+        "source": "{{chart.source}}",
+        "section": "{{chart.section}}",
+        "url": "{{chart.url}}"
       }
     ]
   },
@@ -79,32 +89,30 @@
       "id": "initial-call",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "You are approaching Delta, north-west of the control zone, at 2000 feet with ATIS Lima. Call Tower: inbound for landing.",
-      "expectedPilotResponse": "Poznań Tower, SP-TFA, approaching Delta, altitude 2000 feet, information Lima, inbound for landing.",
+      "prompt": "You are approaching {{arrival.entry}}, {{arrival.entry.location}} of the control zone, at 2000 feet with ATIS {{atis}}. Call Tower: inbound for landing.",
+      "expectedPilotResponse": "{{tower}}, {{callsign}}, approaching {{arrival.entry}}, altitude 2000 feet, information {{atis}}, inbound for landing.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Poznań Tower",
+          "label": "{{tower}}",
           "acceptedVariants": [
-            "Poznań Tower",
-            "Poznan Tower"
+            "{{tower}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
         {
           "id": "position",
-          "label": "Approaching Delta",
+          "label": "Approaching {{arrival.entry}}",
           "acceptedVariants": [
-            "approaching Delta"
+            "approaching {{arrival.entry}}"
           ],
           "weight": 20
         },
@@ -118,9 +126,9 @@
         },
         {
           "id": "atis",
-          "label": "Information Lima",
+          "label": "Information {{atis}}",
           "acceptedVariants": [
-            "information Lima"
+            "information {{atis}}"
           ],
           "weight": 15
         },
@@ -135,7 +143,7 @@
       ],
       "visual": {
         "kind": "airspace",
-        "point": "Delta",
+        "point": "{{arrival.entry}}",
         "direction": "inbound"
       }
     },
@@ -144,45 +152,43 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Read back the CTR entry clearance.",
-      "atcText": "SP-TFA, Poznań Tower, enter control zone via Delta, not above altitude 1500 feet, report Victor.",
-      "atcAudio": "/audio/atc/arr-ctrl-ctr-entry/entry-readback.mp3",
-      "expectedPilotResponse": "Enter control zone via Delta, not above altitude 1500 feet, report Victor, SP-TFA.",
+      "atcText": "{{callsign}}, {{tower}}, enter control zone via {{arrival.entry}}, not above altitude {{arrival.altitude}} feet, report {{arrival.report}}.",
+      "expectedPilotResponse": "Enter control zone via {{arrival.entry}}, not above altitude {{arrival.altitude}} feet, report {{arrival.report}}, {{callsign}}.",
       "requiredElements": [
         {
           "id": "enter",
-          "label": "Enter control zone via Delta",
+          "label": "Enter control zone via {{arrival.entry}}",
           "acceptedVariants": [
-            "enter control zone via Delta",
-            "entering control zone via Delta"
+            "enter control zone via {{arrival.entry}}",
+            "entering control zone via {{arrival.entry}}"
           ],
           "weight": 30,
           "critical": true
         },
         {
           "id": "altitude",
-          "label": "Not above altitude 1500 feet",
+          "label": "Not above altitude {{arrival.altitude}} feet",
           "acceptedVariants": [
-            "not above [altitude] 1500 feet"
+            "not above [altitude] {{arrival.altitude}} feet"
           ],
           "weight": 30,
           "critical": true
         },
         {
           "id": "report",
-          "label": "Report Victor",
+          "label": "Report {{arrival.report}}",
           "acceptedVariants": [
-            "report Victor",
-            "will report Victor",
+            "report {{arrival.report}}",
+            "will report {{arrival.report}}",
             "wilco"
           ],
           "weight": 20
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20,
           "critical": true
@@ -195,7 +201,7 @@
       ],
       "visual": {
         "kind": "airspace",
-        "point": "Delta",
+        "point": "{{arrival.entry}}",
         "direction": "inbound"
       }
     },
@@ -203,40 +209,39 @@
       "id": "report-victor",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "You are over Victor at 1500 feet. Report.",
-      "expectedPilotResponse": "SP-TFA, Victor, altitude 1500 feet.",
+      "prompt": "You are over {{arrival.report}} at {{arrival.altitude}} feet. Report.",
+      "expectedPilotResponse": "{{callsign}}, {{arrival.report}}, altitude {{arrival.altitude}} feet.",
       "requiredElements": [
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30
         },
         {
           "id": "november",
-          "label": "Victor",
+          "label": "{{arrival.report}}",
           "acceptedVariants": [
-            "Victor",
-            "over Victor",
-            "overhead Victor"
+            "{{arrival.report}}",
+            "over {{arrival.report}}",
+            "overhead {{arrival.report}}"
           ],
           "weight": 40
         },
         {
           "id": "altitude",
-          "label": "Altitude 1500 feet",
+          "label": "Altitude {{arrival.altitude}} feet",
           "acceptedVariants": [
-            "[altitude] 1500 feet"
+            "[altitude] {{arrival.altitude}} feet"
           ],
           "weight": 30
         }
       ],
       "visual": {
         "kind": "airspace",
-        "point": "Victor",
+        "point": "{{arrival.report}}",
         "direction": "inbound"
       }
     }

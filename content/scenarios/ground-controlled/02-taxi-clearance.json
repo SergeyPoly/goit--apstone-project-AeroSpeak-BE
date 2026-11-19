@@ -2,25 +2,35 @@
   "id": "ground-ctrl-taxi-clearance",
   "title": "Taxi clearance readback",
   "packId": "ground-controlled",
+  "variants": {
+    "aerodromes": [
+      "EPPO"
+    ],
+    "to": [
+      "EPPI"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "medium",
   "estimatedDurationSec": 120,
   "objective": "Request taxi and read back the taxi route, holding point and runway.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPO Poznań-Ławica"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Poznań Ground 124.140"
+      "value": "{{ground}} {{ground.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Position",
@@ -28,15 +38,15 @@
     },
     {
       "label": "ATIS",
-      "value": "Information Kilo"
+      "value": "Information {{atis}}"
     },
     {
       "label": "Runway",
-      "value": "28"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "270° 10 kt"
+      "value": "{{wind.brief}}"
     }
   ],
   "phraseologyNote": {
@@ -65,24 +75,22 @@
       "id": "request-taxi",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "Engine running. Ask Ground for taxi for your VFR flight to Piła.",
-      "expectedPilotResponse": "Poznań Ground, SP-TFA, request taxi for VFR flight to Piła.",
+      "prompt": "Engine running. Ask Ground for taxi for your VFR flight to {{departure.to}}.",
+      "expectedPilotResponse": "{{ground}}, {{callsign}}, request taxi for VFR flight to {{departure.to}}.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Poznań Ground",
+          "label": "{{ground}}",
           "acceptedVariants": [
-            "Poznań Ground",
-            "Poznan Ground"
+            "{{ground}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -96,12 +104,10 @@
         },
         {
           "id": "flight",
-          "label": "VFR flight to Piła",
+          "label": "VFR flight to {{departure.to}}",
           "acceptedVariants": [
-            "VFR flight to Piła",
-            "VFR flight to Pila",
-            "VFR to Piła",
-            "VFR to Pila"
+            "VFR flight to {{departure.to}}",
+            "VFR to {{departure.to}}"
           ],
           "weight": 30
         }
@@ -112,9 +118,8 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Read back the taxi clearance.",
-      "atcText": "SP-TFA, Poznań Ground, taxi to holding point runway 28 via Alpha.",
-      "atcAudio": "/audio/atc/ground-ctrl-taxi-clearance/taxi-readback.mp3",
-      "expectedPilotResponse": "Taxi to holding point runway 28 via Alpha, SP-TFA.",
+      "atcText": "{{callsign}}, {{ground}}, taxi to holding point runway {{runway}} via {{runway.taxiRoute}}.",
+      "expectedPilotResponse": "Taxi to holding point runway {{runway}} via {{runway.taxiRoute}}, {{callsign}}.",
       "requiredElements": [
         {
           "id": "holding_point",
@@ -127,27 +132,26 @@
         },
         {
           "id": "runway",
-          "label": "Runway 28",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 28"
+            "runway {{runway}}"
           ],
           "weight": 30,
           "critical": true
         },
         {
           "id": "route",
-          "label": "Via Alpha",
+          "label": "Via {{runway.taxiRoute}}",
           "acceptedVariants": [
-            "via Alpha"
+            "via {{runway.taxiRoute}}"
           ],
           "weight": 25
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20,
           "critical": true

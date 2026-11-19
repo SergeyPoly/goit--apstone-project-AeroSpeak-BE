@@ -2,37 +2,44 @@
   "id": "ground-unc-backtrack",
   "title": "Entering and backtracking",
   "packId": "ground-uncontrolled",
+  "variants": {
+    "aerodromes": [
+      "EPPI"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "medium",
   "estimatedDurationSec": 90,
   "objective": "Announce entering the runway and backtracking, then report lined up.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPI Piła"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Piła Radio 122.405"
+      "value": "{{radio}} {{radio.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Position",
-      "value": "Holding point runway 21"
+      "value": "Holding point runway {{runway}}"
     },
     {
       "label": "Runway",
-      "value": "21"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "220° 8 kt"
+      "value": "{{wind.brief}}"
     }
   ],
   "phraseologyNote": {
@@ -51,9 +58,9 @@
         "section": "2.8.3 Issue of clearance and read-back requirements"
       },
       {
-        "source": "AIP VFR Polska",
-        "section": "AD 4 EPPI 4-1 Visual approach chart",
-        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+        "source": "{{chart.source}}",
+        "section": "{{chart.section}}",
+        "url": "{{chart.url}}"
       }
     ]
   },
@@ -62,32 +69,30 @@
       "id": "entering",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "There is no taxiway to the runway threshold. Announce entering runway 21 and backtracking.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, entering runway 21 and backtracking.",
+      "prompt": "There is no taxiway to the runway threshold. Announce entering runway {{runway}} and backtracking.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, entering runway {{runway}} and backtracking.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
         {
           "id": "entering",
-          "label": "Entering runway 21",
+          "label": "Entering runway {{runway}}",
           "acceptedVariants": [
-            "entering runway 21"
+            "entering runway {{runway}}"
           ],
           "weight": 35
         },
@@ -111,32 +116,30 @@
       "type": "self_announce",
       "speaker": "pilot",
       "prompt": "You turned around at the threshold. Announce lined up and ready to take off.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, lined up runway 21, taking off.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, lined up runway {{runway}}, taking off.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
         {
           "id": "lined_up",
-          "label": "Lined up runway 21",
+          "label": "Lined up runway {{runway}}",
           "acceptedVariants": [
-            "lined up runway 21",
-            "lining up runway 21"
+            "lined up runway {{runway}}",
+            "lining up runway {{runway}}"
           ],
           "weight": 35
         },

@@ -20,12 +20,59 @@ This repo is the NestJS backend. The React frontend lives in a separate repo.
   then dropped. Only transcript and scoring result go to the database.
 - **Scenarios are JSON files in `/content`**, not in the database. They are validated
   with zod at startup; invalid content stops the app. `content.spec.ts` checks that
-  every step's `expectedPilotResponse` scores 100.
+  every step's `expectedPilotResponse` scores 100, in every variant.
+- **Scenarios are templates with variants.** A scenario file with a `variants` block is
+  rendered for every combination it allows: `aerodromes` (where it takes place), `from` /
+  `to` (where an arriving flight comes from / a departing flight goes to), `weather` (each
+  preset of `content/weather.json`) and `aircraft` (each aircraft of `content/aircraft.json`).
+  Routes are not tied to an aerodrome pair: each aerodrome has `arrivals` and `departures`
+  keyed by cardinal direction (north, east, south, west), and the direction comes from the
+  aerodrome positions (EPPI -> EPPO: EPPI's `departures.south`, EPPO's `arrivals.north`).
+  Every combination is rendered and validated, but a scenario serves at most `MAX_VARIANTS`
+  (8, `content-loader.ts`): a spread sample in which every weather and aircraft comes up.
+  Each served variant needs its own ATC audio.
+- **ATC text is written for stitched audio.** The frontend builds each ATC file from clips:
+  the callsign at the start, the body, and `wind …` at the end. So an ATC text starts with
+  `{{callsign}}, ` and puts `wind {{wind}}` last; the callsign and wind clips are shared by
+  all texts, and only the body is generated per text. Placeholders such as `{{callsign}}`, `{{tower}}`, `{{runway}}`,
+  `{{wind}}`, `{{arrival.entry}}` come from those files and `content/aerodromes/<ICAO>.json`
+  (list below). The runway in use is the one most into the wind; every weather preset must
+  have a runway facing the wind at every aerodrome. Write aerodrome and aircraft facts
+  (names, stations, frequencies, VFR points, waypoints, chart references, registrations) as
+  placeholders, never as literals, so a scenario can move to another aerodrome by adding it to
+  `aerodromes`. Titles and objectives have no placeholders at all: the scenario list shows
+  them before a variant is picked. `content.spec.ts` checks both. The first variant is the default: `GET /scenarios/:id` without
+  `?variant=` and `POST /attempts` without `variant` use it, so clients that do not know
+  about variants keep working.
 - **This repo is the single source of scenarios.** The frontend reads them through
   `GET /packs` and `GET /scenarios/:id`. Frontend-only data stays in the frontend repo:
   `sections.json` (grouping of packs) and ATC audio in `public/audio/atc/`.
   A step's optional `visual` is UI metadata (drill text, circuit diagram or aerodrome
-  airspace chart, see `content/aerodromes.md`) and never affects scoring. `atcAudio` must be `/audio/atc/<scenarioId>/<stepId>.mp3`.
+  airspace chart, see `content/aerodromes.md`) and never affects scoring. `atcAudio` is not
+  written in content: the loader derives it from the rendered text,
+  `/audio/atc/<sha256 of atcText, 16 hex>.mp3`, so every variant has its own file.
+
+### Template placeholders
+
+| Placeholder | Example | From |
+| --- | --- | --- |
+| `{{callsign}}` | `SP-TFA` (accepted variants also get the NATO spelling) | aircraft |
+| `{{aircraft}}` | `Cessna 172` | aircraft |
+| `{{airport}}`, `{{icao}}`, `{{city}}` | `EPPO Poznań-Ławica`, `EPPO`, `Poznań` | aerodrome |
+| `{{chart.source}}`, `{{chart.section}}`, `{{chart.url}}` | `AIP Polska`, `AD 2 EPPO 13-1 Visual approach chart` | aerodrome `chart`, for note references |
+| `{{tower}}`, `{{tower.freq}}` (any station role) | `Poznań Tower`, `119.980` | aerodrome `stations` |
+| `{{runway}}`, `{{runway.circuit}}` | `28`, `right` | runway in use |
+| `{{runway.taxiRoute}}`, `{{runway.vacateSide}}`, `{{runway.vacateVia}}`, `{{runway.taxiInRoute}}` | `Alpha`, `left`, `Bravo`, `Bravo` | runway in use |
+| `{{arrival.from}}`, `{{arrival.entry}}`, `{{arrival.report}}`, `{{arrival.altitude}}`, `{{arrival.waypoint}}` | `Piła`, `Delta`, `Victor`, `1500`, `Oborniki` | `from` city, aerodrome `arrivals[direction]` |
+| `{{departure.to}}`, `{{departure.exit}}`, `{{departure.altitude}}`, `{{runway.departureTurn}}` | `Piła`, `Delta`, `1500`, `right` | `to` city, aerodrome `departures[direction]`, runway `departureTurn[direction]` |
+| `{{arrival.entry.location}}` (any route point + `.location`) | `north-west` | aerodrome `vfrPoints` |
+| `{{wind}}`, `{{wind.brief}}` | `270 degrees 10 knots`, `270° 10 kt` | weather |
+| `{{qnh}}`, `{{atis}}` | `1013`, `Kilo` | weather |
+
+Phraseology notes explain general rules: keep runway, circuit side and other variant facts out
+of them. A variable can have several spellings (`["Poznań Tower", "Poznan Tower"]`): text gets the
+first one, and an item of `acceptedVariants` expands into one item per spelling. An unknown
+placeholder stops the app like any other content error.
 
 ## Architecture
 
@@ -36,7 +83,7 @@ src/
   health/      GET /health: SELECT 1, used for Render health check and warm-up
   me/          profile: POST /me (register, accept terms), GET, PATCH (name), voice consent, DELETE
   prisma/      PrismaService (global)
-  scenarios/   content loader + zod schemas, GET /packs, GET /scenarios/:id
+  scenarios/   content loader + zod schemas, variant rendering (variants.ts), GET /packs, GET /scenarios/:id
   scoring/     spoken-form expander, word aligner, scorer: PURE TypeScript, no Nest imports
   stt/         abstract SttProvider + DeepgramSttProvider (REST, keyterms)
   attempts/    POST /attempts (multipart audio): STT -> scoring -> save -> feedback
@@ -44,7 +91,10 @@ src/
 content/
   packs.json              practice packs
   scenarios/<pack>/*.json one file per scenario, named 01-..., 02-... (= display order)
-  aerodromes.md           aerodrome facts used in scenarios, with open questions
+  aircraft.json           the fleet: id, registration, type
+  weather.json            weather presets: wind, QNH, ATIS letter
+  aerodromes/<ICAO>.json  position, stations, runways (heading, circuit, taxi routes), VFR points, arrivals and departures by direction
+  aerodromes.md           where the aerodrome facts come from, with open questions
 prisma/schema.prisma      User, Attempt
 scripts/dev-token.ts      prints a Firebase ID token for Swagger "Authorize"
 ```
@@ -55,7 +105,7 @@ scripts/dev-token.ts      prints a Firebase ID token for Swagger "Authorize"
   `Authorization: Bearer <ID token>`. `FirebaseTokenVerifier` checks it with only
   `FIREBASE_PROJECT_ID`; the SDK fetches Google's public keys itself.
 - `AuthGuard` is global (after the rate limiter). Mark open routes with `@Public()`:
-  today `/health`, `/packs`, `/scenarios/:id` (`/docs` and `/api-json` are not Nest routes).
+  today `/health`, `/packs`, `/scenarios/:id`, `/scenarios/:id/variants` (every variant at once, for the frontend content scripts) (`/docs` and `/api-json` are not Nest routes).
 - `User` is keyed by `firebaseUid`; `email` is a copy from the token and not unique.
   `POST /me` creates the profile and records the terms; practice needs both.
 - Error codes: 401 `unauthorized` / `token_expired` (frontend refreshes the token and

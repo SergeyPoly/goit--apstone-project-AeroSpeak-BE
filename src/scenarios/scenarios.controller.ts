@@ -1,5 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Param, Query } from '@nestjs/common';
+import { ApiNotFoundResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Public } from '../auth/auth.decorators';
 import { PracticePackDto, ScenarioDto } from './scenarios.dto';
 import { ScenariosService } from './scenarios.service';
@@ -23,14 +23,30 @@ export class ScenariosController {
         estimatedDurationSec: s.estimatedDurationSec,
         objective: s.objective,
         stepCount: s.steps.length,
+        variantCount: this.scenarios.variantKeys(s.id).length,
       })),
     }));
   }
 
+  @Get('scenarios/:id/variants')
+  @ApiOkResponse({
+    type: [ScenarioDto],
+    description: 'Every variant of a scenario, the default first: for content scripts (ATC audio)',
+  })
+  @ApiNotFoundResponse({ description: 'Unknown scenario' })
+  listVariants(@Param('id') id: string): ScenarioDto[] {
+    return this.scenarios.variantKeys(id).map((key) => this.scenarios.getScenario(id, key));
+  }
+
   @Get('scenarios/:id')
+  @ApiQuery({
+    name: 'variant',
+    required: false,
+    description: 'Variant key from `variants`; the default variant when absent',
+  })
   @ApiOkResponse({ type: ScenarioDto })
-  @ApiNotFoundResponse()
-  getScenario(@Param('id') id: string): ScenarioDto {
-    return this.scenarios.getScenario(id);
+  @ApiNotFoundResponse({ description: 'Unknown scenario or variant' })
+  getScenario(@Param('id') id: string, @Query('variant') variant?: string): ScenarioDto {
+    return this.scenarios.getScenario(id, variant || undefined);
   }
 }

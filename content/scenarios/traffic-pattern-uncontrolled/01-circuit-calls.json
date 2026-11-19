@@ -2,33 +2,40 @@
   "id": "pattern-unc-circuit-calls",
   "title": "Circuit calls",
   "packId": "traffic-pattern-uncontrolled",
+  "variants": {
+    "aerodromes": [
+      "EPPI"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "easy",
   "estimatedDurationSec": 120,
   "objective": "Make the standard circuit position reports: downwind, base and final.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPI Piła"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Piła Radio 122.405"
+      "value": "{{radio}} {{radio.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Runway",
-      "value": "21"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "220° 8 kt"
+      "value": "{{wind.brief}}"
     },
     {
       "label": "Intention",
@@ -50,9 +57,9 @@
         "section": "4.6 Aerodrome traffic circuit"
       },
       {
-        "source": "AIP VFR Polska",
-        "section": "AD 4 EPPI 4-1 Visual approach chart",
-        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+        "source": "{{chart.source}}",
+        "section": "{{chart.section}}",
+        "url": "{{chart.url}}"
       }
     ]
   },
@@ -64,27 +71,25 @@
       "prompt": "You are abeam the threshold on downwind. Report position and your intention: touch-and-go.",
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "downwind",
-        "runway": "21"
+        "runway": "{{runway}}"
       },
-      "expectedPilotResponse": "Piła Radio, SP-TFA, right downwind runway 21, touch-and-go.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, {{runway.circuit}} downwind runway {{runway}}, touch-and-go.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -92,16 +97,16 @@
           "id": "downwind",
           "label": "Right downwind",
           "acceptedVariants": [
-            "right downwind",
+            "{{runway.circuit}} downwind",
             "downwind"
           ],
           "weight": 25
         },
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 20,
           "critical": true
@@ -127,27 +132,25 @@
       "prompt": "You turned base. Report it.",
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "base",
-        "runway": "21"
+        "runway": "{{runway}}"
       },
-      "expectedPilotResponse": "Piła Radio, SP-TFA, base runway 21.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, base runway {{runway}}.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -161,9 +164,9 @@
         },
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 35,
           "critical": true
@@ -180,27 +183,25 @@
       "prompt": "You are on final. Report with your intention.",
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "final",
-        "runway": "21"
+        "runway": "{{runway}}"
       },
-      "expectedPilotResponse": "Piła Radio, SP-TFA, final runway 21, touch-and-go.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, final runway {{runway}}, touch-and-go.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -214,9 +215,9 @@
         },
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 20,
           "critical": true

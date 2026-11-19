@@ -1,0 +1,67 @@
+{
+  "icao": "EPPI",
+  "name": "Piła",
+  "city": ["Piła", "Pila"],
+  "controlled": false,
+  "position": {
+    "lat": 53.17,
+    "lon": 16.702
+  },
+  "chart": {
+    "source": "AIP VFR Polska",
+    "section": "AD 4 EPPI 4-1 Visual approach chart",
+    "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+  },
+  "stations": {
+    "radio": {
+      "name": ["Piła Radio", "Pila Radio"],
+      "frequency": "122.405"
+    },
+    "information": {
+      "name": ["Poznań Information", "Poznan Information"],
+      "frequency": "126.300"
+    }
+  },
+  "runways": [
+    {
+      "designator": "21",
+      "heading": 210,
+      "circuit": "right"
+    },
+    {
+      "designator": "03",
+      "heading": 30,
+      "circuit": "left"
+    }
+  ],
+  "vfrPoints": [
+    {
+      "name": "Zulu",
+      "location": "north-west"
+    },
+    {
+      "name": "Delta",
+      "location": "north-east"
+    },
+    {
+      "name": "Kilo",
+      "location": "south-west"
+    }
+  ],
+  "arrivals": {
+    "south": {
+      "entry": "Kilo"
+    },
+    "west": {
+      "entry": "Zulu"
+    }
+  },
+  "departures": {
+    "south": {
+      "exit": "Kilo"
+    },
+    "west": {
+      "exit": "Zulu"
+    }
+  }
+}

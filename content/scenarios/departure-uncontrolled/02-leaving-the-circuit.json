@@ -2,41 +2,51 @@
   "id": "dep-unc-leaving-circuit",
   "title": "Leaving the circuit",
   "packId": "departure-uncontrolled",
+  "variants": {
+    "aerodromes": [
+      "EPPI"
+    ],
+    "to": [
+      "EPPO"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "medium",
   "estimatedDurationSec": 90,
   "objective": "Report leaving the circuit and leaving the frequency.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPI Piła"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Piła Radio 122.405"
+      "value": "{{radio}} {{radio.freq}}"
     },
     {
       "label": "Frequency",
-      "value": "Poznań Information 126.300"
+      "value": "{{information}} {{information.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Runway",
-      "value": "21"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "220° 8 kt"
+      "value": "{{wind.brief}}"
     },
     {
       "label": "Intention",
-      "value": "VFR to Poznań"
+      "value": "VFR to {{departure.to}}"
     }
   ],
   "phraseologyNote": {
@@ -45,7 +55,7 @@
     "shortExplanation": "Report where you leave the circuit, then tell the station before you change frequency.",
     "overview": [
       "Report leaving the circuit with the exit point and your altitude, so arriving traffic knows where you are.",
-      "Before you change frequency, tell the station where you go. Around Piła, FIS is split by a line through the airfield: Gdańsk Information to the north, Poznań Information to the south."
+      "Before you change frequency, tell the station where you go and which station you change to. FIS can be split into sectors around an airfield: the visual approach chart shows which Information station covers your route."
     ],
     "whyItMatters": "A station that does not know you left may start a search when you stop answering.",
     "references": [
@@ -54,9 +64,9 @@
         "section": "2.8.2 Transfer of communications"
       },
       {
-        "source": "AIP VFR Polska",
-        "section": "AD 4 EPPI 4-1 Visual approach chart",
-        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+        "source": "{{chart.source}}",
+        "section": "{{chart.section}}",
+        "url": "{{chart.url}}"
       }
     ]
   },
@@ -65,33 +75,31 @@
       "id": "leaving-circuit",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "You are airborne and climbing to 2000 feet. Report leaving the circuit via Kilo towards Poznań.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, leaving the circuit via Kilo, climbing altitude 2000 feet.",
+      "prompt": "You are airborne and climbing to 2000 feet. Report leaving the circuit via {{departure.exit}} towards {{departure.to}}.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, leaving the circuit via {{departure.exit}}, climbing altitude 2000 feet.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
         {
           "id": "leaving",
-          "label": "Leaving the circuit via Kilo",
+          "label": "Leaving the circuit via {{departure.exit}}",
           "acceptedVariants": [
-            "leaving the circuit via Kilo",
-            "leaving circuit via Kilo"
+            "leaving the circuit via {{departure.exit}}",
+            "leaving circuit via {{departure.exit}}"
           ],
           "weight": 40
         },
@@ -110,52 +118,48 @@
       ],
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "leaving",
-        "runway": "21"
+        "runway": "{{runway}}"
       }
     },
     {
       "id": "leaving-frequency",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "Tell Piła Radio you are changing to Poznań Information on 126.300.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, changing to Poznań Information 126.300.",
+      "prompt": "Tell {{radio}} you are changing to {{information}} on {{information.freq}}.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, changing to {{information}} {{information.freq}}.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
         {
           "id": "changing",
-          "label": "Changing to Poznań Information",
+          "label": "Changing to {{information}}",
           "acceptedVariants": [
-            "changing to Poznań Information",
-            "changing to Poznan Information",
-            "switching to Poznań Information",
-            "switching to Poznan Information"
+            "changing to {{information}}",
+            "switching to {{information}}"
           ],
           "weight": 35
         },
         {
           "id": "frequency",
-          "label": "126.300",
+          "label": "{{information.freq}}",
           "acceptedVariants": [
-            "126.300"
+            "{{information.freq}}"
           ],
           "weight": 35,
           "critical": true
@@ -166,7 +170,7 @@
       ],
       "visual": {
         "kind": "airspace",
-        "point": "Kilo",
+        "point": "{{departure.exit}}",
         "direction": "outbound"
       }
     }

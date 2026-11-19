@@ -2,29 +2,39 @@
   "id": "fis-initial-call",
   "title": "Initial call to FIS",
   "packId": "enroute-fis",
+  "variants": {
+    "aerodromes": [
+      "EPPI"
+    ],
+    "to": [
+      "EPPO"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "medium",
   "estimatedDurationSec": 120,
   "objective": "Make the initial call to FIS and read back the squawk and QNH.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPI Piła"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Poznań Information 126.300"
+      "value": "{{information}} {{information.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Position",
-      "value": "Kilo (south-west of Piła)"
+      "value": "{{departure.exit}} ({{departure.exit.location}} of {{city}})"
     },
     {
       "label": "Altitude",
@@ -32,7 +42,7 @@
     },
     {
       "label": "Intention",
-      "value": "VFR Piła to Poznań"
+      "value": "VFR {{city}} to {{departure.to}}"
     }
   ],
   "phraseologyNote": {
@@ -65,44 +75,40 @@
       "id": "initial-call",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "You are over Kilo, south-west of Piła, at 2500 feet, flying VFR to Poznań. Make the initial call to Poznań Information.",
-      "expectedPilotResponse": "Poznań Information, SP-TFA, VFR from Piła to Poznań, overhead Kilo, altitude 2500 feet.",
+      "prompt": "You are over {{departure.exit}}, {{departure.exit.location}} of {{city}}, at 2500 feet, flying VFR to {{departure.to}}. Make the initial call to {{information}}.",
+      "expectedPilotResponse": "{{information}}, {{callsign}}, VFR from {{city}} to {{departure.to}}, overhead {{departure.exit}}, altitude 2500 feet.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Poznań Information",
+          "label": "{{information}}",
           "acceptedVariants": [
-            "Poznań Information",
-            "Poznan Information"
+            "{{information}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 25
         },
         {
           "id": "route",
-          "label": "VFR from Piła to Poznań",
+          "label": "VFR from {{city}} to {{departure.to}}",
           "acceptedVariants": [
-            "VFR from Piła to Poznań",
-            "VFR from Pila to Poznan",
-            "from Piła to Poznań",
-            "from Pila to Poznan"
+            "VFR from {{city}} to {{departure.to}}",
+            "from {{city}} to {{departure.to}}"
           ],
           "weight": 25
         },
         {
           "id": "position",
-          "label": "Overhead Kilo",
+          "label": "Overhead {{departure.exit}}",
           "acceptedVariants": [
-            "overhead Kilo",
-            "over Kilo"
+            "overhead {{departure.exit}}",
+            "over {{departure.exit}}"
           ],
           "weight": 20
         },
@@ -121,9 +127,8 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "FIS identifies you. Read back squawk and QNH.",
-      "atcText": "SP-TFA, Poznań Information, flight information service, squawk 5201, QNH 1013.",
-      "atcAudio": "/audio/atc/fis-initial-call/squawk-readback.mp3",
-      "expectedPilotResponse": "Squawk 5201, QNH 1013, SP-TFA.",
+      "atcText": "{{callsign}}, {{information}}, flight information service, squawk 5201, QNH {{qnh}}.",
+      "expectedPilotResponse": "Squawk 5201, QNH {{qnh}}, {{callsign}}.",
       "requiredElements": [
         {
           "id": "squawk",
@@ -136,19 +141,18 @@
         },
         {
           "id": "qnh",
-          "label": "QNH 1013",
+          "label": "QNH {{qnh}}",
           "acceptedVariants": [
-            "QNH 1013"
+            "QNH {{qnh}}"
           ],
           "weight": 35,
           "critical": true
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 25,
           "critical": true

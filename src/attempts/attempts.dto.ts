@@ -6,6 +6,7 @@ export const createAttemptSchema = z.object({
   scenarioId: z.string().min(1),
   stepId: z.string().min(1),
   sessionId: z.string().uuid().optional(),
+  variant: z.string().max(64).optional(),
 });
 
 export type CreateAttemptInput = z.infer<typeof createAttemptSchema>;
@@ -22,6 +23,11 @@ export class CreateAttemptDto {
     description: 'One pass through a scenario: the same id for every attempt of that run',
   })
   sessionId?: string;
+  @ApiPropertyOptional({
+    description:
+      'Variant key of the scenario (`ScenarioDto.variant`); the default variant when absent',
+  })
+  variant?: string;
 }
 
 export class WordResultDto {

@@ -2,33 +2,40 @@
   "id": "pattern-unc-go-around",
   "title": "Go-around",
   "packId": "traffic-pattern-uncontrolled",
+  "variants": {
+    "aerodromes": [
+      "EPPI"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "medium",
   "estimatedDurationSec": 90,
   "objective": "Report final, then announce a go-around and rejoin the circuit.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPI Piła"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Piła Radio 122.405"
+      "value": "{{radio}} {{radio.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Runway",
-      "value": "21"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "220° 8 kt"
+      "value": "{{wind.brief}}"
     },
     {
       "label": "Intention",
@@ -63,27 +70,25 @@
       "prompt": "You are on final for a full-stop landing. Report.",
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "final",
-        "runway": "21"
+        "runway": "{{runway}}"
       },
-      "expectedPilotResponse": "Piła Radio, SP-TFA, final runway 21, full stop.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, final runway {{runway}}, full stop.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -97,9 +102,9 @@
         },
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 20,
           "critical": true
@@ -124,27 +129,25 @@
       "prompt": "A deer crosses the runway. Announce a go-around.",
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "upwind",
-        "runway": "21"
+        "runway": "{{runway}}"
       },
-      "expectedPilotResponse": "Piła Radio, SP-TFA, going around.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, going around.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -171,27 +174,25 @@
       "prompt": "You are back on downwind. Report with your intention.",
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "downwind",
-        "runway": "21"
+        "runway": "{{runway}}"
       },
-      "expectedPilotResponse": "Piła Radio, SP-TFA, right downwind runway 21, full stop.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, {{runway.circuit}} downwind runway {{runway}}, full stop.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -199,16 +200,16 @@
           "id": "downwind",
           "label": "Right downwind",
           "acceptedVariants": [
-            "right downwind",
+            "{{runway.circuit}} downwind",
             "downwind"
           ],
           "weight": 25
         },
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 20,
           "critical": true

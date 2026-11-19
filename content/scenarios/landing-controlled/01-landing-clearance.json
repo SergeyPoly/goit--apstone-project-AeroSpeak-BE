@@ -2,37 +2,44 @@
   "id": "lnd-ctrl-landing-clearance",
   "title": "Landing clearance",
   "packId": "landing-controlled",
+  "variants": {
+    "aerodromes": [
+      "EPPO"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "easy",
   "estimatedDurationSec": 90,
   "objective": "Report final and read back the landing clearance.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPO Poznań-Ławica"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Poznań Tower 119.980"
+      "value": "{{tower}} {{tower.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Runway",
-      "value": "28"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "260° 8 kt"
+      "value": "{{wind.brief}}"
     },
     {
       "label": "Position",
-      "value": "Final runway 28"
+      "value": "Final runway {{runway}}"
     }
   ],
   "phraseologyNote": {
@@ -61,24 +68,22 @@
       "id": "final",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "You are on final runway 28. Report to Tower.",
-      "expectedPilotResponse": "Poznań Tower, SP-TFA, final runway 28.",
+      "prompt": "You are on final runway {{runway}}. Report to Tower.",
+      "expectedPilotResponse": "{{tower}}, {{callsign}}, final runway {{runway}}.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Poznań Tower",
+          "label": "{{tower}}",
           "acceptedVariants": [
-            "Poznań Tower",
-            "Poznan Tower"
+            "{{tower}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30
         },
@@ -92,9 +97,9 @@
         },
         {
           "id": "runway",
-          "label": "Runway 28",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 28"
+            "runway {{runway}}"
           ],
           "weight": 30,
           "critical": true
@@ -109,15 +114,14 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Read back the landing clearance.",
-      "atcText": "SP-TFA, Poznań Tower, wind 260 degrees 8 knots, runway 28, cleared to land.",
-      "atcAudio": "/audio/atc/lnd-ctrl-landing-clearance/clearance-readback.mp3",
-      "expectedPilotResponse": "Runway 28, cleared to land, SP-TFA.",
+      "atcText": "{{callsign}}, {{tower}}, runway {{runway}}, cleared to land, wind {{wind}}.",
+      "expectedPilotResponse": "Runway {{runway}}, cleared to land, {{callsign}}.",
       "requiredElements": [
         {
           "id": "runway",
-          "label": "Runway 28",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 28"
+            "runway {{runway}}"
           ],
           "weight": 30,
           "critical": true
@@ -133,10 +137,9 @@
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30,
           "critical": true

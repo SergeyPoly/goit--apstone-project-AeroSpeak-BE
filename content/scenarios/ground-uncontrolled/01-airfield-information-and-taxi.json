@@ -2,25 +2,35 @@
   "id": "ground-unc-information-taxi",
   "title": "Airfield information and taxi",
   "packId": "ground-uncontrolled",
+  "variants": {
+    "aerodromes": [
+      "EPPI"
+    ],
+    "to": [
+      "EPPO"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "easy",
   "estimatedDurationSec": 120,
-  "objective": "Ask Piła Radio for airfield information, read back the essentials and announce your taxi.",
+  "objective": "Ask the A/G radio station for airfield information, read back the essentials and announce your taxi.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPI Piła"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Piła Radio 122.405"
+      "value": "{{radio}} {{radio.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Position",
@@ -28,11 +38,11 @@
     },
     {
       "label": "Intention",
-      "value": "VFR flight to Poznań"
+      "value": "VFR flight to {{departure.to}}"
     },
     {
       "label": "Wind",
-      "value": "220° 8 kt"
+      "value": "{{wind.brief}}"
     }
   ],
   "phraseologyNote": {
@@ -40,7 +50,7 @@
     "title": "A/G radio (Radio)",
     "shortExplanation": "An A/G station gives information, not clearances. You decide and announce what you do.",
     "overview": [
-      "Piła Radio is an air/ground station: the operator passes the runway in use, wind, QNH and traffic, but cannot clear you.",
+      "{{radio}} is an air/ground station: the operator passes the runway in use, wind, QNH and traffic, but cannot clear you.",
       "Ask for the airfield information, read back the runway and the QNH, then announce your taxi with the runway you taxi to."
     ],
     "whyItMatters": "Other traffic builds its picture from your announcements.",
@@ -54,9 +64,9 @@
         "section": "2.8.3 Issue of clearance and read-back requirements"
       },
       {
-        "source": "AIP VFR Polska",
-        "section": "AD 4 EPPI 4-1 Visual approach chart",
-        "url": "https://ais.pansa.pl/publikacje/aip-vfr/"
+        "source": "{{chart.source}}",
+        "section": "{{chart.section}}",
+        "url": "{{chart.url}}"
       }
     ]
   },
@@ -65,24 +75,22 @@
       "id": "request-information",
       "type": "pilot_request",
       "speaker": "pilot",
-      "prompt": "You are on the apron at Piła. Call Piła Radio: who you are, where you are, your flight, and ask for airfield information.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, on the apron, VFR flight to Poznań, request airfield information.",
+      "prompt": "You are on the apron at {{city}}. Call {{radio}}: who you are, where you are, your flight, and ask for airfield information.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, on the apron, VFR flight to {{departure.to}}, request airfield information.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 11
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 22
         },
@@ -98,12 +106,10 @@
         },
         {
           "id": "flight",
-          "label": "VFR flight to Poznań",
+          "label": "VFR flight to {{departure.to}}",
           "acceptedVariants": [
-            "VFR flight to Poznań",
-            "VFR flight to Poznan",
-            "VFR to Poznań",
-            "VFR to Poznan"
+            "VFR flight to {{departure.to}}",
+            "VFR to {{departure.to}}"
           ],
           "weight": 22
         },
@@ -122,35 +128,33 @@
       "id": "information-readback",
       "type": "pilot_readback",
       "speaker": "atc",
-      "prompt": "Piła Radio gives you the runway in use and QNH. Read back runway and QNH.",
-      "atcText": "SP-TFA, Piła Radio, runway 21 in use, right-hand circuit, wind 220 degrees 8 knots, QNH 1013.",
-      "atcAudio": "/audio/atc/ground-unc-information-taxi/information-readback.mp3",
-      "expectedPilotResponse": "Runway 21, QNH 1013, SP-TFA.",
+      "prompt": "{{radio}} gives you the runway in use and QNH. Read back runway and QNH.",
+      "atcText": "{{callsign}}, {{radio}}, runway {{runway}} in use, {{runway.circuit}}-hand circuit, QNH {{qnh}}, wind {{wind}}.",
+      "expectedPilotResponse": "Runway {{runway}}, QNH {{qnh}}, {{callsign}}.",
       "requiredElements": [
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 30,
           "critical": true
         },
         {
           "id": "qnh",
-          "label": "QNH 1013",
+          "label": "QNH {{qnh}}",
           "acceptedVariants": [
-            "QNH 1013"
+            "QNH {{qnh}}"
           ],
           "weight": 40,
           "critical": true
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30,
           "critical": true
@@ -167,23 +171,21 @@
       "type": "self_announce",
       "speaker": "pilot",
       "prompt": "Announce that you are taxiing to the holding point of the runway in use.",
-      "expectedPilotResponse": "Piła Radio, SP-TFA, taxiing to holding point runway 21.",
+      "expectedPilotResponse": "{{radio}}, {{callsign}}, taxiing to holding point runway {{runway}}.",
       "requiredElements": [
         {
           "id": "station",
-          "label": "Piła Radio",
+          "label": "{{radio}}",
           "acceptedVariants": [
-            "Piła Radio",
-            "Pila Radio"
+            "{{radio}}"
           ],
           "weight": 10
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20
         },
@@ -199,9 +201,9 @@
         },
         {
           "id": "runway",
-          "label": "Runway 21",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 21"
+            "runway {{runway}}"
           ],
           "weight": 35,
           "critical": true

@@ -2,37 +2,47 @@
   "id": "arr-ctrl-joining",
   "title": "Joining instructions",
   "packId": "arrival-controlled",
+  "variants": {
+    "aerodromes": [
+      "EPPO"
+    ],
+    "from": [
+      "EPPI"
+    ],
+    "weather": true,
+    "aircraft": true
+  },
   "difficulty": "medium",
   "estimatedDurationSec": 90,
   "objective": "Read back joining instructions for the circuit and report downwind.",
   "briefing": [
     {
       "label": "Airport",
-      "value": "EPPO Poznań-Ławica"
+      "value": "{{airport}}"
     },
     {
       "label": "Station",
-      "value": "Poznań Tower 119.980"
+      "value": "{{tower}} {{tower.freq}}"
     },
     {
       "label": "Callsign",
-      "value": "SP-TFA"
+      "value": "{{callsign}}"
     },
     {
       "label": "Aircraft",
-      "value": "Cessna 172"
+      "value": "{{aircraft}}"
     },
     {
       "label": "Position",
-      "value": "Victor"
+      "value": "{{arrival.report}}"
     },
     {
       "label": "Runway",
-      "value": "28"
+      "value": "{{runway}}"
     },
     {
       "label": "Wind",
-      "value": "270° 10 kt"
+      "value": "{{wind.brief}}"
     }
   ],
   "phraseologyNote": {
@@ -55,9 +65,9 @@
         "section": "2.8.3 Issue of clearance and read-back requirements"
       },
       {
-        "source": "AIP Polska",
-        "section": "AD 2 EPPO 13-1 Visual approach chart",
-        "url": "https://ais.pansa.pl/publikacje/aip-polska/"
+        "source": "{{chart.source}}",
+        "section": "{{chart.section}}",
+        "url": "{{chart.url}}"
       }
     ]
   },
@@ -67,25 +77,24 @@
       "type": "pilot_readback",
       "speaker": "atc",
       "prompt": "Tower gives you joining instructions. Read back.",
-      "atcText": "SP-TFA, Poznań Tower, join right downwind runway 28, report downwind.",
-      "atcAudio": "/audio/atc/arr-ctrl-joining/join-readback.mp3",
-      "expectedPilotResponse": "Join right downwind runway 28, report downwind, SP-TFA.",
+      "atcText": "{{callsign}}, {{tower}}, join {{runway.circuit}} downwind runway {{runway}}, report downwind.",
+      "expectedPilotResponse": "Join {{runway.circuit}} downwind runway {{runway}}, report downwind, {{callsign}}.",
       "requiredElements": [
         {
           "id": "join",
-          "label": "Join right downwind",
+          "label": "Join {{runway.circuit}} downwind",
           "acceptedVariants": [
-            "join right downwind",
-            "joining right downwind"
+            "join {{runway.circuit}} downwind",
+            "joining {{runway.circuit}} downwind"
           ],
           "weight": 35,
           "critical": true
         },
         {
           "id": "runway",
-          "label": "Runway 28",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 28"
+            "runway {{runway}}"
           ],
           "weight": 25,
           "critical": true
@@ -101,10 +110,9 @@
         },
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 20,
           "critical": true
@@ -117,7 +125,7 @@
       ],
       "visual": {
         "kind": "airspace",
-        "point": "Victor",
+        "point": "{{arrival.report}}",
         "direction": "inbound"
       }
     },
@@ -125,15 +133,14 @@
       "id": "downwind",
       "type": "self_announce",
       "speaker": "pilot",
-      "prompt": "You are on right downwind. Report.",
-      "expectedPilotResponse": "SP-TFA, right downwind runway 28.",
+      "prompt": "You are on {{runway.circuit}} downwind. Report.",
+      "expectedPilotResponse": "{{callsign}}, {{runway.circuit}} downwind runway {{runway}}.",
       "requiredElements": [
         {
           "id": "callsign",
-          "label": "SP-TFA",
+          "label": "{{callsign}}",
           "acceptedVariants": [
-            "SP-TFA",
-            "Sierra Papa Tango Foxtrot Alpha"
+            "{{callsign}}"
           ],
           "weight": 30
         },
@@ -141,16 +148,16 @@
           "id": "downwind",
           "label": "Right downwind",
           "acceptedVariants": [
-            "right downwind",
+            "{{runway.circuit}} downwind",
             "downwind"
           ],
           "weight": 40
         },
         {
           "id": "runway",
-          "label": "Runway 28",
+          "label": "Runway {{runway}}",
           "acceptedVariants": [
-            "runway 28"
+            "runway {{runway}}"
           ],
           "weight": 30,
           "critical": true
@@ -161,9 +168,9 @@
       ],
       "visual": {
         "kind": "pattern",
-        "side": "right",
+        "side": "{{runway.circuit}}",
         "position": "downwind",
-        "runway": "28"
+        "runway": "{{runway}}"
       }
     }
   ]
