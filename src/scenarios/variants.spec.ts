@@ -6,6 +6,7 @@ import {
   directionTo,
   atcAudioPath,
   buildVariables,
+  correctionText,
   renderAlternatives,
   renderTemplate,
   renderText,
@@ -212,6 +213,21 @@ describe('scenario variants', () => {
 
   it('fails on an unknown placeholder', () => {
     expect(() => renderText('{{runway.vacateVia}}', vars)).toThrow('{{runway.vacateVia}}');
+  });
+
+  it('turns a clearance into a correction without the station name', () => {
+    const stations = ['Poznań Ground', 'Poznan Ground'];
+    expect(
+      correctionText(
+        'SP-TFA, Poznań Ground, taxi to holding point runway 28 via Alpha.',
+        'SP-TFA',
+        stations,
+      ),
+    ).toBe('SP-TFA, negative, I say again, taxi to holding point runway 28 via Alpha.');
+    expect(correctionText('SP-TFA, hold position.', 'SP-TFA', stations)).toBe(
+      'SP-TFA, negative, I say again, hold position.',
+    );
+    expect(correctionText('Poznań Ground, SP-TFA, hold.', 'SP-TFA', stations)).toBeUndefined();
   });
 
   it('derives the ATC audio path from the text', () => {

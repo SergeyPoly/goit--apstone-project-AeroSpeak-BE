@@ -61,6 +61,13 @@ export const scenarioStepSchema = z
     atcText: z.string().min(1).optional(),
     /** Path of the pre-generated ATC audio in the frontend `public/` folder. */
     atcAudio: z.string().min(1).optional(),
+    /**
+     * What ATC says when a readback misses a critical element: "<callsign>, negative, I say
+     * again, <instruction>". Derived from atcText for readback steps; write it only to override.
+     */
+    atcCorrection: z.string().min(1).optional(),
+    /** Derived from atcCorrection like atcAudio from atcText. */
+    atcCorrectionAudio: z.string().min(1).optional(),
     expectedPilotResponse: z.string().min(1),
     requiredElements: z.array(requiredElementSchema).min(1),
     criticalElements: z.array(id).optional(),
@@ -83,6 +90,13 @@ export const scenarioStepSchema = z
     }
     if (step.type === 'pilot_readback' && !step.atcText) {
       ctx.addIssue({ code: 'custom', path: ['atcText'], message: 'readback steps need atcText' });
+    }
+    if (step.atcCorrection && step.type !== 'pilot_readback') {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['atcCorrection'],
+        message: 'only readback steps get a correction',
+      });
     }
   });
 

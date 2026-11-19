@@ -31,6 +31,13 @@ This repo is the NestJS backend. The React frontend lives in a separate repo.
   Every combination is rendered and validated, but a scenario serves at most `MAX_VARIANTS`
   (8, `content-loader.ts`): a spread sample in which every weather and aircraft comes up.
   Each served variant needs its own ATC audio.
+- **ATC corrects a wrong readback.** Every readback step gets `atcCorrection`, derived from
+  its `atcText`: "<callsign>, negative, I say again, <instruction>" (Doc 9432: NEGATIVE, then
+  the correct version; the station name is left out). The frontend plays it when an attempt
+  misses a critical element, and the user reads back again. Write `atcCorrection` in content
+  only to override the derived text; `atcCorrectionAudio` is derived like `atcAudio`. A readback
+  whose `atcText` does not start with `{{callsign}}` needs an authored `atcCorrection`, or the
+  content fails to load.
 - **ATC text is written for stitched audio.** The frontend builds each ATC file from clips:
   the callsign at the start, the body, and `wind …` at the end. So an ATC text starts with
   `{{callsign}}, ` and puts `wind {{wind}}` last; the callsign and wind clips are shared by

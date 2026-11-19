@@ -160,6 +160,15 @@ function checkScenario(name: string, scenario: Scenario) {
       expect(toBeforeNumber).toEqual([]);
     });
 
+    const callsign = scenario.briefing?.find((b) => b.label === 'Callsign')?.value;
+    if (step.type === 'pilot_readback' && callsign) {
+      // A readback that misses a critical element gets "negative, I say again" from ATC.
+      it(`${name} / ${step.id}: has an ATC correction with its own audio`, () => {
+        expect(step.atcCorrection?.startsWith(`${callsign}, negative, I say again, `)).toBe(true);
+        expect(step.atcCorrectionAudio).toBe(atcAudioPath(step.atcCorrection ?? ''));
+      });
+    }
+
     if (step.atcAudio) {
       // The frontend serves ATC audio from public/audio/atc/<hash of atcText>.mp3.
       it(`${name} / ${step.id}: atcAudio follows the path convention`, () => {

@@ -17,6 +17,7 @@ import {
 import {
   angleBetween,
   atcAudioPath,
+  correctionText,
   buildVariables,
   renderTemplate,
   variantContexts,
@@ -100,6 +101,12 @@ export const MAX_VARIANTS = 8;
  * Renders a scenario file for every variant it allows (see variants.ts) and validates each one.
  * The ATC audio path is derived from the rendered ATC text.
  */
+/** ATC texts and the audio fields derived from them (public/audio/atc/<hash of the text>.mp3). */
+const DERIVED_AUDIO = [
+  ['atcText', 'atcAudio'],
+  ['atcCorrection', 'atcCorrectionAudio'],
+] as const;
+
 function renderScenario(raw: unknown, name: string, data: VariantData, errors: string[]) {
   const { variants: variantsField, ...template } = (raw ?? {}) as Record<string, unknown>;
   const variants = scenarioVariantsSchema.safeParse(variantsField ?? {});
@@ -135,10 +142,23 @@ function renderScenario(raw: unknown, name: string, data: VariantData, errors: s
       return undefined;
     }
     const scenario = result.data;
+    const stations = Object.values(context.aerodrome?.stations ?? {}).flatMap((s) => s.name);
     for (const step of scenario.steps) {
-      if (step.atcAudio)
-        errors.push(`${label} ${step.id}: atcAudio is derived from atcText, remove it`);
-      if (step.atcText) step.atcAudio = atcAudioPath(step.atcText);
+      if (step.type === 'pilot_readback' && step.atcText && !step.atcCorrection) {
+        const callsign = context.aircraft?.registration;
+        step.atcCorrection = callsign && correctionText(step.atcText, callsign, stations);
+        if (!step.atcCorrection) {
+          errors.push(
+            `${label} ${step.id}: no ATC correction, start atcText with {{callsign}} or write atcCorrection`,
+          );
+        }
+      }
+      for (const [textKey, audioKey] of DERIVED_AUDIO) {
+        if (step[audioKey])
+          errors.push(`${label} ${step.id}: ${audioKey} is derived from ${textKey}, remove it`);
+        const text = step[textKey];
+        if (text) step[audioKey] = atcAudioPath(text);
+      }
     }
     if (!served.has(key)) continue;
     set.keys.push(key);

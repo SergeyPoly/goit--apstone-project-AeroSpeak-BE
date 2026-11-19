@@ -72,6 +72,13 @@ export class ScenarioStepDto {
       'ATC audio in the frontend public folder: /audio/atc/<hash of atcText>.mp3, so every variant has its own file',
   })
   atcAudio?: string;
+  @ApiPropertyOptional({
+    description:
+      'Readback steps: what ATC says when the readback misses a critical element ("<callsign>, negative, I say again, …"). Play it and let the user read back again.',
+  })
+  atcCorrection?: string;
+  @ApiPropertyOptional({ description: 'ATC audio of atcCorrection, same path rule as atcAudio' })
+  atcCorrectionAudio?: string;
   @ApiProperty() expectedPilotResponse: string;
   @ApiProperty({ type: [RequiredElementDto] }) requiredElements: RequiredElementDto[];
   @ApiPropertyOptional({ type: [String] }) criticalElements?: string[];
