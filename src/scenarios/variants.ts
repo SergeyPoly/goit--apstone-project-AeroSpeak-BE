@@ -285,6 +285,25 @@ export function renderTemplate(value: unknown, vars: Variables, key?: string): u
   return value;
 }
 
+/**
+ * ATC's answer to a readback that missed a critical element (ICAO Doc 9432: NEGATIVE, then
+ * the correct version): "SP-TFA, Poznań Ground, taxi to …" -> "SP-TFA, negative, I say again,
+ * taxi to …". The station name is left out, as in any later transmission. Undefined when the
+ * text does not start with the callsign.
+ */
+export function correctionText(
+  atcText: string,
+  callsign: string,
+  stations: string[],
+): string | undefined {
+  const prefix = `${callsign}, `;
+  if (!atcText.startsWith(prefix)) return undefined;
+  let instruction = atcText.slice(prefix.length);
+  const station = stations.find((name) => instruction.startsWith(`${name}, `));
+  if (station) instruction = instruction.slice(station.length + 2);
+  return `${callsign}, negative, I say again, ${instruction}`;
+}
+
 /** The frontend serves ATC audio from public/audio/atc/<hash of the text>.mp3. */
 export function atcAudioPath(atcText: string): string {
   const hash = createHash('sha256').update(atcText).digest('hex').slice(0, 16);
