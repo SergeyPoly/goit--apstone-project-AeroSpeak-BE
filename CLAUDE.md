@@ -169,6 +169,9 @@ UK CAA CAP 413 applies only to UK aerodromes if we add them. The PDFs are not co
   Add a test case for every new expansion or comparison rule.
 - STT keyterms (`attempts/keyterms.ts`) never contain digits or written codes:
   "118.505" or "QNH 1013" as a keyterm makes Deepgram write digits or cardinals.
+  Each variant with a number adds itself in spoken words and its number in chunks
+  ("qnh one zero two one", "one two four", "one four zero"): without them Deepgram groups
+  fast digits into cardinals ("ten twenty one"), which scoring rightly treats as wrong.
 
 ### Progress (`src/progress`)
 
