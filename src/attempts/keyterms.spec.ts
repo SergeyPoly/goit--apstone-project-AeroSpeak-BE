@@ -1,3 +1,4 @@
+import { ScenariosService } from '../scenarios/scenarios.service';
 import { keytermsForStep } from './keyterms';
 
 describe('keytermsForStep', () => {
@@ -18,6 +19,10 @@ describe('keytermsForStep', () => {
       ],
     });
     expect(terms).toEqual([
+      'hold short runway two niner',
+      'two niner',
+      'qnh one zero one tree',
+      'one zero one tree',
       'Sierra Papa Tango Foxtrot Alpha',
       'Piła Radio',
       'QNH',
@@ -31,12 +36,46 @@ describe('keytermsForStep', () => {
     ]);
   });
 
-  it('adds "decimal" and ICAO digits for a frequency', () => {
+  it('adds a frequency in spoken words and in chunks split at "decimal"', () => {
     const terms = keytermsForStep({
-      type: 'basic_drill',
+      type: 'pilot_readback',
       expectedPilotResponse: '',
-      requiredElements: [{ id: 'f', label: 'f', acceptedVariants: ['118.505'], weight: 1 }],
+      requiredElements: [
+        { id: 'f', label: 'f', acceptedVariants: ['contact Ground 124.140'], weight: 1 },
+      ],
     });
-    expect(terms).toEqual(['decimal', 'fife']);
+    expect(terms).toEqual([
+      'contact ground one two four decimal one four zero',
+      'one two four',
+      'one four zero',
+      'decimal',
+    ]);
+  });
+
+  it('uses the standard spoken form of a number', () => {
+    const terms = keytermsForStep({
+      type: 'pilot_readback',
+      expectedPilotResponse: '',
+      requiredElements: [{ id: 's', label: 's', acceptedVariants: ['squawk 7000'], weight: 1 }],
+    });
+    expect(terms.slice(0, 2)).toEqual(['squawk seven thousand', 'seven thousand']);
+  });
+
+  it('keeps every step of every scenario variant within the keyterm limit', () => {
+    const scenarios = new ScenariosService();
+    scenarios.onModuleInit();
+    const counts = scenarios
+      .listPacks()
+      .flatMap((pack) => pack.scenarios)
+      .flatMap(({ id }) =>
+        scenarios
+          .getScenario(id)
+          .variants.flatMap((variant) =>
+            scenarios
+              .getScenario(id, variant)
+              .steps.map((step) => keytermsForStep(step, 1000).length),
+          ),
+      );
+    expect(Math.max(...counts)).toBeLessThanOrEqual(50);
   });
 });
