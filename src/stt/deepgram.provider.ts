@@ -23,7 +23,7 @@ interface DeepgramResponse {
 /**
  * Deepgram pre-recorded transcription over the REST API (no SDK needed).
  * Keyterm prompting boosts recall of the step's callsign, runway, station names, etc.
- * Audio is sent from memory and never written to disk.
+ * Audio is sent from memory, never written to disk, and opted out of Deepgram's model improvement.
  */
 @Injectable()
 export class DeepgramSttProvider extends SttProvider {
@@ -40,6 +40,9 @@ export class DeepgramSttProvider extends SttProvider {
       // Keep raw words: scoring compares spoken words ("tree", "niner"), not digits.
       smart_format: 'false',
       punctuate: 'false',
+      // Pilot audio must not be kept (GDPR, see CLAUDE.md): without this Deepgram may store
+      // samples for its Model Improvement Program; opted-out audio lives only for the request.
+      mip_opt_out: 'true',
     });
     for (const term of [...new Set(keyterms)].slice(0, MAX_KEYTERMS)) {
       params.append('keyterm', term);
